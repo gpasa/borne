@@ -146,6 +146,10 @@ struct GameTable: View {
                     Text(engineHint(engine))
                 } actions: {
                     Button("Ajouter un dossier de jeux…") { addEngineFolder() }
+                    if engine == .doom && !Freedoom.isInstalled {
+                        Button("Télécharger Freedoom (\(Freedoom.size), libre)") { catalog.downloadFreedoom() }
+                            .disabled(catalog.job != nil)
+                    }
                 }
             } else if catalog.displayed.isEmpty && !catalog.machines.isEmpty {
                 if catalog.folder == .available && catalog.search.isEmpty

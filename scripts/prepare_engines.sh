@@ -6,7 +6,7 @@
 #   Wolfenstein ECWolf 1.4.2 — version officielle, universelle, amincie
 #   Quake       vkQuake 1.37.0 — compilé ici, corrigé (engines/patches) pour passer
 #               par le chargeur Vulkan ; pilotes MoltenVK et, s'il est là, KosmicKrisp
-#   Données     Freedoom 0.13.0 (BSD)
+#   (Freedoom se télécharge depuis Borne, sur demande.)
 #
 # Les téléchargements sont refaits seulement s'ils manquent.
 set -euo pipefail
@@ -23,7 +23,6 @@ fetch() {  # fetch <dossier> <commande…>
 fetch uzdoom   gh release download 5.0.3 -R UZDoom/UZDoom -p 'MacOS-UZDoom-Release-ARM64.dmg'
 fetch gzdoom   gh release download g4.14.2 -R ZDoom/gzdoom -p 'gzdoom-4-14-2-macos.zip'
 fetch moltenvk gh release download v1.4.2 -R KhronosGroup/MoltenVK -p 'MoltenVK-macos.tar'
-fetch freedoom gh release download v0.13.0 -R freedoom/freedoom -p 'freedoom-0.13.0.zip'
 fetch ecwolf   zsh -c 'curl -sfLO https://maniacsvault.net/ecwolf/files/ecwolf/1.x/ecwolf-1.4.2.dmg'
 [[ -d $D/vkquake/src ]] || git clone -q --depth 1 --branch 1.37.0 https://github.com/Novum/vkQuake.git $D/vkquake/src
 [[ -d $D/vulkan-loader ]] || git clone -q --depth 1 --branch vulkan-sdk-1.4.357 https://github.com/KhronosGroup/Vulkan-Loader.git $D/vulkan-loader
@@ -46,9 +45,6 @@ done
 # MoltenVK, Freedoom.
 [[ -d $E/deps/MoltenVK ]] || tar -xf $D/moltenvk/MoltenVK-macos.tar -C $E/deps
 MVK=$E/deps/MoltenVK/MoltenVK/dynamic/dylib/macOS
-mkdir -p $E/deps/freedoom
-[[ -f $E/deps/freedoom/freedoom2.wad ]] || unzip -q -o -j $D/freedoom/freedoom-0.13.0.zip \
-    '*/freedoom1.wad' '*/freedoom2.wad' '*/COPYING.txt' '*/CREDITS.txt' -d $E/deps/freedoom
 
 # Chargeur Vulkan universel.
 if [[ ! -f $E/deps/vulkan/lib/libvulkan.1.dylib ]]; then
@@ -113,7 +109,7 @@ KK=${kk[-1]:-}
 # Charge utile par architecture.
 for arch in arm64 x86_64; do
     P=$E/payload/$arch
-    rm -rf $P && mkdir -p $P/Engines $P/MacOS $P/Frameworks $P/vulkan $P/freedoom
+    rm -rf $P && mkdir -p $P/Engines $P/MacOS $P/Frameworks $P/vulkan
     if [[ $arch == arm64 ]]; then
         ditto $X/UZDoom.app $P/Engines/UZDoom.app
     else
@@ -136,15 +132,13 @@ EOF
   "ICD": { "library_path": "../../Frameworks/libvulkan_kosmickrisp.dylib", "api_version": "1.4.0" } }
 EOF
     fi
-    cp $E/deps/freedoom/{freedoom1.wad,freedoom2.wad,COPYING.txt,CREDITS.txt} $P/freedoom/
     # Licences des moteurs (UZDoom garde les siennes dans son app : licenses.zip).
     L=$P/licenses
-    mkdir -p $L/vkQuake $L/Vulkan-Loader $L/MoltenVK $L/ECWolf $L/Freedoom
+    mkdir -p $L/vkQuake $L/Vulkan-Loader $L/MoltenVK $L/ECWolf
     cp $D/vkquake/src/LICENSE.txt $L/vkQuake/
     cp $BORNE/engines/patches/vkquake-1.37.0-borne.patch $L/vkQuake/
     cp $D/vulkan-loader/LICENSE.txt $L/Vulkan-Loader/
     cp $E/deps/MoltenVK/LICENSE $L/MoltenVK/
-    cp $E/deps/freedoom/COPYING.txt $L/Freedoom/
     if [[ ! -d $D/ecwolf/src ]]; then
         mkdir -p $D/ecwolf/src
         curl -sfL https://maniacsvault.net/ecwolf/files/ecwolf/1.x/ecwolf-1.4.2-src.tar.xz | tar -xJ -C $D/ecwolf/src --strip-components=1

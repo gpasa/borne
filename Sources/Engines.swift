@@ -125,10 +125,8 @@ enum EngineCatalog {
 
     // MARK: Balayage (hors du fil principal, interruptible)
 
-    /// Freedoom, fourni avec Borne.
-    static var bundledFolders: [String] {
-        [Bundle.main.resourceURL?.appendingPathComponent("freedoom").path].compactMap { $0 }
-    }
+    /// Freedoom, s'il a été téléchargé depuis Borne.
+    static var bundledFolders: [String] { [Freedoom.folder.path] }
 
     static func scan(_ folders: [String]) async -> [Machine]? {
         var games: [Machine] = []

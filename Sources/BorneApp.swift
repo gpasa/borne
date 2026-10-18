@@ -42,6 +42,8 @@ struct BorneApp: App {
                     catalog.proposeInstall(Array(catalog.favorites))
                 }
                 .disabled(catalog.favorites.isEmpty)
+                Button("Télécharger Freedoom (Doom libre)…") { catalog.downloadFreedoom() }
+                    .disabled(catalog.job != nil || Freedoom.isInstalled)
                 Button("Arrêter la tâche en cours") { catalog.cancelJob() }
                     .keyboardShortcut(".")
                     .disabled(catalog.job == nil)

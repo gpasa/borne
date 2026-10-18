@@ -28,8 +28,8 @@ Double-click a game and play.
 - **Doom, Quake, Wolfenstein 3D**: point Borne at your game files and it finds them (Doom, Doom II,
   Final Doom, Heretic, Hexen, Strife, Chex Quest, HacX and WAD mods; Quake, its mission packs and mods;
   Wolfenstein 3D and Spear of Destiny). The engines are included: UZDoom (GZDoom on Intel), vkQuake
-  and ECWolf. [Freedoom](https://freedoom.github.io), a free Doom, is bundled so Doom works out of the
-  box. Saves and settings stay in the user folder, never next to your game files.
+  and ECWolf. [Freedoom](https://freedoom.github.io), a free Doom, downloads in one click from
+  Borne (official release, checksum verified). Saves and settings stay in the user folder, never next to your game files.
 
 ## Download
 
@@ -80,7 +80,7 @@ The app bundles third-party software under their own licenses, included in
 - **vkQuake** 1.37.0, GPL-2.0, built with a small patch (`engines/patches`) to go through the Vulkan
   loader; **Vulkan-Loader**, Apache-2.0; **MoltenVK** 1.4.2, Apache-2.0.
 - **ECWolf** 1.4.2, official build, GPL (see its `copyright` file).
-- **Freedoom** 0.13.0, BSD-3-Clause.
+- **Freedoom** 0.13.0, BSD-3-Clause, downloaded on request from its official release (not bundled).
 
 `scripts/prepare_engines.sh` downloads, builds and arranges all engines.
 

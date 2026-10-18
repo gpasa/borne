@@ -63,7 +63,6 @@ if [[ -d $PAYLOAD ]]; then
     cp $PAYLOAD/MacOS/vkquake $APP/Contents/MacOS/vkquake
     cp $PAYLOAD/Frameworks/*.dylib $APP/Contents/Frameworks/
     ditto $PAYLOAD/vulkan $APP/Contents/Resources/vulkan
-    ditto $PAYLOAD/freedoom $APP/Contents/Resources/freedoom
     ditto $PAYLOAD/licenses $APP/Contents/Resources/Licenses-engines
 else
     echo "Pas de moteurs de jeux PC pour $ARCH (lancer scripts/prepare_engines.sh)"

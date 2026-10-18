@@ -588,6 +588,23 @@ final class Catalog {
         }
     }
 
+    /// Télécharge Freedoom (libre) depuis sa release officielle, puis relit les jeux.
+    func downloadFreedoom() {
+        startJob("Téléchargement de Freedoom…") { [weak self] in
+            guard let self else { return }
+            do {
+                try await Freedoom.install { p in
+                    Task { @MainActor in self.setProgress("Téléchargement de Freedoom…", p) }
+                }
+                scanEngines()
+                folder = .engine(Engine.doom.rawValue)
+            } catch is CancellationError {
+            } catch {
+                notice = ("Freedoom n'a pas pu être installé", error.localizedDescription)
+            }
+        }
+    }
+
     func uninstall(_ name: String) {
         let root = Prefs.userDataRoot
         let manifest = installed

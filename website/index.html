@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Borne — votre salle d'arcade sur Mac</title>
+<meta name="description" content="Borne est une interface Mac pour MAME, dans l'esprit de MAMEUI : vos jeux d'arcade rangés, retrouvés et lancés d'un double-clic. Libre, gratuite, MAME inclus.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta property="og:title" content="Borne — votre salle d'arcade sur Mac">
+<meta property="og:description" content="Une interface Mac pour MAME, dans l'esprit de MAMEUI. Libre et gratuite.">
+<meta property="og:image" content="https://borne.pasahome.org/images/borne-window.png">
+<meta property="og:url" content="https://borne.pasahome.org/">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Borne","operatingSystem":"macOS 14+","applicationCategory":"GameApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"CHF"},"license":"https://www.gnu.org/licenses/gpl-3.0.html","downloadUrl":"https://github.com/gpasa/borne/releases/latest","author":{"@type":"Person","@id":"https://pasahome.org/#person","name":"Guglielmo Pasa"}}
+</script>
+</head>
+<body>
+<main>
+  <header class="entete">
+    <img src="icon.png" alt="" width="96" height="96">
+    <div>
+      <h1>Borne</h1>
+      <p class="accroche">Votre salle d'arcade, rangée sur votre Mac.</p>
+    </div>
+  </header>
+
+  <section id="pourquoi">
+    <p>Il y a les jeux de notre enfance, et le bruit des pièces dans la fente. MAME les fait revivre, presque tous, fidèlement.</p>
+    <p>Mais MAME est un moteur, pas une salle : sur Mac, on le pilote en ligne de commande, et les belles interfaces sont restées sur Windows. Une collection de 40 000 machines mérite mieux qu'un terminal.</p>
+    <p>Borne vous rend la salle : vos jeux rangés, retrouvés en un instant, lancés d'un double-clic.</p>
+  </section>
+
+  <figure class="fenetre">
+    <img src="images/borne-window.png" alt="La fenêtre de Borne : les dossiers à gauche, la liste des jeux au centre, la fiche du jeu à droite" width="1600" height="836">
+    <figcaption>Les dossiers à gauche, les jeux au centre, la fiche à droite : comme MAMEUI, mais sur Mac.</figcaption>
+  </figure>
+
+  <p class="actions">
+    <a class="cta" href="https://github.com/gpasa/borne/releases/latest">Télécharger Borne</a>
+    <span class="meta">Gratuit et libre · macOS 14 ou plus, Mac Apple silicon · MAME 0.289 inclus</span>
+  </p>
+
+  <h2 id="comment">Comment ça marche</h2>
+  <ol class="etapes">
+    <li><strong>Montrez où sont vos jeux.</strong> Le dossier <code>roms</code>, ou celui qui le contient, sur un disque externe si vous voulez. Borne le lit sans jamais rien y écrire.</li>
+    <li><strong>Parcourez.</strong> Disponibles, favoris, fabricant, année, écran vertical : les dossiers de MAMEUI, et une recherche qui suit votre frappe.</li>
+    <li><strong>Jouez.</strong> Double-cliquez. Un aide-mémoire rappelle les touches : <kbd>5</kbd> pour la pièce, <kbd>1</kbd> pour Start, <kbd>Échap</kbd> pour revenir.</li>
+  </ol>
+
+  <h2 id="quoi">Ce que fait Borne</h2>
+  <dl>
+    <dt>Tout le catalogue, sans attendre</dt>
+    <dd>Plus de 43 000 machines. Trier, filtrer ou chercher ne fige jamais la fenêtre ; un calcul en cours s'efface devant le dossier que vous ouvrez.</dd>
+    <dt>Vos jeux restent intacts</dt>
+    <dd>Le disque des jeux n'est que lu. Réglages, sauvegardes, meilleurs scores et captures vont dans votre dossier utilisateur.</dd>
+    <dt>Jouer sans le disque externe</dt>
+    <dd>« Installer sur ce Mac » copie un jeu, ou tous vos favoris, avec tout ce dont il a besoin : original, BIOS, samples. La taille est annoncée avant.</dd>
+    <dt>Vérifier sa collection</dt>
+    <dd>L'audit des ROM tourne en arrière-plan et s'interrompt quand vous voulez ; les verdicts apparaissent au fil de l'eau.</dd>
+    <dt>Un clavier de Mac</dt>
+    <dd>Les boutons sont sur <kbd>Z</kbd> <kbd>X</kbd> <kbd>C</kbd>… et non sur <kbd>Ctrl</kbd>, que macOS garde pour Mission Control. Un réglage d'affichage dérangé se remet d'un clic.</dd>
+    <dt>Rien d'autre à installer</dt>
+    <dd>MAME 0.289, compilé pour Apple silicon, est dans l'app. Signée et notarisée par Apple.</dd>
+  </dl>
+
+  <h2 id="faq">Questions</h2>
+  <div class="faq">
+    <details><summary>Borne contient-il des jeux ?</summary><p>Non, aucun. Borne et MAME sont des logiciels ; les ROM des jeux restent à votre charge. N'utilisez que celles que vous avez le droit d'utiliser.</p></details>
+    <details><summary>Est-ce vraiment gratuit ?</summary><p>Oui. Borne est un logiciel libre sous licence GPL-3.0 ; son code est sur GitHub, et chacun peut y contribuer.</p></details>
+    <details><summary>Et sur un Mac Intel ?</summary><p>La version publiée vise les Mac Apple silicon. Le code source permet de compiler Borne et MAME ailleurs.</p></details>
+    <details><summary>Borne est-il lié au projet MAME ?</summary><p>Non. Borne est un projet indépendant qui embarque MAME, sans changement, sous sa licence. MAME est une marque déposée de Gregory Ember.</p></details>
+  </div>
+
+  <p class="actions">
+    <a class="cta" href="https://github.com/gpasa/borne/releases/latest">Télécharger Borne</a>
+    <a class="lien" href="https://github.com/gpasa/borne">Code source sur GitHub</a>
+  </p>
+
+  <footer>
+    <p>Borne · © 2026 <a href="https://pasahome.org/">Guglielmo Pasa</a> · GPL-3.0 · MAME © MAMEdev et contributeurs</p>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Généré par xcodegen et xcodebuild
+Borne.xcodeproj/
+build/
+dist/
+dist-release.log
+.DS_Store
+
+# Compteur de visites du serveur, hors dépôt public
+website/include-counter.php

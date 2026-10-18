@@ -1,0 +1,39 @@
+name: Borne
+options:
+  bundleIdPrefix: org.pasahome
+  developmentLanguage: fr
+  xcodeVersion: "27.0"
+
+settings:
+  base:
+    SWIFT_VERSION: 5.9
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  Borne:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Sources
+      - path: Resources/Assets.xcassets
+    info:
+      path: Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Borne
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSApplicationCategoryType: public.app-category.games
+        NSHumanReadableCopyright: "© 2026 Guglielmo Pasa — GPL-3.0. MAME © MAMEdev et contributeurs (GPL-2.0+)."
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.pasahome.Borne
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        # Outil personnel : pas de bac à sable, il doit lancer mame et lire
+        # les dossiers de ROM où qu'ils soient.
+        ENABLE_APP_SANDBOX: NO
+        ENABLE_HARDENED_RUNTIME: NO
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual

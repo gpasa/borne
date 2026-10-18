@@ -33,6 +33,8 @@ struct Machine: Codable, Identifiable, Hashable {
     var dataPath: String?
     /// WAD additionnel, jeu Quake (-game) ou extension Wolfenstein (wl6, sod…).
     var modArg: String?
+    /// Extension Quake rangée ailleurs que dans le dossier de base : son dossier.
+    var gamePath: String?
 
     var engineKind: Engine? { engine.flatMap(Engine.init(rawValue:)) }
 

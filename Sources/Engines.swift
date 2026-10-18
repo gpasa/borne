@@ -142,6 +142,8 @@ enum EngineCatalog {
         var seen = Set<String>()
         var doomFiles: [String: String] = [:]   // nom en minuscules → chemin, pour trouver les bases
         var pwads: [(URL, KnownGame?)] = []
+        var quakeBase: String?                    // premier dossier de base Quake trouvé
+        var quakeOrphans: [URL] = []              // extensions Quake rangées hors de leur base
         let fm = FileManager.default
 
         func add(_ m: Machine) {
@@ -165,10 +167,12 @@ enum EngineCatalog {
                 if isDir {
                     if foreignDirs.contains(lower) { e.skipDescendants(); continue }
                     // Quake : un dossier id1 qui contient pak0.pak.
-                    if lower == "id1", let pak = caseInsensitiveChild(url, "pak0.pak") {
-                        _ = pak
+                    if lower == "id1", caseInsensitiveChild(url, "pak0.pak") != nil {
                         let base = url.deletingLastPathComponent()
+                        quakeBase = quakeBase ?? base.path
                         for game in quakeGames(in: base) { add(game) }
+                    } else if lower != "id1", let pak = caseInsensitiveChild(url, "pak0.pak"), isQuake1Pak(pak) {
+                        quakeOrphans.append(url)
                     }
                     continue
                 }
@@ -194,6 +198,25 @@ enum EngineCatalog {
             }
         }
 
+        // Extensions Quake rangées à part (ExpDOE/ROGUE…) : rattachées à la base.
+        if let base = quakeBase {
+            for dir in quakeOrphans {
+                let lower = dir.lastPathComponent.lowercased()
+                guard !seen.contains("quake:\(lower)") else { continue }
+                let k = quake[lower] ?? KnownGame(title: "\(dir.lastPathComponent) (mod Quake)", year: "", maker: "Mod pour Quake")
+                var m = Machine(name: "quake:\(lower)")
+                m.description = k.title
+                m.year = k.year
+                m.manufacturer = k.maker
+                m.engine = Engine.quake.rawValue
+                m.dataPath = base
+                m.modArg = lower
+                m.gamePath = dir.path
+                fillCommon(&m, players: k.players)
+                add(m)
+            }
+        }
+
         // WAD additionnels : rattachés à leur base, sinon à Doom II, sinon Freedoom 2.
         for (url, known) in pwads {
             if Task.isCancelled { return nil }
@@ -212,6 +235,24 @@ enum EngineCatalog {
     private static func caseInsensitiveChild(_ dir: URL, _ name: String) -> URL? {
         let items = (try? FileManager.default.contentsOfDirectory(atPath: dir.path)) ?? []
         return items.first { $0.lowercased() == name }.map { dir.appendingPathComponent($0) }
+    }
+
+    /// Un PAK de Quake 1 contient progs.dat ; ceux de Quake II n'en ont pas.
+    private static func isQuake1Pak(_ url: URL) -> Bool {
+        guard let h = try? FileHandle(forReadingFrom: url) else { return false }
+        defer { try? h.close() }
+        guard let head = try? h.read(upToCount: 12), head.count == 12, head.prefix(4) == Data("PACK".utf8) else { return false }
+        let offset = head.subdata(in: 4..<8).withUnsafeBytes { $0.loadUnaligned(as: UInt32.self) }
+        let length = head.subdata(in: 8..<12).withUnsafeBytes { $0.loadUnaligned(as: UInt32.self) }
+        guard length > 0, length < 64 * 20000, (try? h.seek(toOffset: UInt64(offset))) != nil,
+              let dir = try? h.read(upToCount: Int(length)) else { return false }
+        var i = 0
+        while i + 64 <= dir.count {
+            let name = dir.subdata(in: i..<(i + 56)).prefix { $0 != 0 }
+            if String(decoding: name, as: UTF8.self).lowercased() == "progs.dat" { return true }
+            i += 64
+        }
+        return false
     }
 
     private static func isIWAD(_ url: URL) -> Bool {
@@ -336,6 +377,9 @@ extension Engine {
             let id1 = user.appendingPathComponent("id1")
             try FileManager.default.createDirectory(at: id1, withIntermediateDirectories: true)
             try "bind x +attack\n".write(to: id1.appendingPathComponent("borne.cfg"), atomically: true, encoding: .utf8)
+            if let game = m.modArg, let src = m.gamePath {
+                try Self.linkQuakeGame(name: game, from: URL(fileURLWithPath: src), into: user)
+            }
             args = ["-basedir", data, "-userdir", user.path]
             if let game = m.modArg { args += ["-game", game] }
             args += [Prefs.windowed ? "-window" : "-fullscreen", "+exec", "borne.cfg"]
@@ -355,6 +399,23 @@ extension Engine {
             if !Prefs.windowed { args.append("--fullscreen") }
         }
         return EngineLaunch(executable: exe, arguments: args, directory: cwd, environment: env)
+    }
+
+    /// Extension rangée hors de la base : un vrai dossier dans le dossier
+    /// utilisateur, avec des liens vers ses fichiers. vkQuake y lit les PAK, et
+    /// ce qu'il écrit (sauvegardes, réglages) reste dans le vrai dossier.
+    static func linkQuakeGame(name: String, from src: URL, into user: URL) throws {
+        let fm = FileManager.default
+        let dir = user.appendingPathComponent(name)
+        try fm.createDirectory(at: dir, withIntermediateDirectories: true)
+        for item in try fm.contentsOfDirectory(atPath: src.path) where !item.hasPrefix(".") {
+            // Les .cfg pourraient être réécrits à travers le lien : on ne les lie pas.
+            if item.lowercased().hasSuffix(".cfg") { continue }
+            let link = dir.appendingPathComponent(item)
+            if (try? fm.destinationOfSymbolicLink(atPath: link.path)) != nil { try fm.removeItem(at: link) }
+            if fm.fileExists(atPath: link.path) { continue }
+            try fm.createSymbolicLink(at: link, withDestinationURL: src.appendingPathComponent(item))
+        }
     }
 
     /// Chargeur Vulkan embarqué et pilote : KosmicKrisp sur Apple silicon avec

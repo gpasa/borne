@@ -359,8 +359,9 @@ extension Engine {
             // Tir aussi sur X : Ctrl+flèche appartient à macOS.
             try "bind x +attack\n".write(to: extra, atomically: true, encoding: .utf8)
             // Premier lancement : Vulkan (vers Metal) plutôt qu'OpenGL, déprécié par
-            // Apple. Le moteur lit ce choix avant la ligne de commande ; ensuite,
-            // celui fait dans son menu est respecté.
+            // Apple. UZDoom embarque pour cela MoltenVK 1.2.6 (prepare_engines.sh) :
+            // à partir de la 1.2.7, son image Vulkan sort en vert. Le moteur lit ce
+            // choix avant la ligne de commande ; celui fait ensuite dans son menu est respecté.
             let ini = user.appendingPathComponent("\(engineName.lowercased()).ini")
             if !FileManager.default.fileExists(atPath: ini.path) {
                 try "[GlobalSettings]\nvid_preferbackend=1\n".write(to: ini, atomically: true, encoding: .utf8)

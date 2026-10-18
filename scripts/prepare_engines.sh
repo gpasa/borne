@@ -23,6 +23,9 @@ fetch() {  # fetch <dossier> <commande…>
 fetch uzdoom   gh release download 5.0.3 -R UZDoom/UZDoom -p 'MacOS-UZDoom-Release-ARM64.dmg'
 fetch gzdoom   gh release download g4.14.2 -R ZDoom/gzdoom -p 'gzdoom-4-14-2-macos.zip'
 fetch moltenvk gh release download v1.4.2 -R KhronosGroup/MoltenVK -p 'MoltenVK-macos.tar'
+# UZDoom (ZVulkan) affiche en vert avec MoltenVK >= 1.2.7 (vérifié par dichotomie, 1.2.6
+# correct) ; GZDoom 4.14.2 officiel embarque d'ailleurs la 1.2.6.
+fetch moltenvk-1.2.6 gh release download v1.2.6 -R KhronosGroup/MoltenVK -p 'MoltenVK-macos.tar'
 fetch ecwolf   zsh -c 'curl -sfLO https://maniacsvault.net/ecwolf/files/ecwolf/1.x/ecwolf-1.4.2.dmg'
 [[ -d $D/vkquake/src ]] || git clone -q --depth 1 --branch 1.37.0 https://github.com/Novum/vkQuake.git $D/vkquake/src
 [[ -d $D/vulkan-loader ]] || git clone -q --depth 1 --branch vulkan-sdk-1.4.357 https://github.com/KhronosGroup/Vulkan-Loader.git $D/vulkan-loader
@@ -44,6 +47,8 @@ done
 
 # MoltenVK, Freedoom.
 [[ -d $E/deps/MoltenVK ]] || tar -xf $D/moltenvk/MoltenVK-macos.tar -C $E/deps
+[[ -d $E/deps/MoltenVK-1.2.6/MoltenVK ]] || { mkdir -p $E/deps/MoltenVK-1.2.6 && tar -xf $D/moltenvk-1.2.6/MoltenVK-macos.tar -C $E/deps/MoltenVK-1.2.6; }
+MVK126=$E/deps/MoltenVK-1.2.6/MoltenVK/MoltenVK/dylib/macOS/libMoltenVK.dylib
 MVK=$E/deps/MoltenVK/MoltenVK/dynamic/dylib/macOS
 
 # Chargeur Vulkan universel.
@@ -112,6 +117,7 @@ for arch in arm64 x86_64; do
     rm -rf $P && mkdir -p $P/Engines $P/MacOS $P/Frameworks $P/vulkan
     if [[ $arch == arm64 ]]; then
         ditto $X/UZDoom.app $P/Engines/UZDoom.app
+        lipo -thin arm64 $MVK126 -output $P/Engines/UZDoom.app/Contents/Frameworks/libMoltenVK.dylib
     else
         ditto --arch x86_64 $X/GZDoom.app $P/Engines/GZDoom.app
     fi

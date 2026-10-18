@@ -10,6 +10,8 @@ struct SettingsView: View {
     @AppStorage(Prefs.userDataPathKey) private var userDataPath = ""
     @AppStorage(Prefs.windowedKey) private var windowed = true
     @AppStorage(Prefs.extraArgsKey) private var extraArgs = ""
+    @AppStorage(Prefs.engineFoldersKey) private var engineFolders = ""
+    @AppStorage("vulkanDriver") private var vulkanDriver = "auto"
 
     var body: some View {
         Form {
@@ -72,6 +74,43 @@ struct SettingsView: View {
                 Button("Afficher dans le Finder") { catalog.revealUserData() }
             }
 
+            Section {
+                ForEach(Prefs.engineFolders, id: \.self) { path in
+                    HStack {
+                        Image(systemName: FileManager.default.fileExists(atPath: path) ? "folder" : "exclamationmark.triangle")
+                        Text(path).lineLimit(1).truncationMode(.middle)
+                        Spacer()
+                        Button("Retirer", systemImage: "minus.circle") {
+                            engineFolders = Prefs.engineFolders.filter { $0 != path }.joined(separator: "\n")
+                            catalog.scanEngines()
+                        }
+                        .labelStyle(.iconOnly)
+                        .buttonStyle(.borderless)
+                    }
+                }
+                Button("Ajouter un dossier…") {
+                    let panel = NSOpenPanel()
+                    panel.canChooseFiles = false
+                    panel.canChooseDirectories = true
+                    panel.allowsMultipleSelection = true
+                    guard panel.runModal() == .OK else { return }
+                    for url in panel.urls { Prefs.addEngineFolder(url.path) }
+                    engineFolders = Prefs.engineFolders.joined(separator: "\n")
+                    catalog.scanEngines()
+                }
+                ForEach(Engine.allCases) { engine in
+                    EngineRow(engine: engine) { catalog.scanEngines() }
+                }
+                Picker("Pilote Vulkan de Quake", selection: $vulkanDriver) {
+                    Text("Automatique").tag("auto")
+                    Text("MoltenVK").tag("moltenvk")
+                }
+            } header: {
+                Text("Jeux PC (Doom, Quake, Wolfenstein 3D)")
+            } footer: {
+                Text("Dossiers lus seulement, sous-dossiers compris.")
+            }
+
             Section("Lancement") {
                 Toggle("Dans une fenêtre", isOn: $windowed)
                 TextField("Options en plus", text: $extraArgs, prompt: Text("-bgfx_screen_chains crt-geom"))
@@ -80,6 +119,39 @@ struct SettingsView: View {
         .formStyle(.grouped)
         .frame(width: 600)
         .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private struct EngineRow: View {
+        let engine: Engine
+        let changed: () -> Void
+        @AppStorage private var path: String
+
+        init(engine: Engine, changed: @escaping () -> Void) {
+            self.engine = engine
+            self.changed = changed
+            _path = AppStorage(wrappedValue: "", engine.prefKey)
+        }
+
+        var body: some View {
+            HStack {
+                Text("Moteur \(engine.title)")
+                Spacer()
+                Text(path.isEmpty ? "Intégré (\(engine.engineName))" : (path as NSString).lastPathComponent)
+                    .foregroundStyle(.secondary).lineLimit(1)
+                Button("Choisir…") {
+                    let panel = NSOpenPanel()
+                    panel.allowedContentTypes = [.application, .unixExecutable]
+                    panel.directoryURL = URL(fileURLWithPath: "/Applications")
+                    if panel.runModal() == .OK, let url = panel.url {
+                        path = url.path
+                        changed()
+                    }
+                }
+                if !path.isEmpty {
+                    Button("Intégré") { path = ""; changed() }
+                }
+            }
+        }
     }
 
     private func pathRow(_ label: String, _ value: Binding<String>, placeholder: String,

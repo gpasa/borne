@@ -21,7 +21,24 @@ for ARCH in arm64 x86_64; do
     FW=$APP/Contents/Frameworks/SDL3.framework
 
     sign() { codesign --force --timestamp --options runtime --sign $ID "$@"; }
+    # Tout Mach-O d'un dossier, du plus profond au moins profond.
+    sign_inside() {
+        local dir=$1; shift
+        [[ -d $dir ]] || return 0
+        find $dir -type f \( -name '*.dylib' -o -perm +111 \) -print0 | xargs -0 file | grep -E 'Mach-O' | cut -d: -f1 |
+            awk '{ print length, $0 }' | sort -rn | cut -d' ' -f2- | while read -r f; do sign "$@" "$f"; done
+    }
     sign $FW
+    for f in $APP/Contents/Frameworks/*.dylib(N); do sign $f; done
+    [[ -x $APP/Contents/MacOS/vkquake ]] && sign $APP/Contents/MacOS/vkquake
+    # Moteurs embarqués : UZDoom/GZDoom compilent leurs scripts à la volée (JIT), comme MAME.
+    for a in $APP/Contents/Resources/Engines/*.app(N); do
+        ent=()
+        [[ $a == *Doom.app ]] && ent=(--entitlements Resources/mame.entitlements)
+        sign_inside $a/Contents/Frameworks
+        sign_inside $a/Contents/MacOS $ent
+        sign $ent $a
+    done
     sign --entitlements Resources/mame.entitlements $APP/Contents/MacOS/mame
     sign $APP
     codesign --verify --deep --strict --verbose=2 $APP

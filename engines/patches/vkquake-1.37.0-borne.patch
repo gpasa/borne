@@ -1,0 +1,93 @@
+diff --git a/Quake/gl_vidsdl.c b/Quake/gl_vidsdl.c
+index c40ce56..91e3088 100644
+--- a/Quake/gl_vidsdl.c
++++ b/Quake/gl_vidsdl.c
+@@ -843,14 +843,14 @@ static void GL_InitInstance (void)
+ 	if (!sdl_extensions)
+ 		Sys_Error ("SDL_Vulkan_GetInstanceExtensions failed: %s", SDL_GetError ());
+ 
+-	const char **const instance_extensions = Mem_Alloc (sizeof (const char *) * (sdl_extension_count + 4));
++	const char **const instance_extensions = Mem_Alloc (sizeof (const char *) * (sdl_extension_count + 5));
+ 	for (i = 0; i < sdl_extension_count; i++)
+ 		instance_extensions[i] = sdl_extensions[i];
+ #else
+ 	if (!SDL_Vulkan_GetInstanceExtensions (draw_context, &sdl_extension_count, NULL))
+ 		Sys_Error ("SDL_Vulkan_GetInstanceExtensions failed: %s", SDL_GetError ());
+ 
+-	const char **const instance_extensions = Mem_Alloc (sizeof (const char *) * (sdl_extension_count + 4));
++	const char **const instance_extensions = Mem_Alloc (sizeof (const char *) * (sdl_extension_count + 5));
+ 	if (!SDL_Vulkan_GetInstanceExtensions (draw_context, &sdl_extension_count, instance_extensions))
+ 		Sys_Error ("SDL_Vulkan_GetInstanceExtensions failed: %s", SDL_GetError ());
+ #endif
+@@ -862,6 +862,8 @@ static void GL_InitInstance (void)
+ 
+ 	vulkan_globals.get_surface_capabilities_2 = false;
+ 	vulkan_globals.get_physical_device_properties_2 = false;
++	// Borne : chargeur Vulkan + pilotes de portabilité (MoltenVK) sur macOS.
++	qboolean portability_enumeration = false;
+ 	if (err == VK_SUCCESS || instance_extension_count > 0)
+ 	{
+ 		VkExtensionProperties *extension_props = (VkExtensionProperties *)Mem_Alloc (sizeof (VkExtensionProperties) * instance_extension_count);
+@@ -873,6 +875,8 @@ static void GL_InitInstance (void)
+ 				vulkan_globals.get_surface_capabilities_2 = true;
+ 			if (strcmp (VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME, extension_props[i].extensionName) == 0)
+ 				vulkan_globals.get_physical_device_properties_2 = true;
++			if (strcmp (VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME, extension_props[i].extensionName) == 0)
++				portability_enumeration = true;
+ #ifdef _DEBUG
+ 			if (strcmp (VK_EXT_DEBUG_UTILS_EXTENSION_NAME, extension_props[i].extensionName) == 0)
+ 				vulkan_globals.debug_utils = true;
+@@ -913,6 +917,11 @@ static void GL_InitInstance (void)
+ 		instance_extensions[sdl_extension_count + additionalExtensionCount++] = VK_KHR_GET_SURFACE_CAPABILITIES_2_EXTENSION_NAME;
+ 	if (vulkan_globals.get_physical_device_properties_2)
+ 		instance_extensions[sdl_extension_count + additionalExtensionCount++] = VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME;
++	if (portability_enumeration)
++	{
++		instance_extensions[sdl_extension_count + additionalExtensionCount++] = VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME;
++		instance_create_info.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
++	}
+ 
+ #ifdef _DEBUG
+ 	if (vulkan_globals.debug_utils)
+@@ -1129,6 +1138,9 @@ static const char *GetDeviceVendorFromDeviceProperties (void)
+ GL_InitDevice
+ ===============
+ */
++// Borne : VK_KHR_portability_subset doit être activée quand le pilote l'expose (MoltenVK).
++static qboolean portability_subset_available = false;
++
+ static void GL_InitDevice (void)
+ {
+ 	VkResult err;
+@@ -1195,6 +1207,8 @@ static void GL_InitDevice (void)
+ 
+ 		for (i = 0; i < device_extension_count; ++i)
+ 		{
++			if (strcmp ("VK_KHR_portability_subset", device_extensions[i].extensionName) == 0)
++				portability_subset_available = true;
+ 			if (strcmp (VK_KHR_SWAPCHAIN_EXTENSION_NAME, device_extensions[i].extensionName) == 0)
+ 				found_swapchain_extension = true;
+ 			if (strcmp (VK_KHR_DEDICATED_ALLOCATION_EXTENSION_NAME, device_extensions[i].extensionName) == 0)
+@@ -1400,6 +1414,8 @@ static void GL_InitDevice (void)
+ 
+ 	const char *device_extensions[32] = {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+ 	uint32_t	numEnabledExtensions = 1;
++	if (portability_subset_available)
++		device_extensions[numEnabledExtensions++] = "VK_KHR_portability_subset";
+ 	if (vulkan_globals.shader_float16)
+ 		device_extensions[numEnabledExtensions++] = VK_KHR_SHADER_FLOAT16_INT8_EXTENSION_NAME;
+ 	if (vulkan_globals.dedicated_allocation)
+diff --git a/meson.build b/meson.build
+index 459c782..51c8f02 100644
+--- a/meson.build
++++ b/meson.build
+@@ -352,7 +352,8 @@ if build_machine.system() == 'darwin'
+     if import('fs').exists('/opt/homebrew/lib/libMoltenVK.dylib')
+         molten_dirs += '/opt/homebrew/lib'
+     endif
+-    deps += cc.find_library('MoltenVK', required : true, dirs : molten_dirs)
++    # Borne : chargeur Vulkan (KosmicKrisp ou MoltenVK choisis au lancement).
++    deps += cc.find_library('vulkan', required : true, dirs : molten_dirs)
+ else
+     deps += dependency('vulkan', version: '>=1.4.341')
+ endif

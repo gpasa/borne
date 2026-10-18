@@ -28,7 +28,7 @@ struct BorneApp: App {
 
                 Divider()
 
-                Button("Relire les dossiers ROM") { catalog.scanROMs() }
+                Button("Relire les dossiers de jeux") { catalog.rescanAll() }
                     .keyboardShortcut("r")
                 Button("Vérifier les ROM") { catalog.verifyROMs() }
                     .keyboardShortcut("r", modifiers: [.command, .shift])

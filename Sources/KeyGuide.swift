@@ -13,6 +13,7 @@ enum KeyGuide {
     static let player2Buttons = ["A", "S", "Q", "W"]
 
     static func game(_ m: Machine) -> [Entry] {
+        if let engine = m.engineKind { return engineKeys(engine) }
         var e = [Entry(keys: "5", action: "Insérer une pièce"),
                  Entry(keys: "1", action: "Start (1 joueur)")]
         let c = Set(m.controls)
@@ -38,6 +39,39 @@ enum KeyGuide {
         return e
     }
 
+    /// Touches par défaut des moteurs, avec X en tir de secours (Ctrl+flèche
+    /// déclenche Mission Control).
+    static func engineKeys(_ e: Engine) -> [Entry] {
+        switch e {
+        case .doom: [
+            Entry(keys: "W A S D", action: "Se déplacer (ou flèches)"),
+            Entry(keys: "Souris", action: "Viser"),
+            Entry(keys: "Clic · X", action: "Tirer"),
+            Entry(keys: "Espace · E", action: "Ouvrir, utiliser"),
+            Entry(keys: "1 à 7", action: "Armes"),
+            Entry(keys: "Tab", action: "Carte"),
+            Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
+        ]
+        case .quake: [
+            Entry(keys: "W A S D", action: "Se déplacer"),
+            Entry(keys: "Souris", action: "Viser"),
+            Entry(keys: "Clic · X", action: "Tirer"),
+            Entry(keys: "Espace", action: "Sauter"),
+            Entry(keys: "1 à 8", action: "Armes"),
+            Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
+        ]
+        case .wolf3d: [
+            Entry(keys: "← ↑ → ↓", action: "Se déplacer"),
+            Entry(keys: "X", action: "Tirer"),
+            Entry(keys: "Espace", action: "Ouvrir les portes"),
+            Entry(keys: "⌥ + ← →", action: "Pas de côté"),
+            Entry(keys: "Maj", action: "Courir"),
+            Entry(keys: "1 à 4", action: "Armes"),
+            Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
+        ]
+        }
+    }
+
     /// Sur un clavier Mac, les touches F demandent fn.
     static let system: [Entry] = [
         Entry(keys: "Échap", action: "Quitter et revenir à Borne"),
@@ -56,8 +90,10 @@ struct KeyGuideView: View {
     var body: some View {
         Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: 12, verticalSpacing: 4) {
             ForEach(KeyGuide.game(machine), id: \.self) { row($0) }
-            Divider().gridCellUnsizedAxes(.horizontal)
-            ForEach(KeyGuide.system, id: \.self) { row($0) }
+            if machine.engine == nil {
+                Divider().gridCellUnsizedAxes(.horizontal)
+                ForEach(KeyGuide.system, id: \.self) { row($0) }
+            }
         }
     }
 

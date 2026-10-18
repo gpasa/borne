@@ -10,6 +10,10 @@ enum Folder: Hashable {
     case manufacturer(String), year(String), source(String), cpu(String)
     /// Ligne « Regrouper par » : ouvre un sélecteur, ne filtre pas.
     case chooser(String)
+    /// Jeux d'un moteur PC (doom, quake, wolf3d).
+    case engine(String)
+
+    static let engines: [Folder] = Engine.allCases.map { .engine($0.rawValue) }
 
     static let main: [Folder] = [.all, .available, .unavailable, .favorites, .local]
     static let traits: [Folder] = [.parents, .clones, .working, .notWorking,
@@ -32,6 +36,7 @@ enum Folder: Hashable {
         case .vertical: "Écran vertical"
         case .savestate: "Sauvegarde d'état"
         case .manufacturer(let s), .year(let s), .source(let s), .cpu(let s), .chooser(let s): s
+        case .engine(let e): Engine(rawValue: e)?.title ?? e
         }
     }
 
@@ -56,6 +61,7 @@ enum Folder: Hashable {
         case .source: "doc.text"
         case .cpu: "memorychip"
         case .chooser: "line.3.horizontal.decrease"
+        case .engine(let e): Engine(rawValue: e)?.symbol ?? "gamecontroller"
         }
     }
 }
@@ -73,11 +79,11 @@ private struct FilterContext {
         case .unavailable: !available.contains(m.name)
         case .favorites: favorites.contains(m.name)
         case .local: local.contains(m.name)
-        case .parents: !m.isClone
+        case .parents: !m.isClone && m.engine == nil
         case .clones: m.isClone
         case .working: m.status == "good" || m.status == "imperfect"
         case .notWorking: m.status == "preliminary"
-        case .bios: m.isBIOS
+        case .bios: m.isBIOS && m.engine == nil
         case .mechanical: m.isMechanical
         case .horizontal: !m.screen.isEmpty && !m.isVertical
         case .vertical: m.isVertical
@@ -87,6 +93,7 @@ private struct FilterContext {
         case .source(let s): m.sourcefile == s
         case .cpu(let s): m.cpus.contains(s)
         case .chooser: true
+        case .engine(let e): m.engine == e
         }
     }
 }
@@ -138,6 +145,10 @@ final class Catalog {
     private(set) var version = ""
     private(set) var machines: [String: Machine] = [:]
     private var all: [Machine] = []
+    /// Catalogue MAME et jeux PC trouvés, fusionnés dans `all`.
+    @ObservationIgnored private var mameList: [Machine] = []
+    @ObservationIgnored private var engineGames: [Machine] = []
+    @ObservationIgnored private var engineTask: Task<Void, Never>?
     @ObservationIgnored private var sortedCache: [Machine]?
     private(set) var displayed: [Machine] = []
     /// Change à chaque résultat de filtrage : le tableau se recharge alors.
@@ -229,22 +240,57 @@ final class Catalog {
                 try JSONEncoder().encode(list).write(to: cache, options: .atomic)
                 return list
             }.value
-            all = list
-            machines = Dictionary(list.map { ($0.name, $0) }, uniquingKeysWith: { a, _ in a })
+            mameList = list
+            rebuildAll()
             audit = await Task.detached {
                 (try? Data(contentsOf: Self.auditURL))
                     .flatMap { try? JSONDecoder().decode([String: AuditResult].self, from: $0) }
             }.value
-            buildGroups()
             phase = .idle
             refreshView(resort: true)
             scanROMs()
-            // Captures du site : open --args -selectGame gridlee
-            if let g = UserDefaults.standard.string(forKey: "selectGame"), machines[g] != nil {
-                selection = g
-            }
+            scanEngines()
+            applyRequestedSelection()
         } catch {
             phase = .failed(error.localizedDescription)
+        }
+    }
+
+    /// MAME + jeux PC.
+    private func rebuildAll() {
+        all = mameList + engineGames
+        machines = Dictionary(all.map { ($0.name, $0) }, uniquingKeysWith: { a, _ in a })
+        buildGroups()
+    }
+
+    /// Captures du site : open --args -selectGame gridlee (ou doom:doom2.wad).
+    @ObservationIgnored private var requestedSelection = UserDefaults.standard.string(forKey: "selectGame")
+
+    /// Tests : open --args -launchGame quake:id1 lance le jeu dès qu'il est connu.
+    @ObservationIgnored private var requestedLaunch = UserDefaults.standard.string(forKey: "launchGame")
+
+    private func applyRequestedSelection() {
+        if let g = requestedSelection, machines[g] != nil {
+            selection = g
+            requestedSelection = nil
+        }
+        if let g = requestedLaunch, machines[g] != nil {
+            requestedLaunch = nil
+            selection = g
+            launch(g)
+        }
+    }
+
+    /// Cherche Doom, Quake et Wolfenstein 3D dans les dossiers de jeux PC (et Freedoom, fourni).
+    func scanEngines() {
+        engineTask?.cancel()
+        let folders = EngineCatalog.bundledFolders + Prefs.engineFolders
+        engineTask = Task {
+            guard let games = await EngineCatalog.scan(folders), !Task.isCancelled else { return }
+            engineGames = games
+            rebuildAll()
+            refreshView(resort: true)
+            applyRequestedSelection()
         }
     }
 
@@ -298,7 +344,7 @@ final class Catalog {
 
         let ctx = FilterContext(available: available, favorites: i.favorites, local: i.local)
         var counts: [Folder: Int] = [:]
-        for f in Folder.main + Folder.traits {
+        for f in Folder.main + Folder.traits + Folder.engines {
             counts[f] = i.all.reduce(0) { $0 + (ctx.matches($1, f) ? 1 : 0) }
             if Task.isCancelled { return nil }
         }
@@ -331,6 +377,12 @@ final class Catalog {
     }
 
     // MARK: Dossiers ROM
+
+    /// Relit les dossiers ROM et les dossiers de jeux PC.
+    func rescanAll() {
+        scanROMs()
+        scanEngines()
+    }
 
     /// Relit le contenu des dossiers ROM, sans bloquer l'interface.
     func scanROMs() {
@@ -442,7 +494,7 @@ final class Catalog {
 
     /// Prépare la copie locale des jeux et demande confirmation avec la taille.
     func proposeInstall(_ names: [String]) {
-        let games = names.filter { machines[$0] != nil && available.contains($0) }
+        let games = names.filter { machines[$0]?.engine == nil && available.contains($0) }
         guard !games.isEmpty else {
             notice = ("Rien à installer", "Ces jeux ne sont pas disponibles sur le disque des jeux.")
             return
@@ -557,20 +609,33 @@ final class Catalog {
             notice = ("MAME n'a pas pu lancer le jeu", error.localizedDescription)
             return
         }
-        var args = [name, "-skip_gameinfo"] + Prefs.pathArguments + Prefs.displayArguments
-        if Prefs.windowed { args.append("-window") }
-        args += Prefs.extraArgs
-
+        let p = Process()
+        if let engine = machines[name]?.engineKind, let m = machines[name] {
+            do {
+                let l = try engine.launch(for: m)
+                p.executableURL = l.executable
+                p.arguments = l.arguments
+                p.currentDirectoryURL = l.directory
+                p.environment = l.environment
+            } catch {
+                notice = ("\(engine.title) n'a pas pu lancer le jeu", error.localizedDescription)
+                return
+            }
+        } else {
+            var args = [name, "-skip_gameinfo"] + Prefs.pathArguments + Prefs.displayArguments
+            if Prefs.windowed { args.append("-window") }
+            args += Prefs.extraArgs
+            p.executableURL = Prefs.mameURL
+            p.arguments = args
+            p.currentDirectoryURL = Prefs.userDataRoot
+        }
         let log = FileManager.default.temporaryDirectory.appendingPathComponent("borne-mame.log")
         FileManager.default.createFile(atPath: log.path, contents: nil)
-        let p = Process()
-        p.executableURL = Prefs.mameURL
-        p.arguments = args
-        p.currentDirectoryURL = Prefs.userDataRoot
         if let h = try? FileHandle(forWritingTo: log) {
             p.standardOutput = h
             p.standardError = h
         }
+        let engineTitle = machines[name]?.engineKind?.title
         p.terminationHandler = { proc in
             let status = proc.terminationStatus
             let text = (try? String(contentsOf: log, encoding: .utf8)) ?? ""
@@ -579,7 +644,7 @@ final class Catalog {
                 KeyHUD.shared.hide()
                 if status != 0 {
                     let tail = text.split(separator: "\n").suffix(12).joined(separator: "\n")
-                    self.notice = ("MAME n'a pas pu lancer le jeu",
+                    self.notice = (engineTitle.map { "\($0) s'est arrêté" } ?? "MAME n'a pas pu lancer le jeu",
                                    tail.isEmpty ? "mame s'est arrêté (code \(status))." : tail)
                 }
             }

@@ -27,6 +27,14 @@ struct Machine: Codable, Identifiable, Hashable {
     var height = 0
     var refresh = 0.0
     var cpus: [String] = []
+    /// Jeux PC : moteur (doom, quake, wolf3d) ; nil pour une machine MAME.
+    var engine: String?
+    /// IWAD, dossier de base de Quake ou dossier de Wolfenstein 3D.
+    var dataPath: String?
+    /// WAD additionnel, jeu Quake (-game) ou extension Wolfenstein (wl6, sod…).
+    var modArg: String?
+
+    var engineKind: Engine? { engine.flatMap(Engine.init(rawValue:)) }
 
     var isClone: Bool { cloneOf != nil }
     var isVertical: Bool { rotate == 90 || rotate == 270 }

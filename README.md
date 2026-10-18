@@ -2,7 +2,7 @@
 
 # Borne
 
-**A native macOS front end for [MAME](https://www.mamedev.org), in the spirit of MAMEUI.**
+**A native macOS front end for [MAME](https://www.mamedev.org) and the classic id Software games, in the spirit of MAMEUI.**
 
 Borne (French for *arcade cabinet*) puts your MAME collection in a familiar three-pane window:
 folders on the left, the list of games in the middle, the artwork and details on the right.
@@ -25,6 +25,11 @@ Double-click a game and play.
 - **Mac keyboard layout**: player 1 buttons on `Z X C V B N` instead of `Ctrl`
   (macOS keeps `Ctrl`+arrows for Mission Control), and a key reminder when a game starts.
 - **MAME included**: version 0.289, native on Apple silicon and Intel, nothing else to install.
+- **Doom, Quake, Wolfenstein 3D**: point Borne at your game files and it finds them (Doom, Doom II,
+  Final Doom, Heretic, Hexen, Strife, Chex Quest, HacX and WAD mods; Quake, its mission packs and mods;
+  Wolfenstein 3D and Spear of Destiny). The engines are included: UZDoom (GZDoom on Intel), vkQuake
+  and ECWolf. [Freedoom](https://freedoom.github.io), a free Doom, is bundled so Doom works out of the
+  box. Saves and settings stay in the user folder, never next to your game files.
 
 ## Download
 
@@ -70,6 +75,14 @@ The app bundles third-party software under their own licenses, included in
   and other compatible licenses). The bundled binary is built, unmodified, from the
   [`mame0289` tag](https://github.com/mamedev/mame/tree/mame0289); the commands above rebuild it.
 - **SDL3** 3.2.28, zlib license.
+- **UZDoom** 5.0.3 (Apple silicon) / **GZDoom** 4.14.2 (Intel), official builds, GPL-3.0 and others
+  (license texts inside each engine).
+- **vkQuake** 1.37.0, GPL-2.0, built with a small patch (`engines/patches`) to go through the Vulkan
+  loader; **Vulkan-Loader**, Apache-2.0; **MoltenVK** 1.4.2, Apache-2.0.
+- **ECWolf** 1.4.2, official build, GPL (see its `copyright` file).
+- **Freedoom** 0.13.0, BSD-3-Clause.
+
+`scripts/prepare_engines.sh` downloads, builds and arranges all engines.
 
 MAME is a registered trademark of Gregory Ember. Borne is an independent project, not
 affiliated with or endorsed by the MAME team.

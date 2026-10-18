@@ -78,6 +78,9 @@ struct FolderList: View {
             Section {
                 ForEach(Folder.main, id: \.self) { row($0, catalog.counts[$0]) }
             }
+            Section("Jeux PC") {
+                ForEach(Folder.engines, id: \.self) { row($0, catalog.counts[$0]) }
+            }
             Section("Caractéristiques") {
                 ForEach(Folder.traits, id: \.self) { row($0, catalog.counts[$0]) }
             }
@@ -135,7 +138,16 @@ struct GameTable: View {
                 Button("Réessayer") { Task { await catalog.load() } }
             }
         default:
-            if catalog.displayed.isEmpty && !catalog.machines.isEmpty {
+            if catalog.displayed.isEmpty && !catalog.machines.isEmpty, case .engine(let e)? = catalog.folder,
+               let engine = Engine(rawValue: e) {
+                ContentUnavailableView {
+                    Label("Aucun jeu \(engine.title)", systemImage: engine.symbol)
+                } description: {
+                    Text(engineHint(engine))
+                } actions: {
+                    Button("Ajouter un dossier de jeux…") { addEngineFolder() }
+                }
+            } else if catalog.displayed.isEmpty && !catalog.machines.isEmpty {
                 if catalog.folder == .available && catalog.search.isEmpty
                     && catalog.missingROMPaths.count == Prefs.romPaths.count {
                     ContentUnavailableView {
@@ -144,7 +156,7 @@ struct GameTable: View {
                         Text("Branchez le disque, puis relisez les dossiers ROM (⌘R).\n"
                              + catalog.missingROMPaths.joined(separator: "\n"))
                     } actions: {
-                        Button("Relire") { catalog.scanROMs() }
+                        Button("Relire") { catalog.rescanAll() }
                         SettingsLink { Text("Réglages") }
                     }
                 } else if catalog.folder == .available && catalog.search.isEmpty {
@@ -154,7 +166,7 @@ struct GameTable: View {
                         Text("Placez vos ensembles de ROM (.zip) dans le dossier ROM, puis relisez-le (⌘R).")
                     } actions: {
                         Button("Ouvrir le dossier ROM") { catalog.revealROMFolder() }
-                        Button("Relire") { catalog.scanROMs() }
+                        Button("Relire") { catalog.rescanAll() }
                     }
                 } else {
                     ContentUnavailableView.search
@@ -173,7 +185,7 @@ struct GameTable: View {
                      : "Où sont vos jeux ? Choisissez le dossier « roms », ou celui qui le contient.")
                 Spacer()
                 Button("Choisir…") { chooseMediaFolder() }
-                Button("Relire") { catalog.scanROMs() }
+                Button("Relire") { catalog.rescanAll() }
             }
             .font(.callout)
             .padding(.horizontal, 10)
@@ -191,6 +203,25 @@ struct GameTable: View {
             .padding(.vertical, 6)
             .background(.green.opacity(0.12))
         }
+    }
+
+    private func engineHint(_ e: Engine) -> String {
+        switch e {
+        case .doom: "Borne cherche les fichiers .wad et .pk3 (doom2.wad, heretic.wad…) dans les dossiers que vous lui indiquez, sous-dossiers compris."
+        case .quake: "Borne cherche un dossier id1 contenant pak0.pak, et les extensions ou mods à côté de lui."
+        case .wolf3d: "Borne cherche les fichiers VSWAP.WL6, VSWAP.SOD… de Wolfenstein 3D et Spear of Destiny."
+        }
+    }
+
+    private func addEngineFolder() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = true
+        panel.message = "Dossier contenant vos jeux Doom, Quake ou Wolfenstein 3D (lu seulement, sous-dossiers compris)"
+        guard panel.runModal() == .OK else { return }
+        for url in panel.urls { Prefs.addEngineFolder(url.path) }
+        catalog.scanEngines()
     }
 
     private func chooseMediaFolder() {

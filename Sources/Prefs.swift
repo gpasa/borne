@@ -17,6 +17,19 @@ enum Prefs {
     static let userDataPathKey = "userDataPath"
     static let windowedKey = "windowed"
     static let extraArgsKey = "extraArgs"
+    static let engineFoldersKey = "engineFolders"
+
+    /// Dossiers où chercher les jeux PC (Doom, Quake, Wolfenstein 3D), parcourus en profondeur.
+    static var engineFolders: [String] {
+        (UserDefaults.standard.string(forKey: engineFoldersKey) ?? "")
+            .split(separator: "\n").map { ($0 as NSString).expandingTildeInPath }
+    }
+
+    static func addEngineFolder(_ path: String) {
+        var list = engineFolders
+        if !list.contains(path) { list.append(path) }
+        UserDefaults.standard.set(list.joined(separator: "\n"), forKey: engineFoldersKey)
+    }
 
     /// Repli quand mame n'est pas embarqué (compilation sans lui) : Homebrew.
     static let defaultMamePath = "/opt/homebrew/bin/mame"

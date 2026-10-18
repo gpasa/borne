@@ -12,6 +12,9 @@ struct GameDetail: View {
         if let m = catalog.selected {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
+                    if let engine = m.engineKind {
+                        engineHeader(engine)
+                    } else {
                     Picker("Image", selection: $kind) {
                         ForEach(PictureKind.allCases) { Text($0.title).tag($0) }
                     }
@@ -26,6 +29,7 @@ struct GameDetail: View {
                             image = data.flatMap(NSImage.init(data:))
                             imageKey = key
                         }
+                    }
 
                     Text(m.description).font(.title3.bold())
                     Text("\(m.manufacturer), \(m.year)").foregroundStyle(.secondary)
@@ -63,6 +67,22 @@ struct GameDetail: View {
                         .help("Copie le jeu et ce dont il a besoin, pour jouer sans le disque des jeux")
                     }
 
+                    if let engine = m.engineKind {
+                        Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: 10, verticalSpacing: 5) {
+                            info("Moteur", engine.engineName)
+                            if engine == .quake { info("Rendu", "Vulkan · \(Engine.vulkanDriverName)") }
+                            if let mod = m.modArg, engine == .doom {
+                                info("Fichier", (mod as NSString).lastPathComponent)
+                                info("Jeu de base", ((m.dataPath ?? "") as NSString).lastPathComponent)
+                            } else if let path = m.dataPath {
+                                info(engine == .doom ? "Fichier" : "Dossier", (path as NSString).lastPathComponent)
+                            }
+                            if let game = m.modArg, engine == .quake { info("Extension", game) }
+                            info("Emplacement", (m.dataPath ?? "") as String)
+                            info("Sauvegardes", "Dossier utilisateur, jamais sur le disque des jeux")
+                        }
+                        .font(.callout)
+                    } else {
                     Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: 10, verticalSpacing: 5) {
                         info("Nom court", m.name)
                         if let p = m.cloneOf {
@@ -87,6 +107,7 @@ struct GameDetail: View {
                         }
                     }
                     .font(.callout)
+                    }
 
                     let _ = catalog.settingsGeneration
                     if catalog.hasDisplaySettings(m.name) {
@@ -128,6 +149,26 @@ struct GameDetail: View {
         GridRow {
             Text(label).foregroundStyle(.secondary).gridColumnAlignment(.trailing)
             Text(value).textSelection(.enabled)
+        }
+    }
+
+    /// En-tête d'un jeu PC : l'icône de son moteur.
+    private func engineHeader(_ engine: Engine) -> some View {
+        HStack(spacing: 14) {
+            if let exe = engine.executable, let app = exe.pathComponents.firstIndex(where: { $0.hasSuffix(".app") }) {
+                let appPath = NSString.path(withComponents: Array(exe.pathComponents[...app]))
+                Image(nsImage: NSWorkspace.shared.icon(forFile: appPath))
+                    .resizable().frame(width: 72, height: 72)
+            } else {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(.quaternary)
+                    .frame(width: 72, height: 72)
+                    .overlay { Image(systemName: engine.symbol).font(.system(size: 30)) }
+            }
+            VStack(alignment: .leading) {
+                Text(engine.title).font(.headline)
+                Text("Jeu PC · \(engine.engineName)").foregroundStyle(.secondary)
+            }
         }
     }
 

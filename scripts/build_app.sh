@@ -53,6 +53,22 @@ cp $MAME/uismall.bdf $R/ 2>/dev/null || true
 # Touches adaptées au clavier Mac (pas de Ctrl : Ctrl+flèche est à macOS).
 cp Resources/ctrlr/borne_mac.cfg $R/ctrlr/
 
+# Moteurs de jeux PC (scripts/prepare_engines.sh) : Doom, Quake, Wolfenstein 3D, Freedoom.
+PAYLOAD=${ENGINES_DIR:-../Engines}/payload/$ARCH
+# Le dossier de compilation sert aux deux architectures : on repart de zéro.
+rm -rf $APP/Contents/Resources/{Engines,vulkan,freedoom,Licenses-engines} $APP/Contents/MacOS/vkquake \
+    $APP/Contents/Frameworks/{libvulkan.1.dylib,libMoltenVK.dylib,libvulkan_kosmickrisp.dylib}
+if [[ -d $PAYLOAD ]]; then
+    ditto $PAYLOAD/Engines $APP/Contents/Resources/Engines
+    cp $PAYLOAD/MacOS/vkquake $APP/Contents/MacOS/vkquake
+    cp $PAYLOAD/Frameworks/*.dylib $APP/Contents/Frameworks/
+    ditto $PAYLOAD/vulkan $APP/Contents/Resources/vulkan
+    ditto $PAYLOAD/freedoom $APP/Contents/Resources/freedoom
+    ditto $PAYLOAD/licenses $APP/Contents/Resources/Licenses-engines
+else
+    echo "Pas de moteurs de jeux PC pour $ARCH (lancer scripts/prepare_engines.sh)"
+fi
+
 # Licences : Borne (GPL-3.0), MAME (GPL-2.0+ et licences de ses parties), SDL3 (zlib).
 L=$APP/Contents/Resources/Licenses
 rm -rf $L && mkdir -p $L/MAME $L/SDL3
@@ -60,8 +76,14 @@ cp LICENSE $L/Borne-GPL-3.0.txt
 cp $MAME/COPYING $L/MAME/COPYING
 ditto $MAME/docs/legal $L/MAME/legal
 cp $SDL3/Resources/LICENSE.txt $L/SDL3/LICENSE.txt
+if [[ -d $APP/Contents/Resources/Licenses-engines ]]; then
+    ditto $APP/Contents/Resources/Licenses-engines $L
+    rm -rf $APP/Contents/Resources/Licenses-engines
+fi
 
 codesign --force --sign - $FW
+for f in $APP/Contents/Frameworks/*.dylib(N) $APP/Contents/MacOS/vkquake(N); do codesign --force --sign - $f; done
+for a in $APP/Contents/Resources/Engines/*.app(N); do codesign --force --deep --sign - $a; done
 codesign --force --sign - $APP/Contents/MacOS/mame
 codesign --force --sign - $APP
 echo "Assemblé ($ARCH) : $APP"

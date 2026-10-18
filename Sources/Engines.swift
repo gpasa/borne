@@ -101,6 +101,15 @@ enum EngineCatalog {
         "nerve.wad": .init(title: "Doom II: No Rest for the Living", year: "2010", maker: "Nerve Software", base: "doom2.wad"),
         "sigil.wad": .init(title: "Sigil", year: "2019", maker: "John Romero", base: "doom.wad"),
     ]
+    /// Dossiers de jeux id Tech 2 et 3 (Quake II, Quake III, Return to Castle
+    /// Wolfenstein…) : leurs .pk3 ne sont pas des mods de Doom.
+    fileprivate static let foreignDirs: Set<String> = ["baseq2", "baseq3", "missionpack", "baseoa", "main", "etmain"]
+
+    /// pak0.pk3, mp_pak1.pk3, sp_pak2.pk3 : archives id Tech 3, jamais des mods de Doom.
+    fileprivate static func isIdTech3Archive(_ lower: String) -> Bool {
+        lower.range(of: #"^(mp_|sp_)?pak\d+\.pk3$"#, options: .regularExpression) != nil
+    }
+
     /// Fichiers chargés d'office par le moteur, à ne pas lister.
     fileprivate static let doomIgnored: Set<String> = ["voices.wad", "uzdoom.pk3", "gzdoom.pk3", "lights.pk3", "brightmaps.pk3", "game_support.pk3", "game_widescreen_gfx.pk3"]
 
@@ -154,6 +163,7 @@ enum EngineCatalog {
                 let isDir = (try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) ?? false
 
                 if isDir {
+                    if foreignDirs.contains(lower) { e.skipDescendants(); continue }
                     // Quake : un dossier id1 qui contient pak0.pak.
                     if lower == "id1", let pak = caseInsensitiveChild(url, "pak0.pak") {
                         _ = pak
@@ -165,7 +175,7 @@ enum EngineCatalog {
 
                 switch ext {
                 case "wad", "pk3", "pk7", "ipk3":
-                    if doomIgnored.contains(lower) { continue }
+                    if doomIgnored.contains(lower) || isIdTech3Archive(lower) { continue }
                     doomFiles[lower] = doomFiles[lower] ?? url.path
                     if let k = doom[lower], k.base == nil {
                         add(doomGame(url, k))

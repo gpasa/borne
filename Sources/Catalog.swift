@@ -283,6 +283,7 @@ final class Catalog {
 
     /// Cherche Doom, Quake et Wolfenstein 3D dans les dossiers de jeux PC (et Freedoom, fourni).
     func scanEngines() {
+        updateWatcher()
         engineTask?.cancel()
         let folders = EngineCatalog.bundledFolders + Prefs.engineFolders
         engineTask = Task {
@@ -384,8 +385,33 @@ final class Catalog {
         scanEngines()
     }
 
+    // MARK: Rafraîchissement automatique
+
+    @ObservationIgnored private var watcher: FolderWatcher?
+    @ObservationIgnored private var pendingRescan: Task<Void, Never>?
+
+    /// Surveille les dossiers ROM et de jeux PC ; recréé seulement si la liste change.
+    private func updateWatcher() {
+        let paths = Array(Set(Prefs.searchROMPaths + Prefs.engineFolders)).sorted()
+        guard watcher?.paths != paths else { return }
+        watcher = FolderWatcher(paths: paths) { [weak self] in
+            Task { @MainActor in self?.scheduleRescan() }
+        }
+    }
+
+    /// Une copie déclenche une rafale d'événements : on attend qu'elle se calme.
+    private func scheduleRescan() {
+        pendingRescan?.cancel()
+        pendingRescan = Task {
+            try? await Task.sleep(for: .seconds(2))
+            guard !Task.isCancelled else { return }
+            rescanAll()
+        }
+    }
+
     /// Relit le contenu des dossiers ROM, sans bloquer l'interface.
     func scanROMs() {
+        updateWatcher()
         scanTask?.cancel()
         let paths = Prefs.searchROMPaths
         scanTask = Task {

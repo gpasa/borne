@@ -9,6 +9,7 @@ struct SettingsView: View {
     @AppStorage(Prefs.artworkPathKey) private var artworkPath = ""
     @AppStorage(Prefs.userDataPathKey) private var userDataPath = ""
     @AppStorage(Prefs.windowedKey) private var windowed = true
+    @AppStorage(Prefs.mameVideoKey) private var mameVideo = "bgfx"
     @AppStorage(Prefs.extraArgsKey) private var extraArgs = ""
     @AppStorage(Prefs.engineFoldersKey) private var engineFolders = ""
     @AppStorage("vulkanDriver") private var vulkanDriver = "auto"
@@ -113,6 +114,10 @@ struct SettingsView: View {
 
             Section("Lancement") {
                 Toggle("Dans une fenêtre", isOn: $windowed)
+                Picker("Rendu de MAME", selection: $mameVideo) {
+                    Text("Metal (bgfx)").tag("bgfx")
+                    Text("OpenGL").tag("opengl")
+                }
                 TextField("Options en plus", text: $extraArgs, prompt: Text("-bgfx_screen_chains crt-geom"))
             }
         }

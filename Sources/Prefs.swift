@@ -192,11 +192,14 @@ enum Prefs {
         return args
     }
 
-    /// Rendu et touches. bgfx (le défaut de MAME) décale l'image du jeu dans
-    /// son décor quand la fenêtre change de taille sur un écran Retina ;
-    /// OpenGL reste juste. Les options en plus passent après et l'emportent.
+    static let mameVideoKey = "mameVideo"
+
+    /// Rendu et touches. bgfx dessine en Metal, la voie durable sur Mac
+    /// (OpenGL est déprécié par Apple) ; OpenGL reste proposé dans les réglages.
+    /// Les options en plus passent après et l'emportent.
     static var displayArguments: [String] {
-        var args = ["-video", "opengl"]
+        let video = UserDefaults.standard.string(forKey: mameVideoKey) ?? "bgfx"
+        var args = ["-video", video]
         let ctrlr = mameDirectory.appendingPathComponent("ctrlr/borne_mac.cfg")
         if FileManager.default.fileExists(atPath: ctrlr.path) { args += ["-ctrlr", "borne_mac"] }
         return args

@@ -307,6 +307,13 @@ extension Engine {
             let extra = user.appendingPathComponent("borne.cfg")
             // Tir aussi sur X : Ctrl+flèche appartient à macOS.
             try "bind x +attack\n".write(to: extra, atomically: true, encoding: .utf8)
+            // Premier lancement : Vulkan (vers Metal) plutôt qu'OpenGL, déprécié par
+            // Apple. Le moteur lit ce choix avant la ligne de commande ; ensuite,
+            // celui fait dans son menu est respecté.
+            let ini = user.appendingPathComponent("\(engineName.lowercased()).ini")
+            if !FileManager.default.fileExists(atPath: ini.path) {
+                try "[GlobalSettings]\nvid_preferbackend=1\n".write(to: ini, atomically: true, encoding: .utf8)
+            }
             args = ["-iwad", data]
             if let pwad = m.modArg { args += ["-file", pwad] }
             args += ["-config", user.appendingPathComponent("\(engineName.lowercased()).ini").path,

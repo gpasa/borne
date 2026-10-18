@@ -24,13 +24,17 @@ Double-click a game and play.
 - **ROM audit** in the background (`-verifyroms`), interruptible, results shown as they come.
 - **Mac keyboard layout**: player 1 buttons on `Z X C V B N` instead of `Ctrl`
   (macOS keeps `Ctrl`+arrows for Mission Control), and a key reminder when a game starts.
-- **MAME included**: version 0.289, native Apple silicon build, nothing else to install.
+- **MAME included**: version 0.289, native on Apple silicon and Intel, nothing else to install.
 
 ## Download
 
-Get the latest signed and notarized build from the
-[Releases](https://github.com/gpasa/borne/releases/latest) page.
-Requires macOS 14 or later on Apple silicon.
+Signed and notarized builds, macOS 14 or later:
+
+- **Apple silicon** (M1 and later): [Borne-AppleSilicon.zip](https://github.com/gpasa/borne/releases/latest/download/Borne-AppleSilicon.zip)
+- **Intel**: [Borne-Intel.zip](https://github.com/gpasa/borne/releases/latest/download/Borne-Intel.zip)
+
+Not sure? Apple menu → About This Mac: *Chip Apple M…* means Apple silicon, *Processor Intel* means Intel.
+All versions are on the [Releases](https://github.com/gpasa/borne/releases) page.
 
 Borne does **not** include any ROMs. Use only games you are entitled to.
 
@@ -44,11 +48,15 @@ Requirements: Xcode, [XcodeGen](https://github.com/yonaskolb/XcodeGen), the
 git clone --depth 1 --branch mame0289 https://github.com/mamedev/mame.git ../MAME
 make -C ../MAME -j$(sysctl -n hw.ncpu)
 
+# Optional, for the Intel version: MAME for x86_64, built under Rosetta
+git clone --depth 1 --branch mame0289 https://github.com/mamedev/mame.git ../MAME-x64
+arch -x86_64 make -C ../MAME-x64 -j$(sysctl -n hw.ncpu)
+
 # Borne, with MAME bundled, installed in ~/Applications
 scripts/deploy.sh
 ```
 
-`scripts/release.sh` signs with a Developer ID, notarizes and zips the app.
+`scripts/release.sh` builds both versions, signs them with a Developer ID, notarizes and zips them.
 
 ## License
 

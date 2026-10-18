@@ -1,10 +1,16 @@
 #!/bin/zsh
-# Assemble Borne.app (Release) avec mame embarqué : binaire allégé, SDL3,
+# Assemble Borne.app (Release) pour une architecture, avec mame embarqué : binaire allégé, SDL3,
 # fichiers de support et licences. Signature ad hoc ; release.sh re-signe.
 # Les ROM, samples, artwork et images restent sur le disque des jeux.
 set -euo pipefail
 cd "${0:A:h}/.."
-MAME=${MAME_DIR:-../MAME}
+# Deux versions séparées : ARCH=arm64 (Apple silicon) ou ARCH=x86_64 (Intel).
+ARCH=${ARCH:-$(uname -m)}
+case $ARCH in
+    arm64)  MAME=${MAME_DIR:-../MAME} ;;
+    x86_64) MAME=${MAME_X64_DIR:-../MAME-x64} ;;   # compilé sous Rosetta
+    *) echo "ARCH inconnue : $ARCH"; exit 1 ;;
+esac
 SDL3=/Library/Frameworks/SDL3.xcframework/macos-arm64_x86_64/SDL3.framework
 APP=build/Build/Products/Release/Borne.app
 
@@ -12,9 +18,11 @@ APP=build/Build/Products/Release/Borne.app
 
 xcodegen generate -q
 xcodebuild -project Borne.xcodeproj -scheme Borne -configuration Release \
-    -derivedDataPath build -quiet build
+    -destination 'generic/platform=macOS' -derivedDataPath build -quiet \
+    ARCHS=$ARCH ONLY_ACTIVE_ARCH=NO build
 
 # Binaire : allégé, rpath vers Contents/Frameworks au lieu de /Library.
+[[ $(lipo -archs $MAME/mame) == $ARCH ]] || { echo "$MAME/mame n'est pas en $ARCH"; exit 1; }
 strip -x -o $APP/Contents/MacOS/mame $MAME/mame
 for old in $(otool -l $APP/Contents/MacOS/mame | awk '/LC_RPATH/{getline; getline; print $2}'); do
     install_name_tool -delete_rpath $old $APP/Contents/MacOS/mame
@@ -27,6 +35,9 @@ FW=$APP/Contents/Frameworks/SDL3.framework
 rm -rf $FW && mkdir -p $FW/Versions
 ditto $SDL3/Versions/A $FW/Versions/A
 rm -rf $FW/Versions/A/Headers
+# Le framework de SDL est universel : on ne garde que l'architecture visée.
+lipo -thin $ARCH $FW/Versions/A/SDL3 -output $FW/Versions/A/SDL3.thin
+mv $FW/Versions/A/SDL3.thin $FW/Versions/A/SDL3
 ln -s A $FW/Versions/Current
 ln -s Versions/Current/SDL3 $FW/SDL3
 ln -s Versions/Current/Resources $FW/Resources
@@ -53,4 +64,4 @@ cp $SDL3/Resources/LICENSE.txt $L/SDL3/LICENSE.txt
 codesign --force --sign - $FW
 codesign --force --sign - $APP/Contents/MacOS/mame
 codesign --force --sign - $APP
-echo "Assemblé : $APP"
+echo "Assemblé ($ARCH) : $APP"

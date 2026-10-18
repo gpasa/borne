@@ -55,6 +55,9 @@ figcaption { font-size: .88rem; color: var(--muted); text-align: center; margin-
   color: #fff; font-weight: 600; text-decoration: none;
 }
 .cta:hover { filter: brightness(1.08); }
+.cta.secondaire { background: var(--carte); color: var(--fg); border: 1px solid var(--bord); }
+.telecharger { margin: 1.6rem 0; }
+.telecharger .actions { margin: 0 0 .5rem; }
 .lien { color: var(--accent); font-weight: 500; }
 .meta { color: var(--muted); font-size: .9rem; }
 

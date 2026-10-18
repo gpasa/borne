@@ -13,15 +13,33 @@ struct SettingsView: View {
     @AppStorage(Prefs.extraArgsKey) private var extraArgs = ""
     @AppStorage(Prefs.engineFoldersKey) private var engineFolders = ""
     @AppStorage("vulkanDriver") private var vulkanDriver = "auto"
+    @AppStorage("settingsTab") private var tab = "general"
 
     var body: some View {
-        Form {
+        // Onglets à hauteur fixe : chaque formulaire défile s'il est trop long,
+        // la fenêtre ne dépasse jamais l'écran.
+        TabView(selection: $tab) {
+            Form {
             Section("MAME") {
                 pathRow("Exécutable", $mamePath, placeholder: Prefs.mameURLPlaceholder, directory: false) {
                     Task { await catalog.load() }
                 }
             }
 
+            Section("Lancement") {
+                Toggle("Dans une fenêtre", isOn: $windowed)
+                Picker("Rendu de MAME", selection: $mameVideo) {
+                    Text("Metal (bgfx)").tag("bgfx")
+                    Text("OpenGL").tag("opengl")
+                }
+                TextField("Options en plus", text: $extraArgs, prompt: Text("-bgfx_screen_chains crt-geom"))
+            }
+            }
+            .formStyle(.grouped)
+            .tabItem { Label("Général", systemImage: "gearshape") }
+            .tag("general")
+
+            Form {
             Section {
                 HStack {
                     Text(mediaPath.isEmpty ? "Pas encore choisi" : mediaPath)
@@ -68,13 +86,12 @@ struct SettingsView: View {
                     .font(.caption).foregroundStyle(.secondary)
             }
 
-            Section("Données de jeu") {
-                pathRow("Dossier", $userDataPath, placeholder: Prefs.defaultUserDataPath, directory: true) {}
-                Text("Sauvegardes, réglages par jeu, scores, captures et enregistrements.")
-                    .font(.caption).foregroundStyle(.secondary)
-                Button("Afficher dans le Finder") { catalog.revealUserData() }
             }
+            .formStyle(.grouped)
+            .tabItem { Label("Arcade", systemImage: "arcade.stick.console") }
+            .tag("arcade")
 
+            Form {
             Section {
                 ForEach(Prefs.engineFolders, id: \.self) { path in
                     HStack {
@@ -112,18 +129,25 @@ struct SettingsView: View {
                 Text("Dossiers lus seulement, sous-dossiers compris.")
             }
 
-            Section("Lancement") {
-                Toggle("Dans une fenêtre", isOn: $windowed)
-                Picker("Rendu de MAME", selection: $mameVideo) {
-                    Text("Metal (bgfx)").tag("bgfx")
-                    Text("OpenGL").tag("opengl")
-                }
-                TextField("Options en plus", text: $extraArgs, prompt: Text("-bgfx_screen_chains crt-geom"))
             }
+            .formStyle(.grouped)
+            .tabItem { Label("Jeux PC", systemImage: "desktopcomputer") }
+            .tag("pc")
+
+            Form {
+            Section("Données de jeu") {
+                pathRow("Dossier", $userDataPath, placeholder: Prefs.defaultUserDataPath, directory: true) {}
+                Text("Sauvegardes, réglages par jeu, scores, captures et enregistrements.")
+                    .font(.caption).foregroundStyle(.secondary)
+                Button("Afficher dans le Finder") { catalog.revealUserData() }
+            }
+
+            }
+            .formStyle(.grouped)
+            .tabItem { Label("Données", systemImage: "externaldrive") }
+            .tag("data")
         }
-        .formStyle(.grouped)
-        .frame(width: 600)
-        .fixedSize(horizontal: false, vertical: true)
+        .frame(width: 620, height: 480)
     }
 
     private struct EngineRow: View {

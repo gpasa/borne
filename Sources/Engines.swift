@@ -6,7 +6,7 @@ import Foundation
 /// où elles sont, en lecture seule ; chaque moteur écrit dans
 /// <dossier utilisateur>/engines/<moteur>.
 enum Engine: String, CaseIterable, Codable, Identifiable {
-    case doom, quake, wolf3d
+    case doom, quake, wolf3d, quake3
 
     var id: String { rawValue }
 
@@ -15,6 +15,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .doom: "Doom"
         case .quake: "Quake"
         case .wolf3d: "Wolfenstein 3D"
+        case .quake3: "Quake III Arena"
         }
     }
 
@@ -23,6 +24,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .doom: "flame"
         case .quake: "bolt"
         case .wolf3d: "shield.lefthalf.filled"
+        case .quake3: "scope"
         }
     }
 
@@ -41,6 +43,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
             : [res?.appendingPathComponent("GZDoom.app/Contents/MacOS/gzdoom")]
         case .quake: [Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("vkquake")]
         case .wolf3d: [res?.appendingPathComponent("ECWolf.app/Contents/MacOS/ecwolf")]
+        case .quake3: [res?.appendingPathComponent("Quake3e/quake3e")]
         }
         return candidates.compactMap { $0 }.first { fm.isExecutableFile(atPath: $0.path) }
     }
@@ -69,6 +72,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .doom: return bundledExecutable?.lastPathComponent == "gzdoom" ? "GZDoom" : "UZDoom"
         case .quake: return "vkQuake"
         case .wolf3d: return "ECWolf"
+        case .quake3: return "Quake3e"
         }
     }
 
@@ -129,6 +133,11 @@ enum EngineCatalog {
         "mg1": .init(title: "Quake: Dimension of the Machine", year: "2021", maker: "MachineGames"),
     ]
 
+    fileprivate static let quake3: [String: KnownGame] = [
+        "baseq3": .init(title: "Quake III Arena", year: "1999", maker: "id Software"),
+        "missionpack": .init(title: "Quake III: Team Arena", year: "2000", maker: "id Software"),
+    ]
+
     fileprivate static let wolf: [String: KnownGame] = [
         "wl1": .init(title: "Wolfenstein 3D (shareware)", year: "1992", maker: "id Software", players: 1),
         "wl3": .init(title: "Wolfenstein 3D (épisodes 1 à 3)", year: "1992", maker: "id Software", players: 1),
@@ -152,6 +161,8 @@ enum EngineCatalog {
         var pwads: [(URL, KnownGame?)] = []
         var quakeBase: String?                    // premier dossier de base Quake trouvé
         var quakeOrphans: [URL] = []              // extensions Quake rangées hors de leur base
+        var q3Base: String?
+        var q3Orphans: [URL] = []                 // Team Arena rangée hors de sa base
         let fm = FileManager.default
 
         func add(_ m: Machine) {
@@ -173,6 +184,17 @@ enum EngineCatalog {
                 let isDir = (try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) ?? false
 
                 if isDir {
+                    // Quake III : baseq3 avec pak0.pk3 ; Team Arena (missionpack) peut être ailleurs.
+                    if lower == "baseq3", caseInsensitiveChild(url, "pak0.pk3") != nil {
+                        let base = url.deletingLastPathComponent()
+                        q3Base = q3Base ?? base.path
+                        for game in quake3Games(in: base) { add(game) }
+                        e.skipDescendants(); continue
+                    }
+                    if lower == "missionpack", caseInsensitiveChild(url, "pak0.pk3") != nil {
+                        q3Orphans.append(url)
+                        e.skipDescendants(); continue
+                    }
                     if foreignDirs.contains(lower) { e.skipDescendants(); continue }
                     // Quake : un dossier id1 qui contient pak0.pak.
                     if lower == "id1", caseInsensitiveChild(url, "pak0.pak") != nil {
@@ -221,6 +243,15 @@ enum EngineCatalog {
                 m.modArg = lower
                 m.gamePath = dir.path
                 fillCommon(&m, players: k.players)
+                add(m)
+            }
+        }
+
+        // Team Arena rangée à part : rattachée à Quake III.
+        if let base = q3Base {
+            for dir in q3Orphans where !seen.contains("quake3:missionpack") {
+                var m = quake3Game(base: URL(fileURLWithPath: base), dir: "missionpack")
+                m.gamePath = dir.path
                 add(m)
             }
         }
@@ -306,6 +337,34 @@ enum EngineCatalog {
         return out
     }
 
+    private static func quake3Games(in base: URL) -> [Machine] {
+        let fm = FileManager.default
+        var out: [Machine] = []
+        for dir in (try? fm.contentsOfDirectory(atPath: base.path)) ?? [] {
+            let url = base.appendingPathComponent(dir)
+            var isDir: ObjCBool = false
+            guard fm.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue else { continue }
+            let items = ((try? fm.contentsOfDirectory(atPath: url.path)) ?? []).map { $0.lowercased() }
+            guard items.contains(where: { $0.hasSuffix(".pk3") }) else { continue }
+            out.append(quake3Game(base: base, dir: dir))
+        }
+        return out
+    }
+
+    private static func quake3Game(base: URL, dir: String) -> Machine {
+        let lower = dir.lowercased()
+        let k = quake3[lower] ?? KnownGame(title: "\(dir) (mod Quake III)", year: "", maker: "Mod pour Quake III")
+        var m = Machine(name: "quake3:\(lower)")
+        m.description = k.title
+        m.year = k.year
+        m.manufacturer = k.maker
+        m.engine = Engine.quake3.rawValue
+        m.dataPath = base.path
+        m.modArg = lower == "baseq3" ? nil : lower
+        fillCommon(&m, players: k.players)
+        return m
+    }
+
     private static func wolfGame(_ dir: URL, _ ext: String, _ k: KnownGame) -> Machine {
         var m = Machine(name: "wolf3d:\(ext)")
         m.description = k.title
@@ -331,6 +390,11 @@ enum EngineCatalog {
 }
 
 // MARK: - Lancement
+
+enum EngineLaunchError: Error {
+    /// Quake III sans le patch 1.32 : à télécharger après acceptation de la licence d'id.
+    case needsQuake3Patch
+}
 
 struct EngineLaunch {
     let executable: URL
@@ -392,6 +456,24 @@ extension Engine {
             args = ["-basedir", data, "-userdir", user.path]
             if let game = m.modArg { args += ["-game", game] }
             args += [Prefs.windowed ? "-window" : "-fullscreen", "+exec", "borne.cfg"]
+            env.merge(Self.vulkanEnvironment()) { _, new in new }
+
+        case .quake3:
+            let fm = FileManager.default
+            let baseq3 = user.appendingPathComponent("baseq3")
+            try fm.createDirectory(at: baseq3, withIntermediateDirectories: true)
+            try "bind x +attack\n".write(to: baseq3.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
+            // Vieux CD : sans le patch 1.32 (pak8.pk3), les moteurs modernes refusent de démarrer.
+            if Quake3Patch.isNeeded(base: URL(fileURLWithPath: data)) {
+                guard Quake3Patch.isInstalled else { throw EngineLaunchError.needsQuake3Patch }
+                try Quake3Patch.link(into: user)
+            }
+            if let game = m.modArg, let src = m.gamePath {
+                try Self.linkQuakeGame(name: game, from: URL(fileURLWithPath: src), into: user)
+            }
+            args = ["+set", "fs_basepath", data, "+set", "fs_homepath", user.path]
+            if let game = m.modArg { args += ["+set", "fs_game", game] }
+            args += ["+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
             env.merge(Self.vulkanEnvironment()) { _, new in new }
 
         case .wolf3d:

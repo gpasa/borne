@@ -31,6 +31,7 @@ for ARCH in arm64 x86_64; do
     sign $FW
     for f in $APP/Contents/Frameworks/*.dylib(N); do sign $f; done
     [[ -x $APP/Contents/MacOS/vkquake ]] && sign $APP/Contents/MacOS/vkquake
+    sign_inside $APP/Contents/Resources/Engines/Quake3e
     # Moteurs embarqués : UZDoom/GZDoom compilent leurs scripts à la volée (JIT), comme MAME.
     for a in $APP/Contents/Resources/Engines/*.app(N); do
         ent=()

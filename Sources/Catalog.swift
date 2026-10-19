@@ -165,6 +165,16 @@ final class Catalog {
     /// Dossiers ROM du disque des jeux introuvables (disque débranché ?).
     private(set) var missingROMPaths: [String] = []
     var notice: (title: String, message: String)?
+    /// Licence à accepter avant un téléchargement (patch Quake III).
+    var licenseRequest: LicenseRequest?
+
+    struct LicenseRequest: Identifiable {
+        let id = UUID()
+        let title: String
+        let message: String
+        let url: URL
+        let accept: () -> Void
+    }
     /// Change quand des réglages de jeu sont effacés, pour rafraîchir la fiche.
     private(set) var settingsGeneration = 0
     /// Ce qui a été compris du dernier dossier des jeux choisi.
@@ -631,6 +641,22 @@ final class Catalog {
         }
     }
 
+    /// Télécharge le patch 1.32 de Quake III (licence acceptée), puis lance le jeu demandé.
+    func downloadQuake3Patch(thenLaunch name: String?) {
+        startJob("Téléchargement du patch Quake III…") { [weak self] in
+            guard let self else { return }
+            do {
+                try await Quake3Patch.install { p in
+                    Task { @MainActor in self.setProgress("Téléchargement du patch Quake III…", p) }
+                }
+                if let name { launch(name) }
+            } catch is CancellationError {
+            } catch {
+                notice = ("Le patch n'a pas pu être installé", error.localizedDescription)
+            }
+        }
+    }
+
     func uninstall(_ name: String) {
         let root = Prefs.userDataRoot
         let manifest = installed
@@ -655,7 +681,17 @@ final class Catalog {
         let p = Process()
         if let engine = machines[name]?.engineKind, let m = machines[name] {
             do {
-                let l = try engine.launch(for: m)
+                let l: EngineLaunch
+                do {
+                    l = try engine.launch(for: m)
+                } catch EngineLaunchError.needsQuake3Patch {
+                    licenseRequest = LicenseRequest(
+                        title: "Patch 1.32 de Quake III",
+                        message: "Votre copie de Quake III date d'avant la mise à jour 1.32, dont les moteurs modernes ont besoin. Borne peut télécharger les fichiers officiels d'id Software (\(Quake3Patch.size), depuis ioquake3). Ils sont soumis à la licence d'id Software, que vous pouvez lire avant d'accepter.",
+                        url: Quake3Patch.licenseURL,
+                        accept: { [weak self] in self?.downloadQuake3Patch(thenLaunch: name) })
+                    return
+                }
                 p.executableURL = l.executable
                 p.arguments = l.arguments
                 p.currentDirectoryURL = l.directory

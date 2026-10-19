@@ -40,6 +40,17 @@ struct ContentView: View {
         } message: {
             Text(catalog.notice?.message ?? "")
         }
+        .alert(catalog.licenseRequest?.title ?? "",
+               isPresented: Binding(get: { catalog.licenseRequest != nil },
+                                    set: { if !$0 { catalog.licenseRequest = nil } }),
+               presenting: catalog.licenseRequest) { r in
+            Button("Lire la licence") { NSWorkspace.shared.open(r.url) }
+            Button("J'accepte et je télécharge") { r.accept() }
+                .keyboardShortcut(.defaultAction)
+            Button("Annuler", role: .cancel) {}
+        } message: { r in
+            Text(r.message)
+        }
         .alert(catalog.proposal?.title ?? "",
                isPresented: Binding(get: { catalog.proposal != nil },
                                     set: { if !$0 { catalog.proposal = nil } }),
@@ -214,6 +225,7 @@ struct GameTable: View {
         case .doom: "Borne cherche les fichiers .wad et .pk3 (doom2.wad, heretic.wad…) dans les dossiers que vous lui indiquez, sous-dossiers compris."
         case .quake: "Borne cherche un dossier id1 contenant pak0.pak, et les extensions ou mods à côté de lui."
         case .wolf3d: "Borne cherche les fichiers VSWAP.WL6, VSWAP.SOD… de Wolfenstein 3D et Spear of Destiny."
+        case .quake3: "Borne cherche un dossier baseq3 contenant pak0.pk3, et Team Arena (missionpack) où qu'elle soit."
         }
     }
 

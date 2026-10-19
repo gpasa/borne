@@ -227,7 +227,7 @@ struct GameTable: View {
         case .wolf3d: "Borne cherche les fichiers VSWAP.WL6, VSWAP.SOD… de Wolfenstein 3D et Spear of Destiny."
         case .build: "Borne cherche les fichiers principaux des jeux Build : DUKE3D.GRP, BLOOD.RFF, SW.GRP, REDNECK.GRP, STUFF.DAT (Exhumed), NAM.GRP, WW2GI.GRP. Le moteur Raze se télécharge au premier lancement."
         case .quake4: "Borne cherche le dossier q4base de Quake 4 (pak001.pk4…). Le moteur openQ4 se télécharge au premier lancement."
-        case .rtcw: "Borne cherche le dossier Main de Return to Castle Wolfenstein (pak0.pk3, sp_pak1.pk3…), par exemple copié d'une version GOG ou Steam."
+        case .rtcw: "Borne cherche le dossier de Return to Castle Wolfenstein qui contient pak0.pk3 et sp_pak1.pk3 (Main d'une version GOG ou Steam, par exemple). Seuls les fichiers du jeu d'origine sont chargés."
         case .quake3: "Borne cherche un dossier baseq3 contenant pak0.pk3, et Team Arena (missionpack) où qu'elle soit."
         }
     }

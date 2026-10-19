@@ -208,9 +208,10 @@ enum EngineCatalog {
                         add(quake4Game(base: url.deletingLastPathComponent()))
                         e.skipDescendants(); continue
                     }
-                    // RTCW : dossier Main avec sp_pak1.pk3 (solo).
-                    if lower == "main", caseInsensitiveChild(url, "sp_pak1.pk3") != nil {
-                        add(rtcwGame(base: url.deletingLastPathComponent()))
+                    // RTCW : dossier avec pak0.pk3 et sp_pak1.pk3 (solo), quel que soit
+                    // son nom (Main d'origine, « rtcw » d'une installation RealRTCW…).
+                    if caseInsensitiveChild(url, "sp_pak1.pk3") != nil, caseInsensitiveChild(url, "pak0.pk3") != nil {
+                        add(rtcwGame(gameDir: url))
                         e.skipDescendants(); continue
                     }
                     if lower == "missionpack", caseInsensitiveChild(url, "pak0.pk3") != nil {
@@ -424,13 +425,13 @@ enum EngineCatalog {
         return m
     }
 
-    private static func rtcwGame(base: URL) -> Machine {
+    private static func rtcwGame(gameDir: URL) -> Machine {
         var m = Machine(name: "rtcw:sp")
         m.description = "Return to Castle Wolfenstein"
         m.year = "2001"
         m.manufacturer = "Gray Matter / id Software"
         m.engine = Engine.rtcw.rawValue
-        m.dataPath = base.path
+        m.dataPath = gameDir.path
         fillCommon(&m, players: 1)
         return m
     }
@@ -588,7 +589,8 @@ extension Engine {
             let main = user.appendingPathComponent("main")
             try FileManager.default.createDirectory(at: main, withIntermediateDirectories: true)
             try "bind x +attack\n".write(to: main.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
-            args = ["+set", "fs_basepath", data, "+set", "fs_homepath", user.path,
+            let base = try Self.rtcwBase(gameDir: URL(fileURLWithPath: data), in: user)
+            args = ["+set", "fs_basepath", base.path, "+set", "fs_homepath", user.path,
                     "+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
 
         case .wolf3d:
@@ -626,6 +628,25 @@ extension Engine {
 
     /// Chargeur Vulkan embarqué et pilote : KosmicKrisp sur Apple silicon avec
     /// macOS 26 s'il est fourni, sinon MoltenVK.
+    /// Base de RTCW refaite à chaque lancement dans le dossier utilisateur :
+    /// base/main avec des liens vers les seuls fichiers du jeu d'origine. Le
+    /// dossier du jeu peut porter un autre nom que Main et contenir les fichiers
+    /// d'un mod à moteur propre (RealRTCW : z_realrtcw_*.pk3, DLL Windows), que
+    /// iortcw ne doit pas charger.
+    static func rtcwBase(gameDir: URL, in user: URL) throws -> URL {
+        let fm = FileManager.default
+        let base = user.appendingPathComponent("base")
+        let main = base.appendingPathComponent("main")
+        try? fm.removeItem(at: base)
+        try fm.createDirectory(at: main, withIntermediateDirectories: true)
+        let retail: Set<String> = ["pak0.pk3", "sp_pak1.pk3", "sp_pak2.pk3", "sp_pak3.pk3", "sp_pak4.pk3"]
+        for file in try fm.contentsOfDirectory(atPath: gameDir.path) where retail.contains(file.lowercased()) {
+            try fm.createSymbolicLink(at: main.appendingPathComponent(file.lowercased()),
+                                      withDestinationURL: gameDir.appendingPathComponent(file))
+        }
+        return base
+    }
+
     static func vulkanEnvironment() -> [String: String] {
         guard let frameworks = Bundle.main.privateFrameworksURL,
               let res = Bundle.main.resourceURL?.appendingPathComponent("vulkan") else { return [:] }

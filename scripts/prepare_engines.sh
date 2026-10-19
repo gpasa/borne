@@ -138,6 +138,9 @@ for arch in arm64 x86_64; do
     unzip -q -o -j $D/quake3e/quake3e-macos-$q3arch.zip "quake3e-vulkan.$q3arch" libSDL2-2.0.0.dylib -d $P/Engines/Quake3e
     mv $P/Engines/Quake3e/quake3e-vulkan.$q3arch $P/Engines/Quake3e/quake3e
     chmod +x $P/Engines/Quake3e/quake3e
+    # La SDL2 livrée avec iortcw date du SDK 10.7 : la notarisation la refuse.
+    # Celle de Quake3e (2.24, universelle) la remplace, compatible.
+    cp $P/Engines/Quake3e/libSDL2-2.0.0.dylib $P/Engines/iortcw.app/Contents/MacOS/libSDL2-2.0.0.dylib
     cp $E/build/vkquake-$arch/vkquake $P/MacOS/vkquake
     strip -x $P/MacOS/vkquake
     lipo -thin $arch $E/deps/vulkan/lib/libvulkan.1.dylib -output $P/Frameworks/libvulkan.1.dylib

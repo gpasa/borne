@@ -33,12 +33,20 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         let fm = FileManager.default
         let res = Bundle.main.resourceURL?.appendingPathComponent("Engines")
         let candidates: [URL?] = switch self {
-        case .doom: [res?.appendingPathComponent("UZDoom.app/Contents/MacOS/uzdoom"),
-                     res?.appendingPathComponent("GZDoom.app/Contents/MacOS/gzdoom")]
+        // UZDoom (corrigé, MoltenVK récent) demande macOS 26 : ses bibliothèques
+        // Homebrew l'exigent. Avant, GZDoom 4.14.2, autonome dès macOS 10.15.
+        case .doom: Self.uzdoomAvailable
+            ? [res?.appendingPathComponent("UZDoom.app/Contents/MacOS/uzdoom"),
+               res?.appendingPathComponent("GZDoom.app/Contents/MacOS/gzdoom")]
+            : [res?.appendingPathComponent("GZDoom.app/Contents/MacOS/gzdoom")]
         case .quake: [Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("vkquake")]
         case .wolf3d: [res?.appendingPathComponent("ECWolf.app/Contents/MacOS/ecwolf")]
         }
         return candidates.compactMap { $0 }.first { fm.isExecutableFile(atPath: $0.path) }
+    }
+
+    static var uzdoomAvailable: Bool {
+        ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 26, minorVersion: 0, patchVersion: 0))
     }
 
     var prefKey: String { "enginePath.\(rawValue)" }

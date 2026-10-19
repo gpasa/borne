@@ -1,0 +1,62 @@
+diff --git a/src/common/rendering/vulkan/textures/vk_renderbuffers.cpp b/src/common/rendering/vulkan/textures/vk_renderbuffers.cpp
+index c379ee5..692961e 100644
+--- a/src/common/rendering/vulkan/textures/vk_renderbuffers.cpp
++++ b/src/common/rendering/vulkan/textures/vk_renderbuffers.cpp
+@@ -115,6 +115,30 @@ void VkRenderBuffers::CreatePipelineDepthStencil(int width, int height)
+ 		.Create(fb->device.get());
+ }
+ 
++// Freshly created color images have undefined contents. The 2D pass opens them
++// with LOAD_OP_LOAD and blends on top; if the memory holds NaNs (uninitialized
++// half floats), blending propagates them forever (NaN * 0 = NaN) and the picture
++// stays corrupted (seen as a green image with MoltenVK >= 1.2.7 on Apple silicon).
++// Clear them to zero right after creation.
++static void ClearNewColorImages(VulkanRenderDevice* fb, std::initializer_list<VkTextureImage*> images)
++{
++	auto cmd = fb->GetCommands()->GetDrawCommands();
++	VkImageTransition toTransfer;
++	for (VkTextureImage* image : images)
++		toTransfer.AddImage(image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, true);
++	toTransfer.Execute(cmd);
++
++	VkClearColorValue zero = {};
++	VkImageSubresourceRange range = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
++	for (VkTextureImage* image : images)
++		cmd->clearColorImage(image->Image->image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &zero, 1, &range);
++
++	VkImageTransition toAttachment;
++	for (VkTextureImage* image : images)
++		toAttachment.AddImage(image, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, false);
++	toAttachment.Execute(cmd);
++}
++
+ void VkRenderBuffers::CreatePipeline(int width, int height)
+ {
+ 	for (int i = 0; i < NumPipelineImages; i++)
+@@ -141,9 +165,11 @@ void VkRenderBuffers::CreatePipeline(int width, int height)
+ 			.DebugName("VkRenderBuffers.PipelineView")
+ 			.Create(fb->device.get());
+ 
+-		barrier.AddImage(&PipelineImage[i], VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true);
+ 	}
+ 	barrier.Execute(fb->GetCommands()->GetDrawCommands());
++
++	for (int i = 0; i < NumPipelineImages; i++)
++		ClearNewColorImages(fb, { &PipelineImage[i] });
+ }
+ 
+ void VkRenderBuffers::CreateScene(int width, int height, VkSampleCountFlagBits samples)
+@@ -159,11 +185,10 @@ void VkRenderBuffers::CreateScene(int width, int height, VkSampleCountFlagBits s
+ 	CreateSceneFog(width, height, samples);
+ 
+ 	VkImageTransition()
+-		.AddImage(&SceneColor, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true)
+ 		.AddImage(&SceneDepthStencil, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, true)
+-		.AddImage(&SceneNormal, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true)
+-		.AddImage(&SceneFog, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, true)
+ 		.Execute(fb->GetCommands()->GetDrawCommands());
++
++	ClearNewColorImages(fb, { &SceneColor, &SceneNormal, &SceneFog });
+ }
+ 
+ void VkRenderBuffers::CreateSceneColor(int width, int height, VkSampleCountFlagBits samples)

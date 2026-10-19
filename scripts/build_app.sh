@@ -57,7 +57,7 @@ cp Resources/ctrlr/borne_mac.cfg $R/ctrlr/
 PAYLOAD=${ENGINES_DIR:-../Engines}/payload/$ARCH
 # Le dossier de compilation sert aux deux architectures : on repart de zéro.
 rm -rf $APP/Contents/Resources/{Engines,vulkan,freedoom,Licenses-engines} $APP/Contents/MacOS/vkquake \
-    $APP/Contents/Frameworks/{libvulkan.1.dylib,libMoltenVK.dylib,libvulkan_kosmickrisp.dylib}
+    $APP/Contents/Frameworks/{libvulkan.1.dylib,libMoltenVK.dylib,libvulkan_kosmickrisp.dylib,libSPIRV-Tools.dylib}
 if [[ -d $PAYLOAD ]]; then
     ditto $PAYLOAD/Engines $APP/Contents/Resources/Engines
     cp $PAYLOAD/MacOS/vkquake $APP/Contents/MacOS/vkquake

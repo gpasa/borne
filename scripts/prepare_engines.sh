@@ -11,7 +11,8 @@
 #               leur empreinte (l'étiquette « latest » de Quake3e est réécrite)
 #   Quake       vkQuake 1.37.0 — compilé ici, corrigé (engines/patches) pour passer
 #               par le chargeur Vulkan ; pilotes MoltenVK et, s'il est là, KosmicKrisp
-#   (Freedoom se télécharge depuis Borne, sur demande.)
+#   KosmicKrisp Mesa 26.2.5 — compilé ici (build_kosmickrisp.sh), Apple silicon
+#   (Freedoom, le patch de Quake III, openQ4 et Raze se téléchargent depuis Borne, sur demande.)
 #
 # Les téléchargements sont refaits seulement s'ils manquent.
 set -euo pipefail
@@ -115,9 +116,9 @@ EOF
     fi
 done
 
-# KosmicKrisp (Apple silicon, macOS 26) : pris dans le Vulkan SDK de LunarG s'il est installé.
-kk=(~/VulkanSDK/*/macOS/lib/libvulkan_kosmickrisp.dylib(N))
-KK=${kk[-1]:-}
+# KosmicKrisp (Apple silicon, macOS 26) : compilé depuis Mesa (build_kosmickrisp.sh).
+$BORNE/scripts/build_kosmickrisp.sh
+KK=$E/build/kosmickrisp
 
 # Charge utile par architecture.
 for arch in arm64 x86_64; do
@@ -147,7 +148,8 @@ for arch in arm64 x86_64; do
   "ICD": { "library_path": "../../Frameworks/libMoltenVK.dylib", "api_version": "1.4.0", "is_portability_driver": true } }
 EOF
     if [[ $arch == arm64 && -n $KK ]]; then
-        cp $KK $P/Frameworks/libvulkan_kosmickrisp.dylib
+        cp $KK/libvulkan_kosmickrisp.dylib $KK/libSPIRV-Tools.dylib $P/Frameworks/
+        mkdir -p $P/licenses/KosmicKrisp && cp $KK/license.rst $KK/SPIRV-Tools-LICENSE $P/licenses/KosmicKrisp/
         cat > $P/vulkan/kosmickrisp_icd.json <<'EOF'
 { "file_format_version": "1.0.1",
   "ICD": { "library_path": "../../Frameworks/libvulkan_kosmickrisp.dylib", "api_version": "1.4.0" } }

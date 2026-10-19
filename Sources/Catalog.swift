@@ -659,17 +659,20 @@ final class Catalog {
         }
     }
 
-    func downloadOpenQ4(thenLaunch name: String?) {
-        startJob("Téléchargement d'openQ4…") { [weak self] in
+    /// Moteur téléchargé sur demande (openQ4, Raze), puis lancement du jeu.
+    func downloadEngine(_ label: String, thenLaunch name: String?,
+                        install: @escaping (@escaping (Double) -> Void) async throws -> Void) {
+        let title = "Téléchargement de \(label)…"
+        startJob(title) { [weak self] in
             guard let self else { return }
             do {
-                try await OpenQ4.install { p in
-                    Task { @MainActor in self.setProgress("Téléchargement d'openQ4…", p) }
+                try await install { p in
+                    Task { @MainActor in self.setProgress(title, p) }
                 }
                 if let name { launch(name) }
             } catch is CancellationError {
             } catch {
-                notice = ("openQ4 n'a pas pu être installé", error.localizedDescription)
+                notice = ("\(label) n'a pas pu être installé", error.localizedDescription)
             }
         }
     }
@@ -715,7 +718,16 @@ final class Catalog {
                         url: OpenQ4.pageURL,
                         readLabel: "En savoir plus",
                         acceptLabel: "Télécharger openQ4",
-                        accept: { [weak self] in self?.downloadOpenQ4(thenLaunch: name) })
+                        accept: { [weak self] in self?.downloadEngine("openQ4", thenLaunch: name, install: OpenQ4.install) })
+                    return
+                } catch EngineLaunchError.needsRaze {
+                    licenseRequest = LicenseRequest(
+                        title: "Installer Raze ?",
+                        message: "\(m.description) se joue avec Raze \(Raze.version), le moteur de l'équipe de GZDoom pour les jeux Build (Duke Nukem 3D, Blood, Shadow Warrior…). Borne peut le télécharger depuis sa release officielle (\(Raze.size)) et l'installer dans votre dossier utilisateur.",
+                        url: Raze.pageURL,
+                        readLabel: "En savoir plus",
+                        acceptLabel: "Télécharger Raze",
+                        accept: { [weak self] in self?.downloadEngine("Raze", thenLaunch: name, install: Raze.install) })
                     return
                 }
                 p.executableURL = l.executable

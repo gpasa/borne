@@ -6,7 +6,7 @@ import Foundation
 /// où elles sont, en lecture seule ; chaque moteur écrit dans
 /// <dossier utilisateur>/engines/<moteur>.
 enum Engine: String, CaseIterable, Codable, Identifiable {
-    case doom, quake, wolf3d, quake3, rtcw, quake4
+    case doom, quake, wolf3d, quake3, rtcw, quake4, build
 
     var id: String { rawValue }
 
@@ -18,6 +18,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake3: "Quake III Arena"
         case .rtcw: "Return to Castle Wolfenstein"
         case .quake4: "Quake 4"
+        case .build: "Duke Nukem 3D, Blood…"
         }
     }
 
@@ -29,6 +30,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake3: "scope"
         case .rtcw: "building.columns"
         case .quake4: "hexagon"
+        case .build: "sunglasses"
         }
     }
 
@@ -50,6 +52,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake3: [res?.appendingPathComponent("Quake3e/quake3e")]
         case .rtcw: [res?.appendingPathComponent("iortcw.app/Contents/MacOS/iowolfsp")]
         case .quake4: [OpenQ4.executable]  // téléchargé sur demande
+        case .build: [Raze.executable]      // téléchargé sur demande
         }
         return candidates.compactMap { $0 }.first { fm.isExecutableFile(atPath: $0.path) }
     }
@@ -81,6 +84,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake3: return "Quake3e"
         case .rtcw: return "iortcw"
         case .quake4: return "openQ4"
+        case .build: return "Raze"
         }
     }
 
@@ -237,6 +241,9 @@ enum EngineCatalog {
                     } else {
                         pwads.append((url, doom[lower]))
                     }
+                case "grp", "rff", "dat":
+                    // Jeux Build (Raze) : le fichier principal désigne le jeu.
+                    if let k = build[lower] { add(buildGame(url, k)) }
                 default:
                     // Wolfenstein 3D : VSWAP.<ext> désigne le jeu.
                     if url.deletingPathExtension().lastPathComponent.lowercased() == "vswap", let k = wolf[ext] {
@@ -383,6 +390,29 @@ enum EngineCatalog {
         return m
     }
 
+    /// Fichiers principaux des jeux Build que Raze sait lancer.
+    fileprivate static let build: [String: KnownGame] = [
+        "duke3d.grp": .init(title: "Duke Nukem 3D", year: "1996", maker: "3D Realms"),
+        "blood.rff": .init(title: "Blood", year: "1997", maker: "Monolith Productions"),
+        "sw.grp": .init(title: "Shadow Warrior", year: "1997", maker: "3D Realms"),
+        "redneck.grp": .init(title: "Redneck Rampage", year: "1997", maker: "Xatrix Entertainment"),
+        "stuff.dat": .init(title: "Exhumed (PowerSlave)", year: "1996", maker: "Lobotomy Software"),
+        "nam.grp": .init(title: "NAM", year: "1998", maker: "TNT Team"),
+        "napalm.grp": .init(title: "Napalm", year: "1998", maker: "TNT Team"),
+        "ww2gi.grp": .init(title: "World War II GI", year: "1999", maker: "TNT Team"),
+    ]
+
+    private static func buildGame(_ url: URL, _ k: KnownGame) -> Machine {
+        var m = Machine(name: "build:\(url.lastPathComponent.lowercased())")
+        m.description = k.title
+        m.year = k.year
+        m.manufacturer = k.maker
+        m.engine = Engine.build.rawValue
+        m.dataPath = url.path
+        fillCommon(&m, players: 1)
+        return m
+    }
+
     private static func quake4Game(base: URL) -> Machine {
         var m = Machine(name: "quake4:base")
         m.description = "Quake 4"
@@ -436,6 +466,8 @@ enum EngineLaunchError: Error {
     case needsQuake3Patch
     /// Quake 4 : openQ4 à télécharger d'abord.
     case needsOpenQ4
+    /// Jeux Build : Raze à télécharger d'abord.
+    case needsRaze
 }
 
 struct EngineLaunch {
@@ -453,6 +485,7 @@ extension Engine {
             }
             throw EngineLaunchError.needsOpenQ4
         }
+        if self == .build && executable == nil { throw EngineLaunchError.needsRaze }
         guard let exe = executable else {
             throw MAMERunner.Failure(message: "Le moteur \(title) est introuvable. Indiquez-le dans les réglages.")
         }
@@ -479,9 +512,8 @@ extension Engine {
             // Tir aussi sur X : Ctrl+flèche appartient à macOS.
             try "bind x +attack\n".write(to: extra, atomically: true, encoding: .utf8)
             // Premier lancement : Vulkan (vers Metal) plutôt qu'OpenGL, déprécié par
-            // Apple. UZDoom embarque pour cela MoltenVK 1.2.6 (prepare_engines.sh) :
-            // à partir de la 1.2.7, son image Vulkan sort en vert. Le moteur lit ce
-            // choix avant la ligne de commande ; celui fait ensuite dans son menu est respecté.
+            // Apple. Le moteur lit ce choix avant la ligne de commande ; celui fait
+            // ensuite dans son menu est respecté.
             let ini = user.appendingPathComponent("\(engineName.lowercased()).ini")
             if !FileManager.default.fileExists(atPath: ini.path) {
                 try "[GlobalSettings]\nvid_preferbackend=1\n".write(to: ini, atomically: true, encoding: .utf8)
@@ -523,6 +555,19 @@ extension Engine {
             if let game = m.modArg { args += ["+set", "fs_game", game] }
             args += ["+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
             env.merge(Self.vulkanEnvironment()) { _, new in new }
+
+        case .build:
+            let stem = URL(fileURLWithPath: data).deletingPathExtension().lastPathComponent.lowercased()
+            let saves = user.appendingPathComponent("saves/\(stem)")
+            try FileManager.default.createDirectory(at: saves, withIntermediateDirectories: true)
+            // Premier lancement : sans le sélecteur de jeu, en Vulkan.
+            let ini = user.appendingPathComponent("raze.ini")
+            if !FileManager.default.fileExists(atPath: ini.path) {
+                try "[GlobalSettings]\nqueryiwad=false\nvid_preferbackend=1\n".write(to: ini, atomically: true, encoding: .utf8)
+            }
+            args = ["-iwad", data, "-config", ini.path, "-savedir", saves.path,
+                    "-shotdir", user.appendingPathComponent("shots").path,
+                    "+vid_fullscreen", Prefs.windowed ? "0" : "1"]
 
         case .quake4:
             let base = user.appendingPathComponent("baseoq4")

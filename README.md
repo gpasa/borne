@@ -25,11 +25,18 @@ Double-click a game and play.
 - **Mac keyboard layout**: player 1 buttons on `Z X C V B N` instead of `Ctrl`
   (macOS keeps `Ctrl`+arrows for Mission Control), and a key reminder when a game starts.
 - **MAME included**: version 0.289, native on Apple silicon and Intel, nothing else to install.
-- **Doom, Quake, Wolfenstein 3D**: point Borne at your game files and it finds them (Doom, Doom II,
-  Final Doom, Heretic, Hexen, Strife, Chex Quest, HacX and WAD mods; Quake, its mission packs and mods;
-  Wolfenstein 3D and Spear of Destiny). The engines are included: UZDoom (GZDoom on Intel), vkQuake
-  and ECWolf. [Freedoom](https://freedoom.github.io), a free Doom, downloads in one click from
-  Borne (official release, checksum verified). Saves and settings stay in the user folder, never next to your game files.
+- **PC games**: point Borne at your game files and it finds them, add-ons grouped with their game:
+  Doom, Doom II, Final Doom, Heretic, Hexen, Strife, Chex Quest, HacX and WAD mods; Quake, its mission
+  packs and mods; Quake III Arena and Team Arena; Return to Castle Wolfenstein; Wolfenstein 3D and
+  Spear of Destiny; Quake 4; Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage, Exhumed, NAM,
+  WW2GI. New files are picked up as soon as they appear in the folder.
+  Included engines: UZDoom (GZDoom on Intel and before macOS 26), vkQuake, Quake3e, iortcw, ECWolf.
+  Downloaded on request from their official releases, checksum verified: openQ4 (Quake 4, Apple
+  silicon), Raze (Build games), the Quake III 1.32 patch (after you accept id Software's license in
+  Borne) and [Freedoom](https://freedoom.github.io), a free Doom. Saves and settings stay in the user
+  folder, never next to your game files.
+- **Vulkan on Metal**: KosmicKrisp (Mesa) on Apple silicon with macOS 26, MoltenVK elsewhere;
+  switchable in Settings.
 
 ## Download
 
@@ -75,12 +82,17 @@ The app bundles third-party software under their own licenses, included in
   and other compatible licenses). The bundled binary is built, unmodified, from the
   [`mame0289` tag](https://github.com/mamedev/mame/tree/mame0289); the commands above rebuild it.
 - **SDL3** 3.2.28, zlib license.
-- **UZDoom** 5.0.3 (Apple silicon) / **GZDoom** 4.14.2 (Intel), official builds, GPL-3.0 and others
-  (license texts inside each engine).
+- **UZDoom** 5.0.3 (Apple silicon, macOS 26), GPL-3.0 and others, built here with a patch that
+  clears its render targets (`engines/patches`; without it, the image turns green with recent
+  MoltenVK). **GZDoom** 4.14.2 (Intel and older macOS), official build. License texts inside each engine.
 - **vkQuake** 1.37.0, GPL-2.0, built with a small patch (`engines/patches`) to go through the Vulkan
-  loader; **Vulkan-Loader**, Apache-2.0; **MoltenVK** 1.4.2, Apache-2.0.
+  loader; **Vulkan-Loader**, Apache-2.0; **MoltenVK** 1.4.2, Apache-2.0; **KosmicKrisp** from
+  Mesa 26.2.5, MIT, with **SPIRV-Tools**, Apache-2.0 (Apple silicon only).
+- **Quake3e**, official build, GPL-2.0. **iortcw**, built here, GPL-3.0 with additional terms.
 - **ECWolf** 1.4.2, official build, GPL (see its `copyright` file).
-- **Freedoom** 0.13.0, BSD-3-Clause, downloaded on request from its official release (not bundled).
+- Not bundled, downloaded on request from their official releases: **openQ4** 0.13.2 (GPL-3.0 and
+  the Quake 4 SDK license), **Raze** 1.11.0 (GPL-2.0 and the Build license), the **Quake III 1.32
+  patch** (id Software license), **Freedoom** 0.13.0 (BSD-3-Clause).
 
 `scripts/prepare_engines.sh` downloads, builds and arranges all engines.
 

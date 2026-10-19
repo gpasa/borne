@@ -31,8 +31,8 @@ Double-click a game and play.
   Spear of Destiny; Quake 4; Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage, Exhumed, NAM,
   WW2GI. New files are picked up as soon as they appear in the folder.
   Included engines: UZDoom (GZDoom on Intel and before macOS 26), vkQuake, Quake3e, iortcw, ECWolf.
-  Downloaded on request from their official releases, checksum verified: openQ4 (Quake 4, Apple
-  silicon), Raze (Build games), the Quake III 1.32 patch and the Quake 4 1.4.2 update (after you
+  Downloaded on request, checksum verified: openQ4 (Quake 4, Apple silicon), Raze (Build games,
+  built by Borne), the Quake III 1.32 patch and the Quake 4 1.4.2 update (after you
   accept id Software's license in Borne; original DVDs stop at pak012) and [Freedoom](https://freedoom.github.io), a free Doom. Saves and settings stay in the user
   folder, never next to your game files.
 - **Vulkan on Metal**: KosmicKrisp (Mesa) on Apple silicon with macOS 26, MoltenVK elsewhere;
@@ -84,14 +84,19 @@ The app bundles third-party software under their own licenses, included in
 - **SDL3** 3.2.28, zlib license.
 - **UZDoom** 5.0.3 (Apple silicon, macOS 26), GPL-3.0 and others, built here with a patch that
   clears its render targets (`engines/patches`; without it, the image turns green with recent
-  MoltenVK). **GZDoom** 4.14.2 (Intel and older macOS), official build. License texts inside each engine.
+  MoltenVK). **GZDoom** 4.14.2 (Intel and older macOS), built here. License texts inside each engine.
+  GZDoom and Raze are built with `engines/patches/zdoom-cocoa-cursor-warp.patch`: the official builds
+  recenter the pointer with a synthetic event, for which macOS asks for Accessibility access in
+  Borne's name (`scripts/build_zdoom_ports.sh`).
 - **vkQuake** 1.37.0, GPL-2.0, built with a small patch (`engines/patches`) to go through the Vulkan
   loader; **Vulkan-Loader**, Apache-2.0; **MoltenVK** 1.4.2, Apache-2.0; **KosmicKrisp** from
   Mesa 26.2.5, MIT, with **SPIRV-Tools**, Apache-2.0 (Apple silicon only).
 - **Quake3e**, official build, GPL-2.0. **iortcw**, built here, GPL-3.0 with additional terms.
 - **ECWolf** 1.4.2, official build, GPL (see its `copyright` file).
-- Not bundled, downloaded on request from their official releases: **openQ4** 0.13.2 (GPL-3.0 and
-  the Quake 4 SDK license), **Raze** 1.11.0 (GPL-2.0 and the Build license), the **Quake III 1.32
+- Not bundled, downloaded on request: **openQ4** 0.13.2 (official release; GPL-3.0 and the Quake 4
+  SDK license), **Raze** 1.11.0 (Borne's patched build, published as the
+  [`raze-1.11.0-borne`](https://github.com/gpasa/borne/releases/tag/raze-1.11.0-borne) release;
+  GPL-2.0 and the Build license), the **Quake III 1.32
   patch** and the **Quake 4 1.4.2 update** (data files only, from id Software's official Linux patch
   kept on archive.org; id Software license), **Freedoom** 0.13.0 (BSD-3-Clause).
 

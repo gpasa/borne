@@ -731,7 +731,7 @@ final class Catalog {
                 } catch EngineLaunchError.needsRaze {
                     licenseRequest = LicenseRequest(
                         title: "Installer Raze ?",
-                        message: "\(m.description) se joue avec Raze \(Raze.version), le moteur de l'équipe de GZDoom pour les jeux Build (Duke Nukem 3D, Blood, Shadow Warrior…). Borne peut le télécharger depuis sa release officielle (\(Raze.size)) et l'installer dans votre dossier utilisateur.",
+                        message: "\(m.description) se joue avec Raze \(Raze.version), le moteur de l'équipe de GZDoom pour les jeux Build (Duke Nukem 3D, Blood, Shadow Warrior…). Borne peut télécharger sa version pour Mac (\(Raze.size), signée et notarisée, publiée avec Borne) et l'installer dans votre dossier utilisateur.",
                         url: Raze.pageURL,
                         readLabel: "En savoir plus",
                         acceptLabel: "Télécharger Raze",

@@ -3,8 +3,9 @@
 # dans ../Engines/payload/<arch>/ (build_app.sh les y prend).
 #
 #   Doom        UZDoom 5.0.3 compilé et corrigé (Apple silicon, macOS 26 ; voir
-#               scripts/build_uzdoom.sh), GZDoom 4.14.2 officiel (Intel, et Apple
-#               silicon sous macOS 14-15 : les bibliothèques d'UZDoom exigent macOS 26)
+#               scripts/build_uzdoom.sh), GZDoom 4.14.2 compilé et corrigé (Intel, et Apple
+#               silicon sous macOS 14-15 : les bibliothèques d'UZDoom exigent macOS 26 ;
+#               voir scripts/build_zdoom_ports.sh, pointeur sans accès d'accessibilité)
 #   Wolfenstein ECWolf 1.4.2 — version officielle, universelle, amincie
 #   RTCW        iortcw (solo), compilé ici (scripts/build_iortcw.sh) ; rendu OpenGL seulement
 #   Quake III   Quake3e (rendu Vulkan) — versions officielles du 2026-10-14, figées par
@@ -27,7 +28,6 @@ fetch() {  # fetch <dossier> <commande…>
     [[ -n "$(ls -A $D/$dir 2>/dev/null)" ]] || (cd $D/$dir && "$@")
 }
 fetch uzdoom   gh release download 5.0.3 -R UZDoom/UZDoom -p 'MacOS-UZDoom-Release-ARM64.dmg'
-fetch gzdoom   gh release download g4.14.2 -R ZDoom/gzdoom -p 'gzdoom-4-14-2-macos.zip'
 fetch moltenvk gh release download v1.4.2 -R KhronosGroup/MoltenVK -p 'MoltenVK-macos.tar'
 fetch ecwolf   zsh -c 'curl -sfLO https://maniacsvault.net/ecwolf/files/ecwolf/1.x/ecwolf-1.4.2.dmg'
 fetch quake3e  gh release download latest -R ec-/Quake3e -p 'quake3e-macos-aarch64.zip' -p 'quake3e-macos-x86_64.zip'
@@ -52,7 +52,9 @@ for dmg in $D/uzdoom/*.dmg $D/ecwolf/*.dmg; do
     cp -R $m/*.app $X/
     hdiutil detach $m -quiet
 done
-[[ -d $X/GZDoom.app ]] || unzip -q -o $D/gzdoom/*.zip 'GZDoom.app/*' -d $X
+# GZDoom corrigé (replace le pointeur sans événement simulé, donc sans accès d'accessibilité).
+$BORNE/scripts/build_zdoom_ports.sh gzdoom
+GZ=$E/build/zdoom-ports/GZDoom.app
 
 # MoltenVK, Freedoom.
 [[ -d $E/deps/MoltenVK ]] || tar -xf $D/moltenvk/MoltenVK-macos.tar -C $E/deps
@@ -126,9 +128,9 @@ for arch in arm64 x86_64; do
     rm -rf $P && mkdir -p $P/Engines $P/MacOS $P/Frameworks $P/vulkan
     if [[ $arch == arm64 ]]; then
         ditto $X/UZDoom-borne.app $P/Engines/UZDoom.app
-        ditto --arch arm64 $X/GZDoom.app $P/Engines/GZDoom.app
+        ditto --arch arm64 $GZ $P/Engines/GZDoom.app
     else
-        ditto --arch x86_64 $X/GZDoom.app $P/Engines/GZDoom.app
+        ditto --arch x86_64 $GZ $P/Engines/GZDoom.app
     fi
     ditto --arch $arch $X/ECWolf.app $P/Engines/ECWolf.app
     ditto $E/build/iortcw-$arch/iowolfsp.app $P/Engines/iortcw.app
@@ -173,6 +175,7 @@ EOF
         curl -sfL https://maniacsvault.net/ecwolf/files/ecwolf/1.x/ecwolf-1.4.2-src.tar.xz | tar -xJ -C $D/ecwolf/src --strip-components=1
     fi
     cp $D/ecwolf/src/docs/{copyright,license-gpl.txt,license-id.txt,license-mame.txt} $L/ECWolf/
-    ditto $X/Licenses $L/GZDoom
+    ditto $D/gzdoom-g4.14.2/docs/licenses $L/GZDoom
+    cp $BORNE/engines/patches/zdoom-cocoa-cursor-warp.patch $L/GZDoom/
     echo "Moteurs ($arch) : $(du -sh $P | cut -f1)$([[ $arch == arm64 && -n $KK ]] && echo ', KosmicKrisp inclus')"
 done

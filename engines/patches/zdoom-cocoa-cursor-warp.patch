@@ -1,0 +1,36 @@
+Recenter the pointer without asking for Accessibility access.
+
+SetCursorPosition() posted a synthetic mouse-move event with CGEventPost(),
+which recent macOS versions gate behind the Accessibility permission: an
+"Accessibility Access (Events)" prompt appears, attributed to the app that
+launched the engine. CGWarpMouseCursorPosition() moves the pointer the same
+way and needs no permission. Applies to GZDoom 4.14.2 and Raze 1.11.0
+(common/platform/posix/cocoa/i_input.mm).
+
+
+--- i_input.mm
++++ i_input.mm
+@@ -96,21 +96,8 @@
+ 	const NSRect  displayRect = [[window screen] frame];
+ 	const CGPoint eventPoint = CGPointMake(position.x, displayRect.size.height - position.y);
+ 
+-	CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateCombinedSessionState);
+-
+-	if (NULL != eventSource)
+-	{
+-		CGEventRef mouseMoveEvent = CGEventCreateMouseEvent(eventSource,
+-			kCGEventMouseMoved, eventPoint, kCGMouseButtonLeft);
+-
+-		if (NULL != mouseMoveEvent)
+-		{
+-			CGEventPost(kCGHIDEventTap, mouseMoveEvent);
+-			CFRelease(mouseMoveEvent);
+-		}
+-
+-		CFRelease(eventSource);
+-	}
++	// Posting a synthetic event needs Accessibility access; warping does not.
++	CGWarpMouseCursorPosition(eventPoint);
+ 
+ 	// TODO: remove this magic!
+ 	s_skipMouseMoves = 2;

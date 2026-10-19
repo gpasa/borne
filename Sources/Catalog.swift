@@ -173,6 +173,8 @@ final class Catalog {
         let title: String
         let message: String
         let url: URL
+        var readLabel = "Lire la licence"
+        var acceptLabel = "J'accepte et je télécharge"
         let accept: () -> Void
     }
     /// Change quand des réglages de jeu sont effacés, pour rafraîchir la fiche.
@@ -657,6 +659,21 @@ final class Catalog {
         }
     }
 
+    func downloadOpenQ4(thenLaunch name: String?) {
+        startJob("Téléchargement d'openQ4…") { [weak self] in
+            guard let self else { return }
+            do {
+                try await OpenQ4.install { p in
+                    Task { @MainActor in self.setProgress("Téléchargement d'openQ4…", p) }
+                }
+                if let name { launch(name) }
+            } catch is CancellationError {
+            } catch {
+                notice = ("openQ4 n'a pas pu être installé", error.localizedDescription)
+            }
+        }
+    }
+
     func uninstall(_ name: String) {
         let root = Prefs.userDataRoot
         let manifest = installed
@@ -690,6 +707,15 @@ final class Catalog {
                         message: "Votre copie de Quake III date d'avant la mise à jour 1.32, dont les moteurs modernes ont besoin. Borne peut télécharger les fichiers officiels d'id Software (\(Quake3Patch.size), depuis ioquake3). Ils sont soumis à la licence d'id Software, que vous pouvez lire avant d'accepter.",
                         url: Quake3Patch.licenseURL,
                         accept: { [weak self] in self?.downloadQuake3Patch(thenLaunch: name) })
+                    return
+                } catch EngineLaunchError.needsOpenQ4 {
+                    licenseRequest = LicenseRequest(
+                        title: "Installer openQ4 ?",
+                        message: "Quake 4 se joue avec openQ4 \(OpenQ4.version), un moteur libre encore en bêta (rendu Metal). Borne peut le télécharger depuis sa page officielle (\(OpenQ4.size)) et l'installer dans votre dossier utilisateur. Il faut aussi les fichiers d'origine de Quake 4 (dossier q4base).",
+                        url: OpenQ4.pageURL,
+                        readLabel: "En savoir plus",
+                        acceptLabel: "Télécharger openQ4",
+                        accept: { [weak self] in self?.downloadOpenQ4(thenLaunch: name) })
                     return
                 }
                 p.executableURL = l.executable

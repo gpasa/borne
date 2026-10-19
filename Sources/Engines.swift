@@ -6,7 +6,7 @@ import Foundation
 /// où elles sont, en lecture seule ; chaque moteur écrit dans
 /// <dossier utilisateur>/engines/<moteur>.
 enum Engine: String, CaseIterable, Codable, Identifiable {
-    case doom, quake, wolf3d, quake3, rtcw
+    case doom, quake, wolf3d, quake3, rtcw, quake4
 
     var id: String { rawValue }
 
@@ -17,6 +17,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .wolf3d: "Wolfenstein 3D"
         case .quake3: "Quake III Arena"
         case .rtcw: "Return to Castle Wolfenstein"
+        case .quake4: "Quake 4"
         }
     }
 
@@ -27,6 +28,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .wolf3d: "shield.lefthalf.filled"
         case .quake3: "scope"
         case .rtcw: "building.columns"
+        case .quake4: "hexagon"
         }
     }
 
@@ -47,6 +49,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .wolf3d: [res?.appendingPathComponent("ECWolf.app/Contents/MacOS/ecwolf")]
         case .quake3: [res?.appendingPathComponent("Quake3e/quake3e")]
         case .rtcw: [res?.appendingPathComponent("iortcw.app/Contents/MacOS/iowolfsp")]
+        case .quake4: [OpenQ4.executable]  // téléchargé sur demande
         }
         return candidates.compactMap { $0 }.first { fm.isExecutableFile(atPath: $0.path) }
     }
@@ -77,6 +80,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .wolf3d: return "ECWolf"
         case .quake3: return "Quake3e"
         case .rtcw: return "iortcw"
+        case .quake4: return "openQ4"
         }
     }
 
@@ -193,6 +197,11 @@ enum EngineCatalog {
                         let base = url.deletingLastPathComponent()
                         q3Base = q3Base ?? base.path
                         for game in quake3Games(in: base) { add(game) }
+                        e.skipDescendants(); continue
+                    }
+                    // Quake 4 : q4base avec pak001.pk4.
+                    if lower == "q4base", caseInsensitiveChild(url, "pak001.pk4") != nil {
+                        add(quake4Game(base: url.deletingLastPathComponent()))
                         e.skipDescendants(); continue
                     }
                     // RTCW : dossier Main avec sp_pak1.pk3 (solo).
@@ -374,6 +383,17 @@ enum EngineCatalog {
         return m
     }
 
+    private static func quake4Game(base: URL) -> Machine {
+        var m = Machine(name: "quake4:base")
+        m.description = "Quake 4"
+        m.year = "2005"
+        m.manufacturer = "Raven Software / id Software"
+        m.engine = Engine.quake4.rawValue
+        m.dataPath = base.path
+        fillCommon(&m, players: 1)
+        return m
+    }
+
     private static func rtcwGame(base: URL) -> Machine {
         var m = Machine(name: "rtcw:sp")
         m.description = "Return to Castle Wolfenstein"
@@ -414,6 +434,8 @@ enum EngineCatalog {
 enum EngineLaunchError: Error {
     /// Quake III sans le patch 1.32 : à télécharger après acceptation de la licence d'id.
     case needsQuake3Patch
+    /// Quake 4 : openQ4 à télécharger d'abord.
+    case needsOpenQ4
 }
 
 struct EngineLaunch {
@@ -425,6 +447,12 @@ struct EngineLaunch {
 
 extension Engine {
     func launch(for m: Machine) throws -> EngineLaunch {
+        if self == .quake4 && executable == nil {
+            guard OpenQ4.isSupported else {
+                throw MAMERunner.Failure(message: "openQ4, le moteur de Quake 4, n'existe que pour les Mac Apple silicon.")
+            }
+            throw EngineLaunchError.needsOpenQ4
+        }
         guard let exe = executable else {
             throw MAMERunner.Failure(message: "Le moteur \(title) est introuvable. Indiquez-le dans les réglages.")
         }
@@ -495,6 +523,14 @@ extension Engine {
             if let game = m.modArg { args += ["+set", "fs_game", game] }
             args += ["+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
             env.merge(Self.vulkanEnvironment()) { _, new in new }
+
+        case .quake4:
+            let base = user.appendingPathComponent("baseoq4")
+            try FileManager.default.createDirectory(at: base, withIntermediateDirectories: true)
+            try "bind x _attack\n".write(to: base.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
+            args = ["+set", "fs_basepath", data, "+set", "fs_homepath", user.path,
+                    "+set", "fs_savepath", user.path, "+set", "fs_cachepath", user.appendingPathComponent("cache").path,
+                    "+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
 
         case .rtcw:
             let main = user.appendingPathComponent("main")

@@ -6,7 +6,7 @@ import Foundation
 /// où elles sont, en lecture seule ; chaque moteur écrit dans
 /// <dossier utilisateur>/engines/<moteur>.
 enum Engine: String, CaseIterable, Codable, Identifiable {
-    case doom, quake, wolf3d, quake3
+    case doom, quake, wolf3d, quake3, rtcw
 
     var id: String { rawValue }
 
@@ -16,6 +16,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake: "Quake"
         case .wolf3d: "Wolfenstein 3D"
         case .quake3: "Quake III Arena"
+        case .rtcw: "Return to Castle Wolfenstein"
         }
     }
 
@@ -25,6 +26,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake: "bolt"
         case .wolf3d: "shield.lefthalf.filled"
         case .quake3: "scope"
+        case .rtcw: "building.columns"
         }
     }
 
@@ -44,6 +46,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake: [Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("vkquake")]
         case .wolf3d: [res?.appendingPathComponent("ECWolf.app/Contents/MacOS/ecwolf")]
         case .quake3: [res?.appendingPathComponent("Quake3e/quake3e")]
+        case .rtcw: [res?.appendingPathComponent("iortcw.app/Contents/MacOS/iowolfsp")]
         }
         return candidates.compactMap { $0 }.first { fm.isExecutableFile(atPath: $0.path) }
     }
@@ -73,6 +76,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake: return "vkQuake"
         case .wolf3d: return "ECWolf"
         case .quake3: return "Quake3e"
+        case .rtcw: return "iortcw"
         }
     }
 
@@ -189,6 +193,11 @@ enum EngineCatalog {
                         let base = url.deletingLastPathComponent()
                         q3Base = q3Base ?? base.path
                         for game in quake3Games(in: base) { add(game) }
+                        e.skipDescendants(); continue
+                    }
+                    // RTCW : dossier Main avec sp_pak1.pk3 (solo).
+                    if lower == "main", caseInsensitiveChild(url, "sp_pak1.pk3") != nil {
+                        add(rtcwGame(base: url.deletingLastPathComponent()))
                         e.skipDescendants(); continue
                     }
                     if lower == "missionpack", caseInsensitiveChild(url, "pak0.pk3") != nil {
@@ -365,6 +374,17 @@ enum EngineCatalog {
         return m
     }
 
+    private static func rtcwGame(base: URL) -> Machine {
+        var m = Machine(name: "rtcw:sp")
+        m.description = "Return to Castle Wolfenstein"
+        m.year = "2001"
+        m.manufacturer = "Gray Matter / id Software"
+        m.engine = Engine.rtcw.rawValue
+        m.dataPath = base.path
+        fillCommon(&m, players: 1)
+        return m
+    }
+
     private static func wolfGame(_ dir: URL, _ ext: String, _ k: KnownGame) -> Machine {
         var m = Machine(name: "wolf3d:\(ext)")
         m.description = k.title
@@ -475,6 +495,13 @@ extension Engine {
             if let game = m.modArg { args += ["+set", "fs_game", game] }
             args += ["+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
             env.merge(Self.vulkanEnvironment()) { _, new in new }
+
+        case .rtcw:
+            let main = user.appendingPathComponent("main")
+            try FileManager.default.createDirectory(at: main, withIntermediateDirectories: true)
+            try "bind x +attack\n".write(to: main.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
+            args = ["+set", "fs_basepath", data, "+set", "fs_homepath", user.path,
+                    "+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
 
         case .wolf3d:
             let cfg = user.appendingPathComponent("ecwolf.cfg")

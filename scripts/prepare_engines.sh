@@ -6,6 +6,7 @@
 #               scripts/build_uzdoom.sh), GZDoom 4.14.2 officiel (Intel, et Apple
 #               silicon sous macOS 14-15 : les bibliothèques d'UZDoom exigent macOS 26)
 #   Wolfenstein ECWolf 1.4.2 — version officielle, universelle, amincie
+#   RTCW        iortcw (solo), compilé ici (scripts/build_iortcw.sh) ; rendu OpenGL seulement
 #   Quake III   Quake3e (rendu Vulkan) — versions officielles du 2026-10-14, figées par
 #               leur empreinte (l'étiquette « latest » de Quake3e est réécrite)
 #   Quake       vkQuake 1.37.0 — compilé ici, corrigé (engines/patches) pour passer
@@ -33,6 +34,7 @@ check() { [[ $(shasum -a 256 $1 | cut -d' ' -f1) == $2 ]] || { echo "Empreinte i
 check $D/quake3e/quake3e-macos-aarch64.zip 9e38f1e1b86398f8693e5bf950941b1b9aaaa12e10bf904aaebb673bc9e2907d
 check $D/quake3e/quake3e-macos-x86_64.zip 17124a56a752152e0457b4a5f76b2ced5ed4d0ab2085984449a9094958f525e3
 [[ -d $D/quake3e/src ]] || git clone -q --depth 1 https://github.com/ec-/Quake3e.git $D/quake3e/src
+$BORNE/scripts/build_iortcw.sh
 [[ -d $D/vkquake/src ]] || git clone -q --depth 1 --branch 1.37.0 https://github.com/Novum/vkQuake.git $D/vkquake/src
 [[ -d $D/vulkan-loader ]] || git clone -q --depth 1 --branch vulkan-sdk-1.4.357 https://github.com/KhronosGroup/Vulkan-Loader.git $D/vulkan-loader
 [[ -d $D/vulkan-headers ]] || git clone -q --depth 1 --branch vulkan-sdk-1.4.357 https://github.com/KhronosGroup/Vulkan-Headers.git $D/vulkan-headers
@@ -128,6 +130,7 @@ for arch in arm64 x86_64; do
         ditto --arch x86_64 $X/GZDoom.app $P/Engines/GZDoom.app
     fi
     ditto --arch $arch $X/ECWolf.app $P/Engines/ECWolf.app
+    ditto $E/build/iortcw-$arch/iowolfsp.app $P/Engines/iortcw.app
     # Quake3e : binaire Vulkan et sa SDL2, dans un dossier (pas une app).
     q3arch=$([[ $arch == arm64 ]] && echo aarch64 || echo x86_64)
     mkdir -p $P/Engines/Quake3e
@@ -155,6 +158,7 @@ EOF
     mkdir -p $L/vkQuake $L/Vulkan-Loader $L/MoltenVK $L/ECWolf
     cp $D/vkquake/src/LICENSE.txt $L/vkQuake/
     cp $BORNE/engines/patches/vkquake-1.37.0-borne.patch $L/vkQuake/
+    mkdir -p $L/iortcw && cp $D/iortcw/SP/COPYING.txt $D/iortcw/LICENCE.md $L/iortcw/
     mkdir -p $L/Quake3e && cp $D/quake3e/src/COPYING.txt $D/quake3e/src/id-readme.txt $L/Quake3e/
     mkdir -p $L/UZDoom && cp $BORNE/engines/patches/uzdoom-5.0.3-clear-render-targets.patch $L/UZDoom/
     cp $D/vulkan-loader/LICENSE.txt $L/Vulkan-Loader/

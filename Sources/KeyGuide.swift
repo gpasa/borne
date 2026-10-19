@@ -60,6 +60,15 @@ enum KeyGuide {
             Entry(keys: "1 à 8", action: "Armes"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
+        case .rtcw: [
+            Entry(keys: "W A S D", action: "Se déplacer"),
+            Entry(keys: "Souris", action: "Viser"),
+            Entry(keys: "Clic · X", action: "Tirer"),
+            Entry(keys: "Espace", action: "Sauter"),
+            Entry(keys: "F", action: "Utiliser, ouvrir"),
+            Entry(keys: "1 à 7", action: "Armes"),
+            Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
+        ]
         case .quake3: [
             Entry(keys: "W A S D", action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),

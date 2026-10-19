@@ -466,6 +466,8 @@ enum EngineLaunchError: Error {
     case needsQuake3Patch
     /// Quake 4 : openQ4 à télécharger d'abord.
     case needsOpenQ4
+    /// Quake 4 d'origine : la mise à jour 1.4.2 d'id Software, après acceptation de sa licence.
+    case needsQuake4Patch
     /// Jeux Build : Raze à télécharger d'abord.
     case needsRaze
 }
@@ -573,6 +575,11 @@ extension Engine {
             let base = user.appendingPathComponent("baseoq4")
             try FileManager.default.createDirectory(at: base, withIntermediateDirectories: true)
             try "bind x _attack\n".write(to: base.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
+            // DVD d'origine (jusqu'à pak012) : openQ4 veut les données de la 1.4.2.
+            if Quake4Patch.isNeeded(base: URL(fileURLWithPath: data)) {
+                guard Quake4Patch.isInstalled else { throw EngineLaunchError.needsQuake4Patch }
+                try Quake4Patch.link(into: user)
+            }
             args = ["+set", "fs_basepath", data, "+set", "fs_homepath", user.path,
                     "+set", "fs_savepath", user.path, "+set", "fs_cachepath", user.appendingPathComponent("cache").path,
                     "+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]

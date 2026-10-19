@@ -32,8 +32,8 @@ Double-click a game and play.
   WW2GI. New files are picked up as soon as they appear in the folder.
   Included engines: UZDoom (GZDoom on Intel and before macOS 26), vkQuake, Quake3e, iortcw, ECWolf.
   Downloaded on request from their official releases, checksum verified: openQ4 (Quake 4, Apple
-  silicon), Raze (Build games), the Quake III 1.32 patch (after you accept id Software's license in
-  Borne) and [Freedoom](https://freedoom.github.io), a free Doom. Saves and settings stay in the user
+  silicon), Raze (Build games), the Quake III 1.32 patch and the Quake 4 1.4.2 update (after you
+  accept id Software's license in Borne; original DVDs stop at pak012) and [Freedoom](https://freedoom.github.io), a free Doom. Saves and settings stay in the user
   folder, never next to your game files.
 - **Vulkan on Metal**: KosmicKrisp (Mesa) on Apple silicon with macOS 26, MoltenVK elsewhere;
   switchable in Settings.
@@ -92,7 +92,8 @@ The app bundles third-party software under their own licenses, included in
 - **ECWolf** 1.4.2, official build, GPL (see its `copyright` file).
 - Not bundled, downloaded on request from their official releases: **openQ4** 0.13.2 (GPL-3.0 and
   the Quake 4 SDK license), **Raze** 1.11.0 (GPL-2.0 and the Build license), the **Quake III 1.32
-  patch** (id Software license), **Freedoom** 0.13.0 (BSD-3-Clause).
+  patch** and the **Quake 4 1.4.2 update** (data files only, from id Software's official Linux patch
+  kept on archive.org; id Software license), **Freedoom** 0.13.0 (BSD-3-Clause).
 
 `scripts/prepare_engines.sh` downloads, builds and arranges all engines.
 

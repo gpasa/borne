@@ -672,7 +672,7 @@ final class Catalog {
                 if let name { launch(name) }
             } catch is CancellationError {
             } catch {
-                notice = ("\(label) n'a pas pu être installé", error.localizedDescription)
+                notice = ("Installation interrompue : \(label)", error.localizedDescription)
             }
         }
     }
@@ -719,6 +719,14 @@ final class Catalog {
                         readLabel: "En savoir plus",
                         acceptLabel: "Télécharger openQ4",
                         accept: { [weak self] in self?.downloadEngine("openQ4", thenLaunch: name, install: OpenQ4.install) })
+                    return
+                } catch EngineLaunchError.needsQuake4Patch {
+                    licenseRequest = LicenseRequest(
+                        title: "Mise à jour 1.4.2 de Quake 4",
+                        message: "Votre copie de Quake 4 est celle du disque d'origine ; openQ4 a besoin des fichiers de la mise à jour 1.4.2 d'id Software. Borne peut télécharger le patch officiel (\(Quake4Patch.size), conservé par archive.org) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software et d'Activision, qui suppose de posséder Quake 4 ; son texte est inclus dans le patch et sera rangé avec lui.",
+                        url: Quake4Patch.pageURL,
+                        readLabel: "Voir la source",
+                        accept: { [weak self] in self?.downloadEngine("la mise à jour de Quake 4", thenLaunch: name, install: Quake4Patch.install) })
                     return
                 } catch EngineLaunchError.needsRaze {
                     licenseRequest = LicenseRequest(

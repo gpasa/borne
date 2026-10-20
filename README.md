@@ -24,6 +24,8 @@ Double-click a game and play.
 - **ROM audit** in the background (`-verifyroms`), interruptible, results shown as they come.
 - **Mac keyboard layout**: player 1 buttons on `Z X C V B N` instead of `Ctrl`
   (macOS keeps `Ctrl`+arrows for Mission Control), and a key reminder when a game starts.
+- **Automatic updates** (from 1.7): Borne checks GitHub daily, verifies the EdDSA signature of the new
+  version (Sparkle 2) and installs it; Borne menu → *Rechercher les mises à jour…* checks now.
 - **MAME included**: version 0.289, native on Apple silicon and Intel, nothing else to install.
 - **PC games**: point Borne at your game files and it finds them, add-ons grouped with their game:
   Doom, Doom II, Final Doom, Heretic, Hexen, Strife, Chex Quest, HacX and WAD mods; Quake, its mission
@@ -89,6 +91,7 @@ The app bundles third-party software under their own licenses, included in
   and other compatible licenses). The bundled binary is built, unmodified, from the
   [`mame0289` tag](https://github.com/mamedev/mame/tree/mame0289); the commands above rebuild it.
 - **SDL3** 3.2.28, zlib license.
+- **Sparkle** 2.10.0, MIT license (updates).
 - **UZDoom** 5.0.3 (Apple silicon, macOS 26), GPL-3.0 and others, built here with a patch that
   clears its render targets (`engines/patches`; without it, the image turns green with recent
   MoltenVK). **GZDoom** 4.14.2 (Intel and older macOS), built here. License texts inside each engine.

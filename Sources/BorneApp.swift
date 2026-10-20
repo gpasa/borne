@@ -3,6 +3,8 @@ import SwiftUI
 @main
 struct BorneApp: App {
     @State private var catalog = Catalog()
+    // Démarre la vérification des mises à jour dès le lancement.
+    private let updates = Updates.shared
 
     var body: some Scene {
         WindowGroup("Borne") {
@@ -13,6 +15,9 @@ struct BorneApp: App {
         }
         .defaultSize(width: 1400, height: 860)
         .commands {
+            CommandGroup(after: .appInfo) {
+                CheckForUpdatesCommand()
+            }
             CommandMenu("Jeux") {
                 Button("Lancer") {
                     if let s = catalog.selection { catalog.launch(s) }

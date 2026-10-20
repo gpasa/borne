@@ -35,6 +35,8 @@ struct SettingsView: View {
                 TextField("Options en plus", text: $extraArgs, prompt: Text("-bgfx_screen_chains crt-geom"))
             }
 
+            UpdateSettings()
+
             Section {
                 HStack(spacing: 16) {
                     Link("Ko-fi", destination: Support.kofi)

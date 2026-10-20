@@ -4,12 +4,17 @@ options:
   developmentLanguage: fr
   xcodeVersion: "27.0"
 
+packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    exactVersion: 2.10.0
+
 settings:
   base:
     SWIFT_VERSION: 5.9
     MACOSX_DEPLOYMENT_TARGET: "14.0"
-    MARKETING_VERSION: "1.6"
-    CURRENT_PROJECT_VERSION: "12"
+    MARKETING_VERSION: "1.7"
+    CURRENT_PROJECT_VERSION: "13"
 
 targets:
   Borne:
@@ -19,6 +24,8 @@ targets:
     sources:
       - path: Sources
       - path: Resources/Assets.xcassets
+    dependencies:
+      - package: Sparkle
     info:
       path: Resources/Info.plist
       properties:
@@ -26,10 +33,16 @@ targets:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSApplicationCategoryType: public.app-category.games
+        # Mises à jour (Sparkle) : un flux par architecture, publié avec chaque release.
+        SUFeedURL: $(BORNE_FEED_URL)
+        SUPublicEDKey: umjhkoDRagweUMLIhw1czpKfH9MkYhjUzeXRpDbeAsw=
+        SUEnableAutomaticChecks: true
+        SUScheduledCheckInterval: 86400
         NSHumanReadableCopyright: "© 2026 Guglielmo Pasa — GPL-3.0. MAME © MAMEdev et contributeurs (GPL-2.0+)."
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.pasahome.Borne
+        BORNE_FEED_URL: https://github.com/gpasa/borne/releases/latest/download/appcast-arm64.xml
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         # Outil personnel : pas de bac à sable, il doit lancer mame et lire
         # les dossiers de ROM où qu'ils soient.

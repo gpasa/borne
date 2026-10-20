@@ -19,7 +19,8 @@ APP=build/Build/Products/Release/Borne.app
 xcodegen generate -q
 xcodebuild -project Borne.xcodeproj -scheme Borne -configuration Release \
     -destination 'generic/platform=macOS' -derivedDataPath build -quiet \
-    ARCHS=$ARCH ONLY_ACTIVE_ARCH=NO build
+    ARCHS=$ARCH ONLY_ACTIVE_ARCH=NO \
+    BORNE_FEED_URL=https://github.com/gpasa/borne/releases/latest/download/appcast-$ARCH.xml build
 
 # Binaire : allégé, rpath vers Contents/Frameworks au lieu de /Library.
 [[ $(lipo -archs $MAME/mame) == $ARCH ]] || { echo "$MAME/mame n'est pas en $ARCH"; exit 1; }

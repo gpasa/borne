@@ -29,6 +29,15 @@ for ARCH in arm64 x86_64; do
             awk '{ print length, $0 }' | sort -rn | cut -d' ' -f2- | while read -r f; do sign "$@" "$f"; done
     }
     sign $FW
+    # Sparkle (mises à jour) : ses services d'abord, puis le framework.
+    SP=$APP/Contents/Frameworks/Sparkle.framework
+    if [[ -d $SP ]]; then
+        sign $SP/Versions/B/XPCServices/Installer.xpc
+        sign --preserve-metadata=entitlements $SP/Versions/B/XPCServices/Downloader.xpc
+        sign $SP/Versions/B/Autoupdate
+        sign $SP/Versions/B/Updater.app
+        sign $SP
+    fi
     for f in $APP/Contents/Frameworks/*.dylib(N); do sign $f; done
     [[ -x $APP/Contents/MacOS/vkquake ]] && sign $APP/Contents/MacOS/vkquake
     sign_inside $APP/Contents/Resources/Engines/Quake3e
@@ -59,3 +68,4 @@ for ARCH in arm64 x86_64; do
     echo "$NAME $VERSION : $(shasum -a 256 $ZIP)"
 done
 echo "Prêt : dist/Borne-AppleSilicon.zip et dist/Borne-Intel.zip"
+echo "Ensuite : scripts/appcast.sh notes.html (flux de mise à jour), puis gh release create"

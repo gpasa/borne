@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Borne — votre salle d'arcade sur Mac</title>
-<meta name="description" content="Borne range vos jeux d'arcade (MAME) et vos classiques PC (Doom, Quake, Duke Nukem 3D…) sur Mac, et les lance d'un double-clic. Libre, gratuit, MAME et les moteurs inclus.">
+<title>Borne — l'arcade MAME et les classiques PC sur Mac</title>
+<meta name="description" content="Borne range vos jeux d'arcade MAME et vos classiques PC (Doom, Quake, Duke Nukem 3D…) sur Mac et les lance d'un double-clic. Libre et gratuit.">
 <link rel="canonical" href="https://borne.pasahome.org/lang/fr/">
 <link rel="alternate" hreflang="fr" href="https://borne.pasahome.org/lang/fr/">
 <link rel="alternate" hreflang="en" href="https://borne.pasahome.org/lang/en/">
@@ -12,15 +12,18 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Borne">
 <meta property="og:locale" content="fr_FR">
-<meta property="og:title" content="Borne — votre salle d'arcade sur Mac">
-<meta property="og:description" content="Borne range vos jeux d'arcade (MAME) et vos classiques PC (Doom, Quake, Duke Nukem 3D…) sur Mac, et les lance d'un double-clic. Libre, gratuit, MAME et les moteurs inclus.">
+<meta property="og:title" content="Borne — l'arcade MAME et les classiques PC sur Mac">
+<meta property="og:description" content="Borne range vos jeux d'arcade MAME et vos classiques PC (Doom, Quake, Duke Nukem 3D…) sur Mac et les lance d'un double-clic. Libre et gratuit.">
 <meta property="og:url" content="https://borne.pasahome.org/lang/fr/">
-<meta property="og:image" content="https://borne.pasahome.org/images/og-image.png">
+<meta property="og:image" content="https://borne.pasahome.org/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="stylesheet" href="style.css?v=6ea4693be6">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Borne", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "inLanguage": "fr", "url": "https://borne.pasahome.org/lang/fr/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Borne", "softwareVersion": "1.7", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "screenshot": "https://borne.pasahome.org/images/borne-arcade.jpg", "image": "https://borne.pasahome.org/icon.png", "description": "Borne range vos jeux d'arcade MAME et vos classiques PC (Doom, Quake, Duke Nukem 3D…) sur Mac et les lance d'un double-clic. Libre et gratuit.", "inLanguage": "fr", "url": "https://borne.pasahome.org/lang/fr/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}, {"@type": "FAQPage", "inLanguage": "fr", "mainEntity": [{"@type": "Question", "name": "Borne contient-il des jeux ?", "acceptedAnswer": {"@type": "Answer", "text": "Non, aucun. Borne, MAME et les moteurs sont des logiciels ; les ROM d'arcade et les fichiers des jeux PC restent à votre charge. N'utilisez que ceux que vous avez le droit d'utiliser. Pour Doom, Freedoom, un jeu entièrement libre, se télécharge d'un clic."}}, {"@type": "Question", "name": "Est-ce vraiment gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Borne est un logiciel libre sous licence GPL-3.0 ; son code est sur GitHub, et chacun peut y contribuer. Si vous l'aimez, vous pouvez le soutenir par un don."}}, {"@type": "Question", "name": "Et sur un Mac Intel ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : il y a une version Intel, native elle aussi. Choisissez le bouton qui correspond à votre Mac ; macOS 14 ou plus est nécessaire."}}, {"@type": "Question", "name": "Borne est-il lié au projet MAME ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Borne est un projet indépendant qui embarque MAME, sans changement, sous sa licence. MAME est une marque déposée de Gregory Ember."}}]}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Aller au contenu</a>
@@ -47,7 +50,7 @@
 </section>
 
 <figure class="fenetre">
-  <img src="images/borne-arcade.png" alt="La fenêtre de Borne : les dossiers à gauche, la liste des jeux au centre, la fiche du jeu sélectionné à droite" width="1600" height="836">
+  <img src="images/borne-arcade.jpg" alt="La fenêtre de Borne : les dossiers à gauche, la liste des jeux au centre, la fiche du jeu sélectionné à droite" width="1600" height="836">
   <figcaption>Les dossiers à gauche, les jeux au centre, la fiche à droite : l'esprit de MAMEUI, sur Mac.</figcaption>
 </figure>
 
@@ -87,7 +90,7 @@
 </div>
 
 <figure class="fenetre">
-  <img src="images/borne-jeux-pc.png" alt="Le dossier Quake II de Borne : Quake II et ses trois extensions, avec la fiche de The Reckoning et ses touches" width="1600" height="836">
+  <img src="images/borne-jeux-pc.jpg" alt="Le dossier Quake II de Borne : Quake II et ses trois extensions, avec la fiche de The Reckoning et ses touches" width="1600" height="836">
   <figcaption>Quake II et ses extensions, rangés ensemble, avec les touches du jeu dans la fiche.</figcaption>
 </figure>
 

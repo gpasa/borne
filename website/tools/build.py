@@ -52,7 +52,7 @@ T = {
                thanks="Merci !", source="Code source",
                footer="© 2026 Guglielmo Pasa · GPL-3.0 · MAME est une marque de Gregory Ember ; Borne est un projet indépendant.",
                nf=("Page introuvable", "Cette page n'existe pas ou a été déplacée.", "Retour à l'accueil"),
-               tagline="votre salle d'arcade sur Mac"),
+               tagline="l'arcade MAME et les classiques PC sur Mac"),
     "en": dict(locale="en_US", nav=["Home", "Guide", "PC games", "Support"],
                guide=["Getting started", "Arcade", "PC games", "Preparing PC games"], skip="Skip to content",
                nav_label="Main navigation", guide_label="Guide sections", other="Français",
@@ -61,7 +61,7 @@ T = {
                thanks="Thank you!", source="Source code",
                footer="© 2026 Guglielmo Pasa · GPL-3.0 · MAME is a trademark of Gregory Ember; Borne is an independent project.",
                nf=("Page not found", "This page does not exist or has moved.", "Back to the home page"),
-               tagline="your arcade room on the Mac"),
+               tagline="MAME arcade and PC classics on the Mac"),
 }
 
 TEMPLATE = """<!doctype html>
@@ -79,7 +79,10 @@ TEMPLATE = """<!doctype html>
 <meta property="og:title" content="{full_title}">
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{canonical}">
-<meta property="og:image" content="{site}/images/og-image.png">
+<meta property="og:image" content="{site}/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="{base}favicon.png">
 <link rel="apple-touch-icon" href="{base}icon.png">
@@ -200,6 +203,20 @@ NOT_FOUND = """<!doctype html>
 """
 
 
+def app_version():
+    text = open(os.path.join(ROOT, "..", "project.yml"), encoding="utf-8").read()
+    return re.search(r'MARKETING_VERSION: "([^"]+)"', text).group(1)
+
+
+def faq_entries(body):
+    """Les questions-réponses d'une page (<details><summary>…</summary><p>…</p>), pour FAQPage."""
+    out = []
+    for q, a in re.findall(r"<details><summary>(.*?)</summary><p>(.*?)</p></details>", body, re.S):
+        clean = lambda t: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", t)).strip()
+        out.append({"@type": "Question", "name": clean(q), "acceptedAnswer": {"@type": "Answer", "text": clean(a)}})
+    return out
+
+
 def fingerprint(name):
     return hashlib.sha1(open(os.path.join(ROOT, name), "rb").read()).hexdigest()[:10]
 
@@ -219,6 +236,7 @@ def lang_url(code, name):
 
 def build():
     css_v = fingerprint("style.css")
+    version = app_version()
     for d in ["pages", "lang"] + sorted({p.split("/")[0] for p in PAGES.values() if p}):
         shutil.rmtree(os.path.join(ROOT, d), ignore_errors=True)
 
@@ -255,12 +273,18 @@ def build():
                     [f'<link rel="alternate" hreflang="{c}" href="{SITE_URL}/{lang_url(c, name)}">' for c in LANGS]
                     + [f'<link rel="alternate" hreflang="x-default" href="{SITE_URL}/{slug}">'])
                 full_title = f"Borne — {t['tagline']}" if name == "index.html" else f"{title} — Borne"
-                jsonld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Borne",
-                          "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication",
-                          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"},
-                          "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": f"{REPO}/releases/latest",
-                          "inLanguage": code, "url": canonical,
-                          "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}
+                app = {"@type": "SoftwareApplication", "name": "Borne", "softwareVersion": version,
+                       "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication",
+                       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"},
+                       "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": f"{REPO}/releases/latest",
+                       "screenshot": f"{SITE_URL}/images/borne-arcade.jpg", "image": f"{SITE_URL}/icon.png",
+                       "description": description, "inLanguage": code, "url": canonical,
+                       "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}
+                graph = [app]
+                faq = faq_entries(body)
+                if faq:
+                    graph.append({"@type": "FAQPage", "inLanguage": code, "mainEntity": faq})
+                jsonld = {"@context": "https://schema.org", "@graph": graph}
                 page = TEMPLATE.format(
                     lang=code, full_title=full_title, description=description, canonical=canonical,
                     alternates=alternates, locale=t["locale"], site=SITE_URL, base=base, css_v=css_v,

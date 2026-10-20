@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Support — Borne</title>
-<meta name="description" content="Frequently asked questions about Borne, reporting a problem, privacy, licenses and donations.">
+<title>Help and frequently asked questions — Borne</title>
+<meta name="description" content="Borne FAQ: missing ROMs, keys, PC games, id Software updates; reporting a problem, privacy, licenses and donations.">
 <link rel="canonical" href="https://borne.pasahome.org/lang/en/assistance/">
 <link rel="alternate" hreflang="fr" href="https://borne.pasahome.org/lang/fr/assistance/">
 <link rel="alternate" hreflang="en" href="https://borne.pasahome.org/lang/en/assistance/">
@@ -12,15 +12,18 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Borne">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Support — Borne">
-<meta property="og:description" content="Frequently asked questions about Borne, reporting a problem, privacy, licenses and donations.">
+<meta property="og:title" content="Help and frequently asked questions — Borne">
+<meta property="og:description" content="Borne FAQ: missing ROMs, keys, PC games, id Software updates; reporting a problem, privacy, licenses and donations.">
 <meta property="og:url" content="https://borne.pasahome.org/lang/en/assistance/">
-<meta property="og:image" content="https://borne.pasahome.org/images/og-image.png">
+<meta property="og:image" content="https://borne.pasahome.org/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../icon.png">
 <link rel="stylesheet" href="../style.css?v=6ea4693be6">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Borne", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "inLanguage": "en", "url": "https://borne.pasahome.org/lang/en/assistance/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Borne", "softwareVersion": "1.7", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "screenshot": "https://borne.pasahome.org/images/borne-arcade.jpg", "image": "https://borne.pasahome.org/icon.png", "description": "Borne FAQ: missing ROMs, keys, PC games, id Software updates; reporting a problem, privacy, licenses and donations.", "inLanguage": "en", "url": "https://borne.pasahome.org/lang/en/assistance/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}, {"@type": "FAQPage", "inLanguage": "en", "mainEntity": [{"@type": "Question", "name": "Does Borne include any games?", "acceptedAnswer": {"@type": "Answer", "text": "No, none. Borne, MAME and the engines are software; arcade ROMs and PC game files are up to you. Only use those you are entitled to. Freedoom, an entirely free Doom, downloads from Borne."}}, {"@type": "Question", "name": "Is the app available in English?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet: Borne's interface is in French for now. This guide names each menu and button as it appears in the app, with its meaning."}}, {"@type": "Question", "name": "An arcade game isn't in “Disponibles”", "acceptedAnswer": {"@type": "Answer", "text": "Check that its .zip file has MAME's short name (shown in the game's details under Nom court) and is in a ROM folder set in the settings. Then rescan the folders (⌘R). A clone needs its parent, a machine its BIOS: keep them alongside."}}, {"@type": "Question", "name": "An arcade game starts and closes right away", "acceptedAnswer": {"@type": "Answer", "text": "In its details, Diagnostiquer (diagnose) says exactly what is missing and how to complete it. A file is often missing: a BIOS, a clone's parent, or a set from another MAME version. Jeux menu → Vérifier les ROM gives MAME's verdict for each game. Borne uses MAME 0.289: your sets must match that version."}}, {"@type": "Question", "name": "A game's picture is shifted or distorted", "acceptedAnswer": {"@type": "Answer", "text": "MAME's menu (Tab) may have changed its display. In the game's details, Réinitialiser l'affichage puts the picture back without touching anything else."}}, {"@type": "Question", "name": "Keys don't respond, or Ctrl switches desktops", "acceptedAnswer": {"@type": "Answer", "text": "On a Mac, Ctrl + arrow belongs to Mission Control. So Borne puts the arcade buttons on Z X C V B N, and fire on X or the click for PC games. Each game's details list its keys."}}, {"@type": "Question", "name": "A PC game doesn't show up", "acceptedAnswer": {"@type": "Answer", "text": "Check that its folder is in Settings → Jeux PC and that its data files are there: the list of PC games says which. Installer files (setup.exe, disc images, archives) aren't enough: you need the installed files."}}, {"@type": "Question", "name": "Borne offers me an id Software update", "acceptedAnswer": {"@type": "Answer", "text": "Your copy comes from an original disc, older than the game's last update, which the modern engine needs. Read the license and accept it if you agree: Borne downloads the official update, checks its fingerprint and keeps only its data, in your user folder."}}, {"@type": "Question", "name": "macOS asks for Accessibility access for Borne", "acceptedAnswer": {"@type": "Answer", "text": "Borne doesn't need it: decline. Versions 1.3.2 and later no longer trigger this request; if you had granted it, you can remove Borne from System Settings → Privacy &amp; Security → Accessibility."}}, {"@type": "Question", "name": "What about Intel Macs?", "acceptedAnswer": {"@type": "Answer", "text": "There is an Intel version, native too. Quake 4 (openQ4) is for Apple silicon Macs only. macOS 14 or later is required."}}]}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>

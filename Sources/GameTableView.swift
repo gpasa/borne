@@ -175,6 +175,21 @@ struct GameTableView: NSViewRepresentable {
 
         func tableViewSelectionDidChange(_ notification: Notification) {
             guard !programmatic, let table else { return }
+            // Seul un clic ou une touche change le jeu choisi. Un rafraîchissement de la
+            // liste (dossiers relus pendant que le jeu est sélectionné) peut décaler la
+            // ligne choisie : on remet alors celle du catalogue, sans quoi « Lancer »
+            // partirait sur un autre jeu.
+            let input: Set<NSEvent.EventType> = [.leftMouseDown, .leftMouseUp, .leftMouseDragged, .rightMouseDown, .keyDown, .otherMouseDown]
+            guard let type = NSApp.currentEvent?.type, input.contains(type) else {
+                programmatic = true
+                if let s = catalog.selection, let i = index[s] {
+                    table.selectRowIndexes([i], byExtendingSelection: false)
+                } else {
+                    table.deselectAll(nil)
+                }
+                programmatic = false
+                return
+            }
             let r = table.selectedRow
             let name = r >= 0 && r < rows.count ? rows[r].name : nil
             if catalog.selection != name { catalog.selection = name }

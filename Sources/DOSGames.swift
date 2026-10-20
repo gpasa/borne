@@ -122,6 +122,9 @@ enum DOSGames {
                     "--set", "startup_verbosity=quiet",
                     "--set", "capture_dir=\(shots.path)"]
         if !Prefs.windowed { args.append("--fullscreen") }
+        // Mode avancé : réglages DOSBox propres au jeu, lus après ceux de Borne.
+        let conf = ConfigFiles.dosConf(for: m)
+        if FileManager.default.fileExists(atPath: conf.path) { args += ["--conf", conf.path] }
         for c in mounts + ["c:"] + k.run + ["exit"] { args += ["-c", c] }
         return args
     }

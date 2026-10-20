@@ -14,6 +14,7 @@ struct SettingsView: View {
     @AppStorage(Prefs.engineFoldersKey) private var engineFolders = ""
     @AppStorage("vulkanDriver") private var vulkanDriver = "auto"
     @AppStorage("settingsTab") private var tab = "general"
+    @AppStorage(ConfigFiles.advancedKey) private var advanced = false
 
     var body: some View {
         // Onglets à hauteur fixe : chaque formulaire défile s'il est trop long,
@@ -33,6 +34,12 @@ struct SettingsView: View {
                     Text("OpenGL").tag("opengl")
                 }
                 TextField("Options en plus", text: $extraArgs, prompt: Text("-bgfx_screen_chains crt-geom"))
+            }
+
+            Section {
+                Toggle("Mode avancé", isOn: $advanced)
+            } footer: {
+                Text("La fiche de chaque jeu montre ses fichiers de configuration, à modifier ou à réinitialiser.")
             }
 
             UpdateSettings()

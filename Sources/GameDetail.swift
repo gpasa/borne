@@ -7,6 +7,7 @@ struct GameDetail: View {
     @State private var image: NSImage?
     @State private var imageKey = ""
     @State private var confirmReset = false
+    @AppStorage(ConfigFiles.advancedKey) private var advanced = false
 
     var body: some View {
         if let m = catalog.selected {
@@ -139,6 +140,8 @@ struct GameDetail: View {
 
                     Text("Touches").font(.headline).padding(.top, 6)
                     KeyGuideView(machine: m)
+
+                    if advanced { ConfigFilesSection(machine: m) }
                 }
                 .padding()
             }

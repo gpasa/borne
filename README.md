@@ -8,9 +8,9 @@ Borne (French for *arcade cabinet*) puts your MAME collection in a familiar thre
 folders on the left, the list of games in the middle, the artwork and details on the right.
 Double-click a game and play.
 
-![Borne](website/images/borne-window.png)
+![The Borne window: folders on the left, the game list in the middle, the selected game's details on the right](website/images/borne-arcade.jpg)
 
-*Site (French): [borne.pasahome.org](https://borne.pasahome.org)*
+*Site, in English and French, with a guide: [borne.pasahome.org](https://borne.pasahome.org)*
 
 ## Features
 

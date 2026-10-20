@@ -619,7 +619,8 @@ extension Engine {
         case .quake:
             let id1 = user.appendingPathComponent("id1")
             try FileManager.default.createDirectory(at: id1, withIntermediateDirectories: true)
-            try "bind x +attack\n".write(to: id1.appendingPathComponent("borne.cfg"), atomically: true, encoding: .utf8)
+            // « - » rétrécit l'image sans retour possible sur un clavier où « = » demande Maj.
+            try "bind x +attack\nunbind -\n".write(to: id1.appendingPathComponent("borne.cfg"), atomically: true, encoding: .utf8)
             if let game = m.modArg, let src = m.gamePath {
                 try Self.linkQuakeGame(name: game, from: URL(fileURLWithPath: src), into: user)
             }
@@ -665,7 +666,10 @@ extension Engine {
             let cfg = home.appendingPathComponent(".yq2/\(game)")
             try FileManager.default.createDirectory(at: cfg, withIntermediateDirectories: true)
             // Les touches d'id ne prévoient que les flèches : W A S D en plus.
+            // « - » rétrécit l'image, et « = » ou « + », qui l'agrandissent, demandent
+            // Maj sur un clavier suisse ou français : image pleine à chaque lancement.
             let binds = "bind x +attack\nbind w +forward\nbind s +back\nbind a +moveleft\nbind d +moveright\n"
+                + "unbind -\nset viewsize 100\n"
             try binds.write(to: cfg.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
             env["HOME"] = home.path
             args = ["-datadir", data, "+set", "vid_renderer", "gl3",

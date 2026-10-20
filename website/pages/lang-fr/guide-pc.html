@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide · Jeux PC — Borne</title>
+<meta name="description" content="Doom, Quake, Duke Nukem 3D et les autres dans Borne : le dossier des jeux, les moteurs inclus, les modules à télécharger, les mises à jour d'id Software et les sauvegardes.">
+<link rel="canonical" href="https://borne.pasahome.org/lang/fr/guide/jeux-pc/">
+<link rel="alternate" hreflang="fr" href="https://borne.pasahome.org/lang/fr/guide/jeux-pc/">
+<link rel="alternate" hreflang="en" href="https://borne.pasahome.org/lang/en/guide/jeux-pc/">
+<link rel="alternate" hreflang="x-default" href="https://borne.pasahome.org/guide/jeux-pc/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Borne">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Guide · Jeux PC — Borne">
+<meta property="og:description" content="Doom, Quake, Duke Nukem 3D et les autres dans Borne : le dossier des jeux, les moteurs inclus, les modules à télécharger, les mises à jour d'id Software et les sauvegardes.">
+<meta property="og:url" content="https://borne.pasahome.org/lang/fr/guide/jeux-pc/">
+<meta property="og:image" content="https://borne.pasahome.org/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../../../../favicon.png">
+<link rel="apple-touch-icon" href="../../../../icon.png">
+<link rel="stylesheet" href="../../../../style.css?v=bafa8a1365">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Borne", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "inLanguage": "fr", "url": "https://borne.pasahome.org/lang/fr/guide/jeux-pc/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="haut">
+  <div class="barre">
+    <a class="marque" href="../../../../lang/fr/"><img src="../../../../icon.png" alt="" width="30" height="30"> Borne</a>
+    <nav aria-label="Navigation principale"><a href="../../../../lang/fr/">Accueil</a><a href="../../../../lang/fr/guide/" aria-current="page">Guide</a><a href="../../../../lang/fr/jeux/">Jeux PC</a><a href="../../../../lang/fr/assistance/">Assistance</a></nav>
+    <a class="langue" href="../../../../lang/en/guide/jeux-pc/" hreflang="en" lang="en">English</a>
+  </div>
+</header>
+<main id="main">
+<nav class="onglets" aria-label="Parties du guide"><a href="../../../../lang/fr/guide/">Premiers pas</a><a href="../../../../lang/fr/guide/arcade/">Arcade</a><a href="../../../../lang/fr/guide/jeux-pc/" aria-current="page">Jeux PC</a></nav>
+<h1>Les jeux PC</h1>
+<p class="intro">Les classiques d'id Software, de 3D Realms et des autres ne s'émulent pas : ils tournent dans des moteurs modernes, libres, qui lisent les fichiers de données d'origine. Borne choisit le bon moteur, le règle et le lance pour vous.</p>
+
+<h2 id="dossier">Le dossier des jeux</h2>
+<p>Réglages → Jeux PC → <em>Ajouter un dossier…</em>. Un seul dossier suffit, avec un sous-dossier par jeu ; le nom des sous-dossiers ne compte pas. Borne reconnaît chaque jeu à ses fichiers : <code>doom2.wad</code>, le dossier <code>id1</code> de Quake, <code>baseq2</code> de Quake II, <code>DUKE3D.GRP</code>… La <a href="../../../../lang/fr/jeux/">liste des jeux PC</a> dit exactement quels fichiers chaque jeu demande.</p>
+<p>Les extensions sont rangées avec leur jeu : Scourge of Armagon et Dissolution of Eternity avec Quake, The Reckoning et Ground Zero avec Quake II, Team Arena avec Quake III, Resurrection of Evil avec Doom 3. Pour Doom, un fichier <code>.wad</code> ou <code>.pk3</code> de mod est rattaché à son jeu de base.</p>
+<p>Ajoutez des fichiers à tout moment : Borne relit le dossier dès que son contenu change.</p>
+<figure class="fenetre">
+  <img src="../../../../images/borne-jeux-pc.png" alt="Le dossier Quake II de Borne, avec la fiche de The Reckoning" width="1600" height="836">
+  <figcaption>Un dossier par jeu dans la barre de gauche ; la fiche indique le moteur et les touches.</figcaption>
+</figure>
+
+<h2 id="fichiers">D'où viennent les fichiers de jeu</h2>
+<p>Borne ne fournit aucun jeu. Les fichiers de données viennent de votre copie : les versions vendues aujourd'hui sur Steam et GOG les contiennent, les CD et DVD d'origine aussi. Copiez le dossier du jeu, ou seulement ses fichiers de données, dans votre dossier de jeux PC.</p>
+<p>Pour essayer sans rien acheter : Freedoom, un Doom entièrement libre, se télécharge depuis Borne (Réglages → Données).</p>
+
+<h2 id="moteurs">Les moteurs</h2>
+<p>Ils sont inclus dans Borne, sauf deux qui se téléchargent (voir plus bas). Chacun est une version libre, moderne et maintenue du moteur d'origine :</p>
+<table class="tableau">
+  <thead><tr><th>Jeux</th><th>Moteur</th></tr></thead>
+  <tbody>
+    <tr><td>Doom, Doom II, Final Doom, Heretic, Hexen, Strife, Chex Quest, HacX</td><td>UZDoom (GZDoom sur Mac Intel et avant macOS 26)</td></tr>
+    <tr><td>Quake et ses extensions</td><td>vkQuake</td></tr>
+    <tr><td>Quake II et ses extensions</td><td>Yamagi Quake II</td></tr>
+    <tr><td>Quake III Arena, Team Arena</td><td>Quake3e</td></tr>
+    <tr><td>Return to Castle Wolfenstein (solo)</td><td>iortcw</td></tr>
+    <tr><td>Wolfenstein 3D, Spear of Destiny</td><td>ECWolf</td></tr>
+    <tr><td>Doom 3, Resurrection of Evil</td><td>dhewm3</td></tr>
+    <tr><td>Quake 4 (Mac Apple silicon)</td><td>openQ4, à télécharger</td></tr>
+    <tr><td>Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage, Exhumed…</td><td>Raze, à télécharger</td></tr>
+  </tbody>
+</table>
+<p>Vous préférez une autre version d'un moteur ? Réglages → Jeux PC → <em>Choisir…</em> à côté du moteur ; <em>Intégré</em> revient à celui de Borne.</p>
+
+<h2 id="modules">Les modules à télécharger</h2>
+<p>Certains éléments ne peuvent pas être inclus dans Borne, pour des raisons de licence : openQ4 (Quake 4), Raze (les jeux Build), Freedoom, et trois mises à jour officielles d'id Software. Réglages → Données les liste tous, avec leur état, et <em>Tout télécharger</em> les installe en une fois. Chaque fichier est vérifié par son empreinte avant d'être installé, dans votre dossier utilisateur.</p>
+<figure class="reglages">
+  <img src="../../../../images/reglages-donnees.png" alt="Les réglages de Borne, onglet Données : la liste des modules à télécharger, leur état et le bouton Tout télécharger" width="620" height="568">
+  <figcaption>Réglages → Données : chaque module, son état, et un bouton pour tout prendre d'un coup.</figcaption>
+</figure>
+<p>Si vous lancez un jeu dont le module manque, Borne vous le propose aussi à ce moment-là.</p>
+
+<h2 id="maj-id">Les mises à jour d'id Software</h2>
+<p>Les disques d'origine de Quake III Arena, Doom 3 et Quake 4 datent d'avant les dernières mises à jour de ces jeux, et les moteurs modernes en ont besoin : Quake III 1.32, Doom 3 1.3.1, Quake 4 1.4.2. Les versions Steam et GOG les contiennent déjà.</p>
+<p>Ces mises à jour sont soumises aux licences d'id Software : Borne ne les télécharge qu'une fois que vous les avez acceptées, dans Borne, et n'en garde que les fichiers de données. Elles s'ajoutent à votre jeu sans modifier vos fichiers d'origine.</p>
+
+<h2 id="sauvegardes">Sauvegardes et réglages</h2>
+<p>Chaque moteur range ses sauvegardes, sa configuration et ses captures dans votre dossier utilisateur (Réglages → Données → <em>Afficher dans le Finder</em>), jamais à côté des fichiers de jeu. Dans le jeu, <kbd>Échap</kbd> ouvre le menu : sauvegarder, charger, régler l'image et le son, quitter.</p>
+<p>Le tir est aussi sur <kbd>X</kbd> et sur le clic de la souris : <kbd>Ctrl</kbd>, la touche habituelle sur PC, déclenche des raccourcis de macOS quand on la combine avec les flèches.</p>
+
+<h2 id="vulkan">Graphismes</h2>
+<p>Les moteurs récents dessinent en Vulkan, traduit vers Metal, l'interface graphique du Mac : par KosmicKrisp sur Mac Apple silicon avec macOS 26, par MoltenVK ailleurs. Réglages → Jeux PC → <em>Pilote Vulkan de Quake</em> permet de forcer MoltenVK si un jeu s'affiche mal.</p>
+</main>
+<footer class="bas">
+  <div class="colonne">
+    <p class="actions">
+      <a class="cta" href="https://github.com/gpasa/borne/releases/latest/download/Borne-AppleSilicon.zip">Télécharger · Apple silicon</a>
+      <a class="cta secondaire" href="https://github.com/gpasa/borne/releases/latest/download/Borne-Intel.zip">Télécharger · Intel</a>
+      <a class="lien" href="https://github.com/gpasa/borne">Code source</a>
+    </p>
+    <p class="don">Borne est libre et gratuit. Si vous l'aimez, un don aide à le faire évoluer : <a href="https://ko-fi.com/gpasa">Ko-fi</a> · <a href="https://paypal.me/GuglielmoPasa">PayPal</a>. Merci !</p>
+    <p class="legal">© 2026 Guglielmo Pasa · GPL-3.0 · MAME est une marque de Gregory Ember ; Borne est un projet indépendant.</p>
+  </div>
+</footer>
+</body>
+</html>

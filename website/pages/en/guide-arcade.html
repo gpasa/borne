@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide · Arcade — Borne</title>
+<meta name="description" content="Arcade games in Borne: ROM folders, searching and sorting, keys, installing a game on the Mac, checking your ROMs, pictures and display settings.">
+<link rel="canonical" href="https://borne.pasahome.org/lang/en/guide/arcade/">
+<link rel="alternate" hreflang="fr" href="https://borne.pasahome.org/lang/fr/guide/arcade/">
+<link rel="alternate" hreflang="en" href="https://borne.pasahome.org/lang/en/guide/arcade/">
+<link rel="alternate" hreflang="x-default" href="https://borne.pasahome.org/guide/arcade/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Borne">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Guide · Arcade — Borne">
+<meta property="og:description" content="Arcade games in Borne: ROM folders, searching and sorting, keys, installing a game on the Mac, checking your ROMs, pictures and display settings.">
+<meta property="og:url" content="https://borne.pasahome.org/lang/en/guide/arcade/">
+<meta property="og:image" content="https://borne.pasahome.org/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<link rel="apple-touch-icon" href="../../icon.png">
+<link rel="stylesheet" href="../../style.css?v=bafa8a1365">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Borne", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "inLanguage": "en", "url": "https://borne.pasahome.org/lang/en/guide/arcade/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="haut">
+  <div class="barre">
+    <a class="marque" href="../../"><img src="../../icon.png" alt="" width="30" height="30"> Borne</a>
+    <nav aria-label="Main navigation"><a href="../../">Home</a><a href="../../guide/" aria-current="page">Guide</a><a href="../../jeux/">PC games</a><a href="../../assistance/">Support</a></nav>
+    <a class="langue" href="../../guide/arcade/?lang=fr" hreflang="fr" lang="fr">Français</a>
+  </div>
+</header>
+<main id="main">
+<nav class="onglets" aria-label="Guide sections"><a href="../../guide/">Getting started</a><a href="../../guide/arcade/" aria-current="page">Arcade</a><a href="../../guide/jeux-pc/">PC games</a></nav>
+<h1>The arcade</h1>
+<p class="intro">Borne drives MAME 0.289, included in the app. It knows every machine in MAME; the ones whose ROMs you have are in the <em>Disponibles</em> (available) folder.</p>
+
+<h2 id="roms">ROM folders</h2>
+<p>Settings → Arcade → <em>Dossiers ROM</em>. Point to the <code>roms</code> folder itself, or to the folder that contains it: Borne finds <code>roms</code> inside. Your sets are <code>.zip</code> files (one per game, named with MAME's short name, such as <code>pacman.zip</code>); the hard disks and CDs of more recent machines are folders of <code>.chd</code> files with the same name.</p>
+<p>Add ROMs, then rescan the folders: Jeux menu → <em>Relire les dossiers de jeux</em> (<kbd>⌘</kbd><kbd>R</kbd>). Borne also rescans on its own when a folder's contents change.</p>
+<p>A clone (a regional version, a revision) often needs its parent, and some machines need a BIOS: keep them in the same folder. The game's details show its parent.</p>
+
+<h2 id="trouver">Finding a game</h2>
+<ul>
+  <li><strong>Search</strong>: type part of the title, the short name or the manufacturer in the field at the top right.</li>
+  <li><strong>Sort</strong>: click a column header (game, year, manufacturer, status…).</li>
+  <li><strong>Filter</strong>: the folders on the left — originals or clones, working games, horizontal or vertical screen, games that can save their state — and <em>Regrouper par</em> (group by) manufacturer, year, driver or CPU.</li>
+  <li><strong>Favorites</strong>: the star in the details (<kbd>⌘</kbd><kbd>D</kbd>) adds the game to the <em>Favoris</em> folder.</li>
+</ul>
+<p>The <em>État</em> (status) column shows MAME's verdict: <span class="pastille vert">Bon</span> the game runs well, <span class="pastille orange">Imparfait</span> it is playable with flaws (sound, colors…), <span class="pastille rouge">Préliminaire</span> it does not work yet.</p>
+
+<h2 id="touches">Keys</h2>
+<p>Borne launches MAME with a layout designed for a Mac keyboard. Each game's details list its exact keys; here are the essentials:</p>
+<table class="touches">
+  <tr><td><kbd>5</kbd></td><td>Insert a coin</td></tr>
+  <tr><td><kbd>1</kbd></td><td>Start, one player</td></tr>
+  <tr><td><kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd></td><td>Joystick</td></tr>
+  <tr><td><kbd>Z</kbd> <kbd>X</kbd> <kbd>C</kbd> <kbd>V</kbd> <kbd>B</kbd> <kbd>N</kbd></td><td>Player 1 buttons 1 to 6</td></tr>
+  <tr><td><kbd>6</kbd> then <kbd>2</kbd></td><td>Player 2 coin and start; joystick on <kbd>R</kbd> <kbd>D</kbd> <kbd>F</kbd> <kbd>G</kbd>, buttons on <kbd>A</kbd> <kbd>S</kbd> <kbd>Q</kbd> <kbd>W</kbd></td></tr>
+  <tr><td>Mouse</td><td>Steering wheel, trackball or light gun</td></tr>
+  <tr><td><kbd>P</kbd></td><td>Pause</td></tr>
+  <tr><td><kbd>F12</kbd></td><td>Screenshot (it becomes the game's picture in the details)</td></tr>
+  <tr><td><kbd>Esc</kbd></td><td>Quit the game</td></tr>
+</table>
+<p>Why not <kbd>Ctrl</kbd> to fire, as on a PC? On a Mac, <kbd>Ctrl</kbd> + arrow opens Mission Control or switches desktops, right in the middle of a game. So the buttons are on <kbd>Z</kbd> <kbd>X</kbd> <kbd>C</kbd>…</p>
+
+<h2 id="installer">Playing without the external drive</h2>
+<p><em>Installer sur ce Mac…</em> (install on this Mac), in the details, copies the game with everything it needs: its parent, BIOS, devices and samples. The size is shown before copying. Jeux menu → <em>Installer les favoris sur ce Mac…</em> does the same for all your favorites.</p>
+<p>Local copies always come first: the game starts even with the drive unplugged. They are in the <em>Sur ce Mac</em> folder; <em>Supprimer la copie</em> removes one.</p>
+
+<h2 id="verifier">Checking your ROMs</h2>
+<p>Jeux menu → <em>Vérifier les ROM</em> (<kbd>⌘</kbd><kbd>⇧</kbd><kbd>R</kbd>) asks MAME to check every set you have. The check runs in the background, verdicts appear as they come, and <kbd>⌘</kbd><kbd>.</kbd> stops it whenever you like.</p>
+
+<h2 id="images">Game pictures</h2>
+<p>The details show a picture of the game: screenshot, title screen, marquee, flyer, cabinet or control panel, your choice. Point Settings → Arcade → <em>Images</em> to the folder that holds the <code>snap</code>, <code>titles</code>, <code>marquees</code>, <code>flyers</code>, <code>cabinets</code> or <code>cpanel</code> subfolders. Without them, <kbd>F12</kbd> during the game makes one.</p>
+
+<h2 id="affichage">Display and per-game settings</h2>
+<ul>
+  <li><strong>Rendering</strong>: Settings → Général → <em>Rendu de MAME</em>, Metal (bgfx, the default) or OpenGL.</li>
+  <li><strong>Extra options</strong>: the <em>Options en plus</em> field passes options to MAME, for example <code>-bgfx_screen_chains crt-geom</code> for a CRT look.</li>
+  <li><strong>A shifted or distorted picture?</strong> MAME's menu (<kbd>Tab</kbd>) may have changed the game's display. In the details, <em>Réinitialiser l'affichage</em> clears that setting and nothing else; <em>Réinitialiser tous les réglages…</em> resets the game completely (its saves are kept).</li>
+</ul>
+</main>
+<footer class="bas">
+  <div class="colonne">
+    <p class="actions">
+      <a class="cta" href="https://github.com/gpasa/borne/releases/latest/download/Borne-AppleSilicon.zip">Download · Apple silicon</a>
+      <a class="cta secondaire" href="https://github.com/gpasa/borne/releases/latest/download/Borne-Intel.zip">Download · Intel</a>
+      <a class="lien" href="https://github.com/gpasa/borne">Source code</a>
+    </p>
+    <p class="don">Borne is free. If you enjoy it, a donation helps it keep growing: <a href="https://ko-fi.com/gpasa">Ko-fi</a> · <a href="https://paypal.me/GuglielmoPasa">PayPal</a>. Thank you!</p>
+    <p class="legal">© 2026 Guglielmo Pasa · GPL-3.0 · MAME is a trademark of Gregory Ember; Borne is an independent project.</p>
+  </div>
+</footer>
+</body>
+</html>

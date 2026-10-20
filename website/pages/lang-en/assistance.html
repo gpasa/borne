@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Borne</title>
+<meta name="description" content="Frequently asked questions about Borne, reporting a problem, privacy, licenses and donations.">
+<link rel="canonical" href="https://borne.pasahome.org/lang/en/assistance/">
+<link rel="alternate" hreflang="fr" href="https://borne.pasahome.org/lang/fr/assistance/">
+<link rel="alternate" hreflang="en" href="https://borne.pasahome.org/lang/en/assistance/">
+<link rel="alternate" hreflang="x-default" href="https://borne.pasahome.org/assistance/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Borne">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Support — Borne">
+<meta property="og:description" content="Frequently asked questions about Borne, reporting a problem, privacy, licenses and donations.">
+<meta property="og:url" content="https://borne.pasahome.org/lang/en/assistance/">
+<meta property="og:image" content="https://borne.pasahome.org/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../../../favicon.png">
+<link rel="apple-touch-icon" href="../../../icon.png">
+<link rel="stylesheet" href="../../../style.css?v=bafa8a1365">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Borne", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "inLanguage": "en", "url": "https://borne.pasahome.org/lang/en/assistance/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="haut">
+  <div class="barre">
+    <a class="marque" href="../../../lang/en/"><img src="../../../icon.png" alt="" width="30" height="30"> Borne</a>
+    <nav aria-label="Main navigation"><a href="../../../lang/en/">Home</a><a href="../../../lang/en/guide/">Guide</a><a href="../../../lang/en/jeux/">PC games</a><a href="../../../lang/en/assistance/" aria-current="page">Support</a></nav>
+    <a class="langue" href="../../../lang/fr/assistance/" hreflang="fr" lang="fr">Français</a>
+  </div>
+</header>
+<main id="main">
+<h1>Support</h1>
+<p class="intro">Answers to the questions people ask most often. For anything else, write to us on GitHub.</p>
+
+<h2 id="questions">Frequently asked questions</h2>
+<div class="faq">
+  <details><summary>Does Borne include any games?</summary><p>No, none. Borne, MAME and the engines are software; arcade ROMs and PC game files are up to you. Only use those you are entitled to. Freedoom, an entirely free Doom, downloads from Borne.</p></details>
+  <details><summary>Is the app available in English?</summary><p>Not yet: Borne's interface is in French for now. This guide names each menu and button as it appears in the app, with its meaning.</p></details>
+  <details><summary>An arcade game isn't in “Disponibles”</summary><p>Check that its <code>.zip</code> file has MAME's short name (shown in the game's details under <em>Nom court</em>) and is in a ROM folder set in the settings. Then rescan the folders (<kbd>⌘</kbd><kbd>R</kbd>). A clone needs its parent, a machine its BIOS: keep them alongside.</p></details>
+  <details><summary>An arcade game starts and closes right away</summary><p>A file is often missing: a BIOS, a clone's parent, or a set from another MAME version. Jeux menu → <em>Vérifier les ROM</em> gives MAME's verdict for each game. Borne uses MAME 0.289: your sets must match that version.</p></details>
+  <details><summary>A game's picture is shifted or distorted</summary><p>MAME's menu (<kbd>Tab</kbd>) may have changed its display. In the game's details, <em>Réinitialiser l'affichage</em> puts the picture back without touching anything else.</p></details>
+  <details><summary>Keys don't respond, or Ctrl switches desktops</summary><p>On a Mac, <kbd>Ctrl</kbd> + arrow belongs to Mission Control. So Borne puts the arcade buttons on <kbd>Z</kbd> <kbd>X</kbd> <kbd>C</kbd> <kbd>V</kbd> <kbd>B</kbd> <kbd>N</kbd>, and fire on <kbd>X</kbd> or the click for PC games. Each game's details list its keys.</p></details>
+  <details><summary>A PC game doesn't show up</summary><p>Check that its folder is in Settings → Jeux PC and that its data files are there: the <a href="../../../lang/en/jeux/">list of PC games</a> says which. Installer files (<code>setup.exe</code>, disc images, archives) aren't enough: you need the installed files.</p></details>
+  <details><summary>Borne offers me an id Software update</summary><p>Your copy comes from an original disc, older than the game's last update, which the modern engine needs. Read the license and accept it if you agree: Borne downloads the official update, checks its fingerprint and keeps only its data, in your user folder.</p></details>
+  <details><summary>macOS asks for Accessibility access for Borne</summary><p>Borne doesn't need it: decline. Versions 1.3.2 and later no longer trigger this request; if you had granted it, you can remove Borne from System Settings → Privacy &amp; Security → Accessibility.</p></details>
+  <details><summary>What about Intel Macs?</summary><p>There is an Intel version, native too. Quake 4 (openQ4) is for Apple silicon Macs only. macOS 14 or later is required.</p></details>
+</div>
+
+<h2 id="probleme">Reporting a problem</h2>
+<p>Open an issue on <a href="https://github.com/gpasa/borne/issues">GitHub</a>: describe the game, what you expected and what happened, and mention your Mac and your macOS version. Ideas are welcome in the same place.</p>
+
+<h2 id="confidentialite">Privacy</h2>
+<p>Borne collects nothing and sends nothing. It only goes online when you ask for a module (Freedoom, Raze, openQ4, an id Software update), from its official source or a copy on GitHub, and checks every file against its fingerprint. Your games, saves and settings stay on your Mac.</p>
+
+<h2 id="licences">Licenses</h2>
+<p>Borne is free software under the GPL-3.0; its <a href="https://github.com/gpasa/borne">source code</a> is public, and contributions follow the DCO. MAME (GPL-2.0 and compatible licenses) and each engine keep their own license: their texts are in the app, and the details are in the repository's README. MAME is a registered trademark of Gregory Ember; Borne is an independent project.</p>
+
+<h2 id="soutenir">Support Borne</h2>
+<p>Borne is free and will stay free. If you enjoy it, a donation helps it keep growing: <a href="https://ko-fi.com/gpasa">Ko-fi</a> or <a href="https://paypal.me/GuglielmoPasa">PayPal</a>. Thank you!</p>
+</main>
+<footer class="bas">
+  <div class="colonne">
+    <p class="actions">
+      <a class="cta" href="https://github.com/gpasa/borne/releases/latest/download/Borne-AppleSilicon.zip">Download · Apple silicon</a>
+      <a class="cta secondaire" href="https://github.com/gpasa/borne/releases/latest/download/Borne-Intel.zip">Download · Intel</a>
+      <a class="lien" href="https://github.com/gpasa/borne">Source code</a>
+    </p>
+    <p class="don">Borne is free. If you enjoy it, a donation helps it keep growing: <a href="https://ko-fi.com/gpasa">Ko-fi</a> · <a href="https://paypal.me/GuglielmoPasa">PayPal</a>. Thank you!</p>
+    <p class="legal">© 2026 Guglielmo Pasa · GPL-3.0 · MAME is a trademark of Gregory Ember; Borne is an independent project.</p>
+  </div>
+</footer>
+</body>
+</html>

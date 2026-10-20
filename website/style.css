@@ -24,7 +24,7 @@
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  padding: 0 16px 4rem;
+  padding: 0 16px;
   background: var(--bg);
   color: var(--fg);
   font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
@@ -96,4 +96,61 @@ footer a { color: inherit; }
 @media (max-width: 520px) {
   .entete img { width: 72px; height: 72px; }
   .entete h1 { font-size: 2.1rem; }
+}
+
+/* Structure du site : barre du haut, onglets du guide, pied de page. */
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 16px; top: 8px; background: var(--carte); padding: .4rem .8rem; border-radius: 8px; z-index: 2; }
+.haut { border-bottom: 1px solid var(--bord); margin: 0 -16px; padding: 0 16px; position: sticky; top: 0; z-index: 1;
+  background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.barre { max-width: 52rem; margin: 0 auto; display: flex; align-items: center; gap: 1.2rem; min-height: 3.4rem; flex-wrap: wrap; }
+.marque { display: flex; align-items: center; gap: .5rem; font-weight: 700; color: var(--fg); text-decoration: none; font-size: 1.1rem; }
+.barre nav { display: flex; gap: .2rem; flex-wrap: wrap; flex: 1; }
+.barre nav a, .onglets a { color: var(--muted); text-decoration: none; padding: .35rem .7rem; border-radius: 999px; font-weight: 550; }
+.barre nav a:hover, .onglets a:hover { color: var(--fg); background: var(--carte); }
+.barre nav a[aria-current="page"] { color: var(--fg); background: var(--carte); box-shadow: inset 0 0 0 1px var(--bord); }
+.langue { color: var(--muted); font-size: .92rem; text-decoration: none; border: 1px solid var(--bord); border-radius: 999px; padding: .2rem .7rem; }
+.langue:hover { color: var(--fg); }
+main { max-width: 52rem; padding-bottom: 2rem; }
+.onglets { display: flex; gap: .3rem; flex-wrap: wrap; margin: 1.6rem 0 .4rem; padding: .3rem; border-radius: 999px;
+  background: var(--carte); border: 1px solid var(--bord); width: fit-content; }
+.onglets a[aria-current="page"] { color: #fff; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+main > h1 { font-size: 2.1rem; letter-spacing: -.02em; margin: 1.4rem 0 .4rem; }
+.intro { font-size: 1.1rem; color: var(--muted); }
+h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
+
+.cartes { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; margin: 1rem 0; }
+.carte { background: var(--carte); border: 1px solid var(--bord); border-radius: 14px; padding: 1.1rem 1.2rem; }
+.carte p { margin: .4rem 0; }
+
+figure { margin: 1.6rem 0; }
+figure.reglages img, figure.petite img { display: block; margin: 0 auto; max-width: 100%; height: auto; border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(40, 10, 80, .25); }
+figure.reglages img { width: 620px; }
+figure.petite img { width: 330px; }
+
+.tableau, .touches { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .97rem; }
+.tableau th { text-align: left; color: var(--muted); font-weight: 600; font-size: .88rem; border-bottom: 1px solid var(--bord); padding: .4rem .6rem; }
+.tableau td, .touches td { padding: .5rem .6rem; border-bottom: 1px solid var(--bord); vertical-align: top; }
+.tableau.jeux td:first-child { font-weight: 550; width: 42%; }
+.touches td:first-child { white-space: nowrap; width: 1%; }
+.moteur { color: var(--muted); font-size: .93rem; margin-top: .3rem; }
+.pastille { white-space: nowrap; }
+.pastille::before { content: ""; display: inline-block; width: .65em; height: .65em; border-radius: 50%; margin-right: .3em; vertical-align: .05em; }
+.pastille.vert::before { background: #34c759; }
+.pastille.orange::before { background: #ff9f0a; }
+.pastille.rouge::before { background: #ff453a; }
+
+.bas { border-top: 1px solid var(--bord); margin: 3rem -16px 0; padding: 1.4rem 16px 2.5rem; }
+.bas .colonne { max-width: 52rem; margin: 0 auto; }
+.bas .actions { margin: 0 0 .8rem; }
+.bas .don { margin: 0 0 .6rem; }
+.legal { color: var(--muted); font-size: .85rem; margin: 0; }
+
+@media (max-width: 620px) {
+  .barre { gap: .4rem .8rem; padding: .4rem 0; }
+  .barre nav { order: 3; flex-basis: 100%; gap: 0; margin: 0 -.5rem; }
+  .barre nav a { padding: .3rem .5rem; font-size: .93rem; }
+  .haut { position: static; }
+  .tableau.jeux td:first-child { width: auto; }
 }

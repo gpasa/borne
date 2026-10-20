@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide · PC games — Borne</title>
+<meta name="description" content="Doom, Quake, Duke Nukem 3D and the others in Borne: the games folder, the included engines, the modules to download, id Software's updates and your saves.">
+<link rel="canonical" href="https://borne.pasahome.org/lang/en/guide/jeux-pc/">
+<link rel="alternate" hreflang="fr" href="https://borne.pasahome.org/lang/fr/guide/jeux-pc/">
+<link rel="alternate" hreflang="en" href="https://borne.pasahome.org/lang/en/guide/jeux-pc/">
+<link rel="alternate" hreflang="x-default" href="https://borne.pasahome.org/guide/jeux-pc/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Borne">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Guide · PC games — Borne">
+<meta property="og:description" content="Doom, Quake, Duke Nukem 3D and the others in Borne: the games folder, the included engines, the modules to download, id Software's updates and your saves.">
+<meta property="og:url" content="https://borne.pasahome.org/lang/en/guide/jeux-pc/">
+<meta property="og:image" content="https://borne.pasahome.org/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../../../../favicon.png">
+<link rel="apple-touch-icon" href="../../../../icon.png">
+<link rel="stylesheet" href="../../../../style.css?v=bafa8a1365">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Borne", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "inLanguage": "en", "url": "https://borne.pasahome.org/lang/en/guide/jeux-pc/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="haut">
+  <div class="barre">
+    <a class="marque" href="../../../../lang/en/"><img src="../../../../icon.png" alt="" width="30" height="30"> Borne</a>
+    <nav aria-label="Main navigation"><a href="../../../../lang/en/">Home</a><a href="../../../../lang/en/guide/" aria-current="page">Guide</a><a href="../../../../lang/en/jeux/">PC games</a><a href="../../../../lang/en/assistance/">Support</a></nav>
+    <a class="langue" href="../../../../lang/fr/guide/jeux-pc/" hreflang="fr" lang="fr">Français</a>
+  </div>
+</header>
+<main id="main">
+<nav class="onglets" aria-label="Guide sections"><a href="../../../../lang/en/guide/">Getting started</a><a href="../../../../lang/en/guide/arcade/">Arcade</a><a href="../../../../lang/en/guide/jeux-pc/" aria-current="page">PC games</a></nav>
+<h1>PC games</h1>
+<p class="intro">The classics from id Software, 3D Realms and others aren't emulated: they run in modern, open-source engines that read the original data files. Borne picks the right engine, sets it up and launches it for you.</p>
+
+<h2 id="dossier">The games folder</h2>
+<p>Settings → Jeux PC → <em>Ajouter un dossier…</em> (Add a folder). One folder is enough, with a subfolder per game; subfolder names don't matter. Borne recognizes each game by its files: <code>doom2.wad</code>, Quake's <code>id1</code> folder, Quake II's <code>baseq2</code>, <code>DUKE3D.GRP</code>… The <a href="../../../../lang/en/jeux/">list of PC games</a> says exactly which files each game needs.</p>
+<p>Add-ons are grouped with their game: Scourge of Armagon and Dissolution of Eternity with Quake, The Reckoning and Ground Zero with Quake II, Team Arena with Quake III, Resurrection of Evil with Doom 3. For Doom, a mod <code>.wad</code> or <code>.pk3</code> file is attached to its base game.</p>
+<p>Add files at any time: Borne rescans the folder as soon as its contents change.</p>
+<figure class="fenetre">
+  <img src="../../../../images/borne-jeux-pc.png" alt="Borne's Quake II folder, with The Reckoning's details" width="1600" height="836">
+  <figcaption>One folder per game in the sidebar; the details show the engine and the keys.</figcaption>
+</figure>
+
+<h2 id="fichiers">Where the game files come from</h2>
+<p>Borne doesn't provide any game. The data files come from your copy: the versions sold today on Steam and GOG include them, and so do the original CDs and DVDs. Copy the game's folder, or just its data files, into your PC games folder.</p>
+<p>To try without buying anything: Freedoom, an entirely free Doom, downloads from Borne (Settings → Données).</p>
+
+<h2 id="moteurs">The engines</h2>
+<p>They are included in Borne, except two that download (see below). Each is a free, modern, maintained version of the original engine:</p>
+<table class="tableau">
+  <thead><tr><th>Games</th><th>Engine</th></tr></thead>
+  <tbody>
+    <tr><td>Doom, Doom II, Final Doom, Heretic, Hexen, Strife, Chex Quest, HacX</td><td>UZDoom (GZDoom on Intel Macs and before macOS 26)</td></tr>
+    <tr><td>Quake and its add-ons</td><td>vkQuake</td></tr>
+    <tr><td>Quake II and its add-ons</td><td>Yamagi Quake II</td></tr>
+    <tr><td>Quake III Arena, Team Arena</td><td>Quake3e</td></tr>
+    <tr><td>Return to Castle Wolfenstein (single player)</td><td>iortcw</td></tr>
+    <tr><td>Wolfenstein 3D, Spear of Destiny</td><td>ECWolf</td></tr>
+    <tr><td>Doom 3, Resurrection of Evil</td><td>dhewm3</td></tr>
+    <tr><td>Quake 4 (Apple silicon Macs)</td><td>openQ4, to download</td></tr>
+    <tr><td>Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage, Exhumed…</td><td>Raze, to download</td></tr>
+  </tbody>
+</table>
+<p>Prefer another version of an engine? Settings → Jeux PC → <em>Choisir…</em> next to the engine; <em>Intégré</em> goes back to Borne's own.</p>
+
+<h2 id="modules">Modules to download</h2>
+<p>Some parts can't be bundled with Borne for license reasons: openQ4 (Quake 4), Raze (the Build games), Freedoom, and three official id Software updates. Settings → Données lists them all with their status, and <em>Tout télécharger</em> (download all) installs them at once. Every file is checked against its fingerprint before it is installed, in your user folder.</p>
+<figure class="reglages">
+  <img src="../../../../images/reglages-donnees.png" alt="Borne's settings, Data tab: the list of modules to download, their status and the Download all button" width="620" height="568">
+  <figcaption>Settings → Données: each module, its status, and one button to get them all.</figcaption>
+</figure>
+<p>If you launch a game whose module is missing, Borne offers it right then as well.</p>
+
+<h2 id="maj-id">id Software's updates</h2>
+<p>The original discs of Quake III Arena, Doom 3 and Quake 4 predate these games' final updates, which modern engines need: Quake III 1.32, Doom 3 1.3.1, Quake 4 1.4.2. The Steam and GOG versions already include them.</p>
+<p>These updates are covered by id Software's licenses: Borne only downloads them once you have accepted them, in Borne, and keeps only their data files. They are added to your game without changing your original files.</p>
+
+<h2 id="sauvegardes">Saves and settings</h2>
+<p>Each engine keeps its saves, configuration and screenshots in your user folder (Settings → Données → <em>Afficher dans le Finder</em>), never next to the game files. In the game, <kbd>Esc</kbd> opens the menu: save, load, adjust picture and sound, quit.</p>
+<p>Fire is also on <kbd>X</kbd> and the mouse click: <kbd>Ctrl</kbd>, the usual key on a PC, triggers macOS shortcuts when combined with the arrows.</p>
+
+<h2 id="vulkan">Graphics</h2>
+<p>Recent engines draw with Vulkan, translated to Metal, the Mac's graphics interface: by KosmicKrisp on Apple silicon Macs with macOS 26, by MoltenVK elsewhere. Settings → Jeux PC → <em>Pilote Vulkan de Quake</em> lets you force MoltenVK if a game looks wrong.</p>
+</main>
+<footer class="bas">
+  <div class="colonne">
+    <p class="actions">
+      <a class="cta" href="https://github.com/gpasa/borne/releases/latest/download/Borne-AppleSilicon.zip">Download · Apple silicon</a>
+      <a class="cta secondaire" href="https://github.com/gpasa/borne/releases/latest/download/Borne-Intel.zip">Download · Intel</a>
+      <a class="lien" href="https://github.com/gpasa/borne">Source code</a>
+    </p>
+    <p class="don">Borne is free. If you enjoy it, a donation helps it keep growing: <a href="https://ko-fi.com/gpasa">Ko-fi</a> · <a href="https://paypal.me/GuglielmoPasa">PayPal</a>. Thank you!</p>
+    <p class="legal">© 2026 Guglielmo Pasa · GPL-3.0 · MAME is a trademark of Gregory Ember; Borne is an independent project.</p>
+  </div>
+</footer>
+</body>
+</html>

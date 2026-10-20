@@ -1,0 +1,91 @@
+<!-- title: PC games | description: The PC games Borne recognizes and launches: Doom, Quake, Quake II, Quake III, Doom 3, Quake 4, Wolfenstein, Duke Nukem 3D, Blood…, with the files each one needs. -->
+<h1>PC games</h1>
+<p class="intro">Borne recognizes these games by their data files, wherever they are in your PC games folder. File names can be upper or lower case. Borne doesn't provide any game: these files come from your copy (Steam, GOG, original CD or DVD).</p>
+
+<h2 id="id">Doom and the games on its engine</h2>
+<table class="tableau jeux">
+  <thead><tr><th>Game</th><th>File needed</th></tr></thead>
+  <tbody>
+    <tr><td>Doom (and The Ultimate Doom)</td><td><code>doom.wad</code></td></tr>
+    <tr><td>Doom II: Hell on Earth</td><td><code>doom2.wad</code></td></tr>
+    <tr><td>Final Doom: TNT – Evilution</td><td><code>tnt.wad</code></td></tr>
+    <tr><td>Final Doom: The Plutonia Experiment</td><td><code>plutonia.wad</code></td></tr>
+    <tr><td>No Rest for the Living, Sigil</td><td><code>nerve.wad</code>, <code>sigil.wad</code>, grouped with Doom II and Doom</td></tr>
+    <tr><td>Heretic, Hexen, Deathkings of the Dark Citadel</td><td><code>heretic.wad</code>, <code>hexen.wad</code>, <code>hexdd.wad</code></td></tr>
+    <tr><td>Strife</td><td><code>strife1.wad</code> (and <code>voices.wad</code> for the voices)</td></tr>
+    <tr><td>Chex Quest, Chex Quest 3, HacX</td><td><code>chex.wad</code>, <code>chex3.wad</code>, <code>hacx.wad</code></td></tr>
+    <tr><td>Freedoom: Phase 1 and 2, FreeDM</td><td>free, downloaded from Borne</td></tr>
+    <tr><td>Mods</td><td>any other <code>.wad</code> or <code>.pk3</code>, attached to Doom II (or to its base game)</td></tr>
+  </tbody>
+</table>
+<p class="moteur">Engine: UZDoom (GZDoom on Intel Macs and before macOS 26), included.</p>
+
+<h2 id="quake">Quake</h2>
+<table class="tableau jeux">
+  <thead><tr><th>Game</th><th>Files needed</th></tr></thead>
+  <tbody>
+    <tr><td>Quake</td><td><code>id1</code> folder with <code>pak0.pak</code> and <code>pak1.pak</code></td></tr>
+    <tr><td>Scourge of Armagon</td><td><code>hipnotic</code> folder with <code>pak0.pak</code></td></tr>
+    <tr><td>Dissolution of Eternity</td><td><code>rogue</code> folder with <code>pak0.pak</code></td></tr>
+    <tr><td>Mods</td><td>any other folder next to <code>id1</code> that holds a <code>pak0.pak</code></td></tr>
+  </tbody>
+</table>
+<p class="moteur">Engine: vkQuake, included.</p>
+
+<h2 id="quake2">Quake II</h2>
+<table class="tableau jeux">
+  <thead><tr><th>Game</th><th>Files needed</th></tr></thead>
+  <tbody>
+    <tr><td>Quake II</td><td><code>baseq2</code> folder with <code>pak0.pak</code> (and <code>pak1.pak</code>, <code>pak2.pak</code>, <code>players</code>, <code>video</code> if present)</td></tr>
+    <tr><td>The Reckoning</td><td><code>xatrix</code> folder with <code>pak0.pak</code>, next to <code>baseq2</code></td></tr>
+    <tr><td>Ground Zero</td><td><code>rogue</code> folder with <code>pak0.pak</code>, next to <code>baseq2</code></td></tr>
+    <tr><td>Capture The Flag</td><td><code>ctf</code> folder with <code>pak0.pak</code>, next to <code>baseq2</code></td></tr>
+  </tbody>
+</table>
+<p class="moteur">Engine: Yamagi Quake II, included.</p>
+
+<h2 id="quake3">Quake III Arena</h2>
+<table class="tableau jeux">
+  <thead><tr><th>Game</th><th>Files needed</th></tr></thead>
+  <tbody>
+    <tr><td>Quake III Arena</td><td><code>baseq3</code> folder with <code>pak0.pk3</code></td></tr>
+    <tr><td>Team Arena</td><td><code>missionpack</code> folder with <code>pak0.pk3</code></td></tr>
+  </tbody>
+</table>
+<p class="moteur">Engine: Quake3e, included. An original CD needs id Software's 1.32 update (<code>pak1</code> to <code>pak8</code>), which Borne downloads once you accept its license.</p>
+
+<h2 id="wolf">Wolfenstein</h2>
+<table class="tableau jeux">
+  <thead><tr><th>Game</th><th>Files needed</th></tr></thead>
+  <tbody>
+    <tr><td>Wolfenstein 3D</td><td><code>VSWAP.WL6</code>, <code>GAMEMAPS.WL6</code> and the other <code>.WL6</code> files</td></tr>
+    <tr><td>Spear of Destiny, and its missions 2 and 3</td><td>the <code>.SOD</code> files (and <code>.SD2</code>, <code>.SD3</code>)</td></tr>
+    <tr><td>Return to Castle Wolfenstein (single player)</td><td>the <code>Main</code> folder with <code>pak0.pk3</code> and <code>sp_pak1.pk3</code> to <code>sp_pak4.pk3</code>; one entry per language if you have several</td></tr>
+  </tbody>
+</table>
+<p class="moteur">Engines: ECWolf and iortcw, included.</p>
+
+<h2 id="doom3">Doom 3 and Quake 4</h2>
+<table class="tableau jeux">
+  <thead><tr><th>Game</th><th>Files needed</th></tr></thead>
+  <tbody>
+    <tr><td>Doom 3</td><td><code>base</code> folder with <code>pak000.pk4</code> to <code>pak004.pk4</code></td></tr>
+    <tr><td>Resurrection of Evil</td><td><code>d3xp</code> folder with <code>pak000.pk4</code>, even if installed elsewhere</td></tr>
+    <tr><td>Quake 4 (Apple silicon Macs)</td><td><code>q4base</code> folder with <code>pak001.pk4</code> to <code>pak012.pk4</code> and a voice file such as <code>zpak_english.pk4</code></td></tr>
+  </tbody>
+</table>
+<p class="moteur">Engines: dhewm3, included; openQ4, to download. Original DVDs need id Software's updates (Doom 3 1.3.1, Quake 4 1.4.2), which Borne downloads once you accept their license; the Steam and GOG versions already include them.</p>
+
+<h2 id="build">Duke Nukem 3D and the Build games</h2>
+<table class="tableau jeux">
+  <thead><tr><th>Game</th><th>File needed</th></tr></thead>
+  <tbody>
+    <tr><td>Duke Nukem 3D</td><td><code>DUKE3D.GRP</code></td></tr>
+    <tr><td>Blood</td><td><code>BLOOD.RFF</code> (and the game's other files, in the same folder)</td></tr>
+    <tr><td>Shadow Warrior</td><td><code>SW.GRP</code></td></tr>
+    <tr><td>Redneck Rampage</td><td><code>REDNECK.GRP</code></td></tr>
+    <tr><td>Exhumed (PowerSlave)</td><td><code>STUFF.DAT</code></td></tr>
+    <tr><td>NAM, Napalm, World War II GI</td><td><code>NAM.GRP</code>, <code>NAPALM.GRP</code>, <code>WW2GI.GRP</code></td></tr>
+  </tbody>
+</table>
+<p class="moteur">Engine: Raze, downloaded from Borne.</p>

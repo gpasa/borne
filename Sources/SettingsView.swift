@@ -175,11 +175,20 @@ struct SettingsView: View {
             _path = AppStorage(wrappedValue: "", engine.prefKey)
         }
 
-        var body: some View {
+        /// Moteurs inclus, ou téléchargés sur demande (openQ4, Raze) : le dire tel quel.
+    private var builtInLabel: String {
+        switch engine {
+        case .quake4: OpenQ4.executable != nil ? "Téléchargé (openQ4)" : "À télécharger (openQ4)"
+        case .build: Raze.executable != nil ? "Téléchargé (Raze)" : "À télécharger (Raze)"
+        default: "Intégré (\(engine.engineName))"
+        }
+    }
+
+    var body: some View {
             HStack {
                 Text("Moteur \(engine.title)")
                 Spacer()
-                Text(path.isEmpty ? "Intégré (\(engine.engineName))" : (path as NSString).lastPathComponent)
+                Text(path.isEmpty ? builtInLabel : (path as NSString).lastPathComponent)
                     .foregroundStyle(.secondary).lineLimit(1)
                 Button("Choisir…") {
                     let panel = NSOpenPanel()

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistance — Borne</title>
+<meta name="description" content="Questions fréquentes sur Borne, signaler un problème, confidentialité, licences et dons.">
+<link rel="canonical" href="https://borne.pasahome.org/lang/fr/assistance/">
+<link rel="alternate" hreflang="fr" href="https://borne.pasahome.org/lang/fr/assistance/">
+<link rel="alternate" hreflang="en" href="https://borne.pasahome.org/lang/en/assistance/">
+<link rel="alternate" hreflang="x-default" href="https://borne.pasahome.org/assistance/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Borne">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Assistance — Borne">
+<meta property="og:description" content="Questions fréquentes sur Borne, signaler un problème, confidentialité, licences et dons.">
+<meta property="og:url" content="https://borne.pasahome.org/lang/fr/assistance/">
+<meta property="og:image" content="https://borne.pasahome.org/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../icon.png">
+<link rel="stylesheet" href="../style.css?v=bafa8a1365">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Borne", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "inLanguage": "fr", "url": "https://borne.pasahome.org/lang/fr/assistance/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="haut">
+  <div class="barre">
+    <a class="marque" href="../"><img src="../icon.png" alt="" width="30" height="30"> Borne</a>
+    <nav aria-label="Navigation principale"><a href="../">Accueil</a><a href="../guide/">Guide</a><a href="../jeux/">Jeux PC</a><a href="../assistance/" aria-current="page">Assistance</a></nav>
+    <a class="langue" href="../assistance/?lang=en" hreflang="en" lang="en">English</a>
+  </div>
+</header>
+<main id="main">
+<h1>Assistance</h1>
+<p class="intro">Les réponses aux questions qu'on pose le plus souvent. Pour le reste, écrivez-nous sur GitHub.</p>
+
+<h2 id="questions">Questions fréquentes</h2>
+<div class="faq">
+  <details><summary>Borne contient-il des jeux ?</summary><p>Non, aucun. Borne, MAME et les moteurs sont des logiciels ; les ROM d'arcade et les fichiers des jeux PC restent à votre charge. N'utilisez que ceux que vous avez le droit d'utiliser. Freedoom, un Doom entièrement libre, se télécharge depuis Borne.</p></details>
+  <details><summary>Un jeu d'arcade n'est pas dans « Disponibles »</summary><p>Vérifiez que son fichier <code>.zip</code> porte le nom court de MAME (il est dans la fiche du jeu, sous <em>Nom court</em>) et qu'il est dans un dossier ROM indiqué dans les réglages. Relisez ensuite les dossiers (<kbd>⌘</kbd><kbd>R</kbd>). Un clone a besoin de son original, une machine de son BIOS : placez-les à côté.</p></details>
+  <details><summary>Un jeu d'arcade se lance puis se ferme aussitôt</summary><p>Il manque souvent un fichier : un BIOS, l'original d'un clone, ou un ensemble d'une autre version de MAME. Menu Jeux → <em>Vérifier les ROM</em> donne le verdict de MAME pour chaque jeu. Borne utilise MAME 0.289 : vos ensembles doivent correspondre à cette version.</p></details>
+  <details><summary>L'image d'un jeu est décalée ou déformée</summary><p>Le menu de MAME (<kbd>Tab</kbd>) a pu modifier son affichage. Dans la fiche du jeu, <em>Réinitialiser l'affichage</em> remet l'image en place sans rien toucher d'autre.</p></details>
+  <details><summary>Les touches ne répondent pas, ou Ctrl fait changer de bureau</summary><p>Sur Mac, <kbd>Ctrl</kbd> + flèche appartient à Mission Control. Borne place donc les boutons sur <kbd>Z</kbd> <kbd>X</kbd> <kbd>C</kbd> <kbd>V</kbd> <kbd>B</kbd> <kbd>N</kbd> pour l'arcade, et le tir sur <kbd>X</kbd> ou le clic pour les jeux PC. La fiche de chaque jeu donne ses touches.</p></details>
+  <details><summary>Un jeu PC n'apparaît pas</summary><p>Vérifiez que son dossier est dans Réglages → Jeux PC et que ses fichiers de données y sont : la <a href="../jeux/">liste des jeux PC</a> dit lesquels. Les fichiers d'installation (<code>setup.exe</code>, images de disque, archives) ne suffisent pas : il faut les fichiers installés.</p></details>
+  <details><summary>Borne me propose une mise à jour d'id Software</summary><p>Votre copie vient d'un disque d'origine, plus ancien que la dernière mise à jour du jeu, dont le moteur moderne a besoin. Lisez la licence, acceptez-la si elle vous convient : Borne télécharge la mise à jour officielle, vérifie son empreinte et n'en garde que les données, dans votre dossier utilisateur.</p></details>
+  <details><summary>macOS demande l'accès d'accessibilité pour Borne</summary><p>Borne n'en a pas besoin : refusez. Les versions 1.3.2 et suivantes ne déclenchent plus cette demande ; si vous l'aviez accordée, vous pouvez retirer Borne de Réglages Système → Confidentialité et sécurité → Accessibilité.</p></details>
+  <details><summary>Et sur un Mac Intel ?</summary><p>Il y a une version Intel, native elle aussi. Quake 4 (openQ4) est réservé aux Mac Apple silicon. Il faut macOS 14 ou plus.</p></details>
+</div>
+
+<h2 id="probleme">Signaler un problème</h2>
+<p>Ouvrez une demande sur <a href="https://github.com/gpasa/borne/issues">GitHub</a> : décrivez le jeu, ce que vous attendiez et ce qui s'est passé, et indiquez votre Mac et votre version de macOS. Les idées sont les bienvenues au même endroit.</p>
+
+<h2 id="confidentialite">Confidentialité</h2>
+<p>Borne ne collecte rien et n'envoie rien. Il ne se connecte à Internet que lorsque vous lui demandez un module (Freedoom, Raze, openQ4, une mise à jour d'id Software), depuis sa source officielle ou une copie sur GitHub, et vérifie chaque fichier par son empreinte. Vos jeux, vos sauvegardes et vos réglages restent sur votre Mac.</p>
+
+<h2 id="licences">Licences</h2>
+<p>Borne est un logiciel libre sous licence GPL-3.0 ; son <a href="https://github.com/gpasa/borne">code source</a> est public, et les contributions suivent le DCO. MAME (GPL-2.0 et licences compatibles) et chaque moteur gardent leur licence : leurs textes sont dans l'app, et le détail est dans le README du dépôt. MAME est une marque déposée de Gregory Ember ; Borne est un projet indépendant.</p>
+
+<h2 id="soutenir">Soutenir Borne</h2>
+<p>Borne est gratuit et le restera. Si vous l'aimez, un don aide à le faire évoluer : <a href="https://ko-fi.com/gpasa">Ko-fi</a> ou <a href="https://paypal.me/GuglielmoPasa">PayPal</a>. Merci !</p>
+</main>
+<footer class="bas">
+  <div class="colonne">
+    <p class="actions">
+      <a class="cta" href="https://github.com/gpasa/borne/releases/latest/download/Borne-AppleSilicon.zip">Télécharger · Apple silicon</a>
+      <a class="cta secondaire" href="https://github.com/gpasa/borne/releases/latest/download/Borne-Intel.zip">Télécharger · Intel</a>
+      <a class="lien" href="https://github.com/gpasa/borne">Code source</a>
+    </p>
+    <p class="don">Borne est libre et gratuit. Si vous l'aimez, un don aide à le faire évoluer : <a href="https://ko-fi.com/gpasa">Ko-fi</a> · <a href="https://paypal.me/GuglielmoPasa">PayPal</a>. Merci !</p>
+    <p class="legal">© 2026 Guglielmo Pasa · GPL-3.0 · MAME est une marque de Gregory Ember ; Borne est un projet indépendant.</p>
+  </div>
+</footer>
+</body>
+</html>

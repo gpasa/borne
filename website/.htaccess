@@ -1,0 +1,10 @@
+# Engendré par tools/build.py — ne pas modifier à la main.
+AddDefaultCharset utf-8
+ErrorDocument 404 /404.html
+DirectoryIndex index.php index.html
+RedirectMatch 404 ^/(src|tools|pages)/
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+</IfModule>

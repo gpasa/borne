@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide · Premiers pas — Borne</title>
+<meta name="description" content="Installer Borne, montrer où sont vos jeux d'arcade et vos jeux PC, comprendre la fenêtre et savoir où vont vos sauvegardes.">
+<link rel="canonical" href="https://borne.pasahome.org/lang/fr/guide/">
+<link rel="alternate" hreflang="fr" href="https://borne.pasahome.org/lang/fr/guide/">
+<link rel="alternate" hreflang="en" href="https://borne.pasahome.org/lang/en/guide/">
+<link rel="alternate" hreflang="x-default" href="https://borne.pasahome.org/guide/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Borne">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Guide · Premiers pas — Borne">
+<meta property="og:description" content="Installer Borne, montrer où sont vos jeux d'arcade et vos jeux PC, comprendre la fenêtre et savoir où vont vos sauvegardes.">
+<meta property="og:url" content="https://borne.pasahome.org/lang/fr/guide/">
+<meta property="og:image" content="https://borne.pasahome.org/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../../../favicon.png">
+<link rel="apple-touch-icon" href="../../../icon.png">
+<link rel="stylesheet" href="../../../style.css?v=bafa8a1365">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Borne", "operatingSystem": "macOS 14+", "applicationCategory": "GameApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CHF"}, "license": "https://www.gnu.org/licenses/gpl-3.0.html", "downloadUrl": "https://github.com/gpasa/borne/releases/latest", "inLanguage": "fr", "url": "https://borne.pasahome.org/lang/fr/guide/", "author": {"@type": "Person", "@id": "https://pasahome.org/#person", "name": "Guglielmo Pasa"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="haut">
+  <div class="barre">
+    <a class="marque" href="../../../lang/fr/"><img src="../../../icon.png" alt="" width="30" height="30"> Borne</a>
+    <nav aria-label="Navigation principale"><a href="../../../lang/fr/">Accueil</a><a href="../../../lang/fr/guide/" aria-current="page">Guide</a><a href="../../../lang/fr/jeux/">Jeux PC</a><a href="../../../lang/fr/assistance/">Assistance</a></nav>
+    <a class="langue" href="../../../lang/en/guide/" hreflang="en" lang="en">English</a>
+  </div>
+</header>
+<main id="main">
+<nav class="onglets" aria-label="Parties du guide"><a href="../../../lang/fr/guide/" aria-current="page">Premiers pas</a><a href="../../../lang/fr/guide/arcade/">Arcade</a><a href="../../../lang/fr/guide/jeux-pc/">Jeux PC</a></nav>
+<h1>Premiers pas</h1>
+<p class="intro">Dix minutes pour installer Borne, lui montrer vos jeux et lancer le premier. Les onglets ci-dessus détaillent ensuite l'arcade et les jeux PC.</p>
+
+<h2 id="installer">1. Installer Borne</h2>
+<ol class="etapes">
+  <li>Téléchargez la version de votre Mac : <a href="https://github.com/gpasa/borne/releases/latest/download/Borne-AppleSilicon.zip">Apple silicon</a> (puce M1 et suivantes) ou <a href="https://github.com/gpasa/borne/releases/latest/download/Borne-Intel.zip">Intel</a>. Dans le doute : menu Pomme → À propos de ce Mac.</li>
+  <li>Ouvrez le fichier <code>.zip</code> téléchargé, puis glissez <strong>Borne</strong> dans le dossier Applications.</li>
+  <li>Lancez Borne. L'app est signée et notarisée par Apple : macOS l'ouvre sans avertissement. Il faut macOS 14 ou plus.</li>
+</ol>
+<p>Rien d'autre à installer : MAME 0.289 et les moteurs des jeux PC sont dans l'app. Quelques modules, dont les licences ne permettent pas de les inclure, se téléchargent depuis les réglages (voir <a href="../../../lang/fr/guide/jeux-pc/#modules">Jeux PC</a>).</p>
+
+<h2 id="dossiers">2. Montrer où sont vos jeux</h2>
+<p>Ouvrez les réglages (menu Borne → Réglages, ou <kbd>⌘</kbd><kbd>,</kbd>).</p>
+<ul>
+  <li><strong>Arcade</strong> → <em>Dossiers ROM</em> : choisissez le dossier <code>roms</code>, ou celui qui le contient. Vos ensembles de ROM y sont des fichiers <code>.zip</code>.</li>
+  <li><strong>Jeux PC</strong> : <em>Ajouter un dossier…</em> et choisissez le dossier où sont rangés vos jeux PC. Borne explore ses sous-dossiers et reconnaît chaque jeu à ses fichiers.</li>
+</ul>
+<p>Ces dossiers peuvent être sur un disque externe. Borne les lit seulement : il n'y écrit jamais rien, ni réglage, ni sauvegarde.</p>
+<figure class="reglages">
+  <img src="../../../images/reglages-jeux-pc.png" alt="Les réglages de Borne, onglet Jeux PC : le dossier des jeux, puis le moteur de chaque jeu" width="620" height="568">
+  <figcaption>Réglages → Jeux PC : le dossier des jeux, et le moteur utilisé pour chaque jeu.</figcaption>
+</figure>
+
+<h2 id="fenetre">3. La fenêtre de Borne</h2>
+<figure class="fenetre">
+  <img src="../../../images/borne-arcade.png" alt="La fenêtre de Borne" width="1600" height="836">
+</figure>
+<dl>
+  <dt>À gauche, les dossiers</dt>
+  <dd><em>Tous les jeux</em>, <em>Disponibles</em> (ceux dont vous avez les fichiers), <em>Favoris</em>, <em>Sur ce Mac</em> ; puis un dossier par jeu PC (Doom, Quake…) ; puis les caractéristiques des machines d'arcade (originaux, clones, jeux fonctionnels, écran vertical…) et <em>Regrouper par</em> fabricant, année, pilote ou processeur.</dd>
+  <dt>Au centre, la liste</dt>
+  <dd>Cliquez sur un en-tête pour trier. Le champ de recherche, en haut à droite, filtre par nom, nom court ou fabricant à mesure que vous tapez.</dd>
+  <dt>À droite, la fiche</dt>
+  <dd>Une image du jeu, les boutons <em>Lancer</em>, <em>Favori</em> et <em>Installer sur ce Mac…</em>, les caractéristiques, et les touches du jeu.</dd>
+</dl>
+
+<h2 id="jouer">4. Jouer</h2>
+<p>Double-cliquez sur un jeu, ou choisissez-le puis <kbd>⌘</kbd><kbd>O</kbd>. Au lancement, un aide-mémoire rappelle les touches quelques secondes ; elles restent dans la fiche du jeu. <kbd>Échap</kbd> quitte le jeu et vous ramène à Borne.</p>
+<figure class="petite">
+  <img src="../../../images/rappel-touches.png" alt="L'aide-mémoire des touches de Quake II affiché au lancement" width="330" height="197">
+  <figcaption>L'aide-mémoire affiché au lancement d'un jeu.</figcaption>
+</figure>
+<p>Les jeux s'ouvrent en plein écran, ou dans une fenêtre si vous cochez <em>Dans une fenêtre</em> (Réglages → Général).</p>
+
+<h2 id="donnees">5. Où vont vos données</h2>
+<p>Tout ce que les jeux écrivent (réglages par jeu, sauvegardes, meilleurs scores, captures d'écran, enregistrements) va dans votre dossier utilisateur, par défaut <code>~/Library/Application Support/Borne</code>. Réglages → Données permet de le déplacer et de l'afficher dans le Finder.</p>
+<p>Le disque des jeux n'est jamais modifié : vous pouvez le débrancher, le prêter ou le partager entre plusieurs Mac.</p>
+
+<h2 id="maj">6. Mettre à jour</h2>
+<p>Les nouvelles versions sont publiées sur <a href="https://github.com/gpasa/borne/releases">GitHub</a> ; les boutons de téléchargement de ce site mènent toujours à la dernière. Remplacez simplement l'app dans Applications : vos réglages et vos sauvegardes sont conservés.</p>
+</main>
+<footer class="bas">
+  <div class="colonne">
+    <p class="actions">
+      <a class="cta" href="https://github.com/gpasa/borne/releases/latest/download/Borne-AppleSilicon.zip">Télécharger · Apple silicon</a>
+      <a class="cta secondaire" href="https://github.com/gpasa/borne/releases/latest/download/Borne-Intel.zip">Télécharger · Intel</a>
+      <a class="lien" href="https://github.com/gpasa/borne">Code source</a>
+    </p>
+    <p class="don">Borne est libre et gratuit. Si vous l'aimez, un don aide à le faire évoluer : <a href="https://ko-fi.com/gpasa">Ko-fi</a> · <a href="https://paypal.me/GuglielmoPasa">PayPal</a>. Merci !</p>
+    <p class="legal">© 2026 Guglielmo Pasa · GPL-3.0 · MAME est une marque de Gregory Ember ; Borne est un projet indépendant.</p>
+  </div>
+</footer>
+</body>
+</html>

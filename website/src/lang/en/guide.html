@@ -1,0 +1,51 @@
+<!-- title: Guide · Getting started | description: Install Borne, show it where your arcade and PC games are, find your way around the window and know where your saves go. -->
+<h1>Getting started</h1>
+<p class="intro">Ten minutes to install Borne, show it your games and launch the first one. The tabs above then cover the arcade and PC games in detail. Borne's interface is in French for now; this guide names each item as it appears in the app.</p>
+
+<h2 id="installer">1. Install Borne</h2>
+<ol class="etapes">
+  <li>Download the version for your Mac: <a href="@DL_AS@">Apple silicon</a> (M1 chip and later) or <a href="@DL_INTEL@">Intel</a>. Not sure? Apple menu → About This Mac.</li>
+  <li>Open the downloaded <code>.zip</code> file, then drag <strong>Borne</strong> to your Applications folder.</li>
+  <li>Launch Borne. The app is signed and notarized by Apple, so macOS opens it without a warning. macOS 14 or later is required.</li>
+</ol>
+<p>Nothing else to install: MAME 0.289 and the PC game engines are inside the app. A few modules, whose licenses don't allow bundling them, download from the settings (see <a href="@guide-pc.html#modules">PC games</a>).</p>
+
+<h2 id="dossiers">2. Show Borne where your games are</h2>
+<p>Open the settings (Borne menu → Réglages, or <kbd>⌘</kbd><kbd>,</kbd>).</p>
+<ul>
+  <li><strong>Arcade</strong> → <em>Dossiers ROM</em> (ROM folders): choose the <code>roms</code> folder, or the one that contains it. Your ROM sets are <code>.zip</code> files there.</li>
+  <li><strong>Jeux PC</strong> (PC games): <em>Ajouter un dossier…</em> (Add a folder) and choose the folder that holds your PC games. Borne looks through its subfolders and recognizes each game by its files.</li>
+</ul>
+<p>These folders can be on an external drive. Borne only reads them: it never writes anything there, neither settings nor saves.</p>
+<figure class="reglages">
+  <img src="@images/reglages-jeux-pc.png" alt="Borne's settings, PC games tab: the games folder, then the engine used for each game" width="620" height="568">
+  <figcaption>Settings → Jeux PC: the games folder, and the engine used for each game.</figcaption>
+</figure>
+
+<h2 id="fenetre">3. The Borne window</h2>
+<figure class="fenetre">
+  <img src="@images/borne-arcade.png" alt="The Borne window" width="1600" height="836">
+</figure>
+<dl>
+  <dt>On the left, the folders</dt>
+  <dd><em>Tous les jeux</em> (all games), <em>Disponibles</em> (available: the ones whose files you have), <em>Favoris</em>, <em>Sur ce Mac</em> (on this Mac); then one folder per PC game (Doom, Quake…); then arcade machine features (originals, clones, working games, vertical screen…) and <em>Regrouper par</em> (group by) manufacturer, year, driver or CPU.</dd>
+  <dt>In the middle, the list</dt>
+  <dd>Click a header to sort. The search field, top right, filters by title, short name or manufacturer as you type.</dd>
+  <dt>On the right, the details</dt>
+  <dd>A picture of the game, the <em>Lancer</em> (play), <em>Favori</em> and <em>Installer sur ce Mac…</em> buttons, the game's features, and its keys.</dd>
+</dl>
+
+<h2 id="jouer">4. Play</h2>
+<p>Double-click a game, or select it and press <kbd>⌘</kbd><kbd>O</kbd>. At launch, a reminder shows the keys for a few seconds; they also stay in the game's details. <kbd>Esc</kbd> quits the game and takes you back to Borne.</p>
+<figure class="petite">
+  <img src="@images/rappel-touches.png" alt="The Quake II key reminder shown at launch" width="330" height="197">
+  <figcaption>The key reminder shown when a game starts.</figcaption>
+</figure>
+<p>Games open full screen, or in a window if you tick <em>Dans une fenêtre</em> (Settings → Général).</p>
+
+<h2 id="donnees">5. Where your data goes</h2>
+<p>Everything the games write (per-game settings, saves, high scores, screenshots, recordings) goes to your user folder, <code>~/Library/Application Support/Borne</code> by default. Settings → Données lets you move it and show it in the Finder.</p>
+<p>The games drive is never modified: you can unplug it, lend it or share it between several Macs.</p>
+
+<h2 id="maj">6. Updating</h2>
+<p>New versions are published on <a href="https://github.com/gpasa/borne/releases">GitHub</a>; the download buttons on this site always lead to the latest one. Just replace the app in Applications: your settings and saves are kept.</p>

@@ -283,7 +283,14 @@ final class Catalog {
     /// Tests : open --args -launchGame quake:id1 lance le jeu dès qu'il est connu.
     @ObservationIgnored private var requestedLaunch = UserDefaults.standard.string(forKey: "launchGame")
 
+    /// Captures du site : -selectFolder quake2 ouvre le dossier d'un moteur PC.
+    @ObservationIgnored private var requestedFolder = UserDefaults.standard.string(forKey: "selectFolder")
+
     private func applyRequestedSelection() {
+        if let f = requestedFolder, all.contains(where: { $0.engine == f }) {
+            folder = .engine(f)
+            requestedFolder = nil
+        }
         if let g = requestedSelection, machines[g] != nil {
             selection = g
             requestedSelection = nil

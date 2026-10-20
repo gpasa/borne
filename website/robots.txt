@@ -1,3 +1,5 @@
 User-agent: *
-Allow: /
+Disallow: /pages/
+Disallow: /src/
+Disallow: /tools/
 Sitemap: https://borne.pasahome.org/sitemap.xml

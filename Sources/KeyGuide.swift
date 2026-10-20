@@ -97,6 +97,12 @@ enum KeyGuide {
             Entry(keys: "Molette · 1 à 9", action: "Armes"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
+        case .dos: [
+            Entry(keys: "Selon le jeu", action: "Flèches, Ctrl, Alt, Espace le plus souvent"),
+            Entry(keys: "⌘ F10", action: "Capturer ou libérer la souris"),
+            Entry(keys: "⌥ Entrée", action: "Plein écran ou fenêtre"),
+            Entry(keys: "⌘ Q", action: "Quitter DOSBox"),
+        ]
         case .rtcw: [
             Entry(keys: "W A S D", action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),

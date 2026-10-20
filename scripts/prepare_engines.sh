@@ -14,6 +14,7 @@
 #               par le chargeur Vulkan ; pilotes MoltenVK et, s'il est là, KosmicKrisp
 #   Doom 3      dhewm3 1.5.5 — compilé ici (build_dhewm3.sh), universel, avec la SDL3 de Borne
 #   Quake II    Yamagi Quake II 8.70 (+ xatrix, rogue, ctf) — compilé ici (build_yquake2.sh)
+#   DOS         DOSBox Staging 0.83.0 — version officielle, universelle, amincie
 #   KosmicKrisp Mesa 26.2.5 — compilé ici (build_kosmickrisp.sh), Apple silicon
 #   (Freedoom, le patch de Quake III, openQ4 et Raze se téléchargent depuis Borne, sur demande.)
 #
@@ -36,6 +37,9 @@ fetch quake3e  gh release download latest -R ec-/Quake3e -p 'quake3e-macos-aarch
 check() { [[ $(shasum -a 256 $1 | cut -d' ' -f1) == $2 ]] || { echo "Empreinte inattendue : $1 (nouvelle version ? mettre à jour l'empreinte après essai)"; exit 1; }; }
 check $D/quake3e/quake3e-macos-aarch64.zip 9e38f1e1b86398f8693e5bf950941b1b9aaaa12e10bf904aaebb673bc9e2907d
 check $D/quake3e/quake3e-macos-x86_64.zip 17124a56a752152e0457b4a5f76b2ced5ed4d0ab2085984449a9094958f525e3
+fetch dosbox   gh release download v0.83.0 -R dosbox-staging/dosbox-staging -p 'dosbox-staging-macOS-v0.83.0.dmg'
+check $D/dosbox/dosbox-staging-macOS-v0.83.0.dmg d8a771adfb8010fa6b5f7fb5351abfba659273ad01c89f03675a92bdbdae8167
+[[ -f $D/dosbox/LICENSE ]] || curl -sfL https://raw.githubusercontent.com/dosbox-staging/dosbox-staging/v0.83.0/LICENSE -o $D/dosbox/LICENSE
 [[ -d $D/quake3e/src ]] || git clone -q --depth 1 https://github.com/ec-/Quake3e.git $D/quake3e/src
 $BORNE/scripts/build_iortcw.sh
 [[ -d $D/vkquake/src ]] || git clone -q --depth 1 --branch 1.37.0 https://github.com/Novum/vkQuake.git $D/vkquake/src
@@ -45,10 +49,11 @@ $BORNE/scripts/build_iortcw.sh
 # Apps officielles hors de leurs images disque.
 X=$E/x
 mkdir -p $X
-for dmg in $D/uzdoom/*.dmg $D/ecwolf/*.dmg; do
+for dmg in $D/uzdoom/*.dmg $D/ecwolf/*.dmg $D/dosbox/*.dmg; do
     app=$(basename ${dmg%.dmg})
     [[ -d $X/UZDoom.app && $dmg == *UZDoom* ]] && continue
     [[ -d $X/ECWolf.app && $dmg == *ecwolf* ]] && continue
+    [[ -d "$X/DOSBox Staging.app" && $dmg == *dosbox* ]] && continue
     m=$(mktemp -d)
     hdiutil attach -readonly -nobrowse -mountpoint $m $dmg -quiet
     cp -R $m/*.app $X/
@@ -137,6 +142,9 @@ for arch in arm64 x86_64; do
         ditto --arch x86_64 $GZ $P/Engines/GZDoom.app
     fi
     ditto --arch $arch $X/ECWolf.app $P/Engines/ECWolf.app
+    # DOSBox Staging : sans sa documentation HTML (40 Mo), en ligne sur son site.
+    ditto --arch $arch "$X/DOSBox Staging.app" "$P/Engines/DOSBox Staging.app"
+    rm -rf "$P/Engines/DOSBox Staging.app/Contents/Resources/docs"
     ditto $E/build/iortcw-$arch/iowolfsp.app $P/Engines/iortcw.app
     ditto --arch $arch $E/build/dhewm3/dhewm3.app $P/Engines/dhewm3.app
     # Quake II : sans serveur dédié ni rendu GLES3 (pas de GLES sur macOS).
@@ -170,7 +178,8 @@ EOF
     fi
     # Licences des moteurs (UZDoom garde les siennes dans son app : licenses.zip).
     L=$P/licenses
-    mkdir -p $L/vkQuake $L/Vulkan-Loader $L/MoltenVK $L/ECWolf
+    mkdir -p $L/vkQuake $L/Vulkan-Loader $L/MoltenVK $L/ECWolf $L/DOSBox-Staging
+    cp $D/dosbox/LICENSE $L/DOSBox-Staging/
     cp $D/vkquake/src/LICENSE.txt $L/vkQuake/
     cp $BORNE/engines/patches/vkquake-1.37.0-borne.patch $L/vkQuake/
     mkdir -p $L/iortcw && cp $D/iortcw/SP/COPYING.txt $D/iortcw/LICENCE.md $L/iortcw/

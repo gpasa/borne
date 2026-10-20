@@ -6,7 +6,7 @@ import Foundation
 /// où elles sont, en lecture seule ; chaque moteur écrit dans
 /// <dossier utilisateur>/engines/<moteur>.
 enum Engine: String, CaseIterable, Codable, Identifiable {
-    case doom, quake, wolf3d, quake3, rtcw, quake4, build, doom3, quake2
+    case doom, quake, wolf3d, quake3, rtcw, quake4, build, doom3, quake2, dos
 
     var id: String { rawValue }
 
@@ -21,6 +21,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .doom3: "Doom 3"
         case .quake2: "Quake II"
         case .build: "Duke Nukem 3D, Blood…"
+        case .dos: "Jeux DOS"
         }
     }
 
@@ -35,6 +36,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .doom3: "moon"
         case .quake2: "triangle"
         case .build: "sunglasses"
+        case .dos: "pc"
         }
     }
 
@@ -59,6 +61,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .doom3: [res?.appendingPathComponent("dhewm3.app/Contents/MacOS/dhewm3")]
         case .quake2: [res?.appendingPathComponent("yquake2/quake2")]
         case .build: [Raze.executable]      // téléchargé sur demande
+        case .dos: [res?.appendingPathComponent("DOSBox Staging.app/Contents/MacOS/dosbox")]
         }
         return candidates.compactMap { $0 }.first { fm.isExecutableFile(atPath: $0.path) }
     }
@@ -93,6 +96,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .doom3: return "dhewm3"
         case .quake2: return "Yamagi Quake II"
         case .build: return "Raze"
+        case .dos: return "DOSBox Staging"
         }
     }
 
@@ -185,6 +189,7 @@ enum EngineCatalog {
         var q3Orphans: [URL] = []                 // Team Arena rangée hors de sa base
         var d3Base: URL?                          // dossier base de Doom 3
         var d3xpDirs: [URL] = []                  // Resurrection of Evil, souvent installée à part
+        var archives: [URL] = []                  // jeux DOS en archive, lus à la fin
         let fm = FileManager.default
 
         func add(_ m: Machine) {
@@ -270,6 +275,11 @@ enum EngineCatalog {
                 case "grp", "rff", "dat":
                     // Jeux Build (Raze) : le fichier principal désigne le jeu.
                     if let k = build[lower] { add(buildGame(url, k)) }
+                case "exe", "com":
+                    // Jeux DOS : l'exécutable désigne le jeu.
+                    if let m = DOSGames.game(folder: url.deletingLastPathComponent(), exe: name) { add(m) }
+                case _ where DOSGames.archiveExtensions.contains(ext):
+                    archives.append(url)
                 default:
                     // Wolfenstein 3D : VSWAP.<ext> désigne le jeu.
                     if url.deletingPathExtension().lastPathComponent.lowercased() == "vswap", let k = wolf[ext] {
@@ -311,6 +321,10 @@ enum EngineCatalog {
                 add(m)
             }
         }
+
+        // Jeux DOS dans des archives : après les dossiers, qui l'emportent.
+        if Task.isCancelled { return nil }
+        for m in DOSGames.games(inArchives: archives) { add(m) }
 
         // WAD additionnels : rattachés à leur base, sinon à Doom II, sinon Freedoom 2.
         for (url, known) in pwads {
@@ -558,6 +572,8 @@ enum EngineLaunchError: Error {
     case needsDoom3Patch
     /// Jeux Build : Raze à télécharger d'abord.
     case needsRaze
+    /// Jeu DOS en archive : à décompresser dans le dossier utilisateur.
+    case needsExtraction
 }
 
 struct EngineLaunch {
@@ -579,7 +595,9 @@ extension Engine {
         guard let exe = executable else {
             throw MAMERunner.Failure(message: "Le moteur \(title) est introuvable. Indiquez-le dans les réglages.")
         }
-        guard let data = m.dataPath, FileManager.default.fileExists(atPath: data) else {
+        // Jeu DOS déjà décompressé : l'archive d'origine n'est plus nécessaire.
+        let extracted = self == .dos && DOSGames.isArchive(m) && DOSGames.isExtracted(m)
+        guard let data = m.dataPath, extracted || FileManager.default.fileExists(atPath: data) else {
             throw MAMERunner.Failure(message: "Les fichiers du jeu sont introuvables : \(m.dataPath ?? "?"). Le disque est-il branché ?")
         }
         let user = userDirectory
@@ -722,6 +740,11 @@ extension Engine {
             let base = try Self.rtcwBase(gameDir: URL(fileURLWithPath: data), in: user)
             args = ["+set", "fs_basepath", base.path, "+set", "fs_homepath", user.path,
                     "+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
+
+        case .dos:
+            // DOSBox Staging range sa configuration dans ~/Library/Preferences/DOSBox.
+            env["HOME"] = home.path
+            args = try DOSGames.arguments(for: m, user: user)
 
         case .wolf3d:
             let cfg = user.appendingPathComponent("ecwolf.cfg")

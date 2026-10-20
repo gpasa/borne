@@ -42,10 +42,11 @@ for ARCH in arm64 x86_64; do
     [[ -x $APP/Contents/MacOS/vkquake ]] && sign $APP/Contents/MacOS/vkquake
     sign_inside $APP/Contents/Resources/Engines/Quake3e
     sign_inside $APP/Contents/Resources/Engines/yquake2
-    # Moteurs embarqués : UZDoom/GZDoom compilent leurs scripts à la volée (JIT), comme MAME.
+    # Moteurs embarqués : UZDoom/GZDoom compilent leurs scripts à la volée (JIT), comme MAME ;
+    # DOSBox Staging aussi (recompilateur dynamique).
     for a in $APP/Contents/Resources/Engines/*.app(N); do
         ent=()
-        [[ $a == *Doom.app ]] && ent=(--entitlements Resources/mame.entitlements)
+        [[ $a == *Doom.app || $a == *DOSBox* ]] && ent=(--entitlements Resources/mame.entitlements)
         sign_inside $a/Contents/Frameworks
         sign_inside $a/Contents/MacOS $ent
         sign $ent $a

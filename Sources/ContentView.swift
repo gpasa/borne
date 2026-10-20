@@ -233,6 +233,7 @@ struct GameTable: View {
         case .doom3: "Borne cherche le dossier base de Doom 3 (pak000.pk4…) et, pour Resurrection of Evil, son dossier d3xp."
         case .quake4: "Borne cherche le dossier q4base de Quake 4 (pak001.pk4…). Le moteur openQ4 se télécharge au premier lancement."
         case .rtcw: "Borne cherche le dossier de Return to Castle Wolfenstein qui contient pak0.pk3 et sp_pak1.pk3 (Main d'une version GOG ou Steam, par exemple). Seuls les fichiers du jeu d'origine sont chargés."
+        case .dos: "Borne reconnaît les jeux DOS à leur exécutable (TNFS.EXE pour Need for Speed, KEEN4E.EXE…), dans un dossier ou dans une archive .zip, .rar ou .7z. Une archive est décompressée dans votre dossier utilisateur au premier lancement."
         case .quake3: "Borne cherche un dossier baseq3 contenant pak0.pk3, et Team Arena (missionpack) où qu'elle soit."
         }
     }

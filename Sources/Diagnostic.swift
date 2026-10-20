@@ -28,6 +28,7 @@ enum DiagnosticFix: Equatable {
         switch self {
         case .offer(.needsOpenQ4): "Télécharger openQ4…"
         case .offer(.needsRaze): "Télécharger Raze…"
+        case .offer(.needsExtraction): "Décompresser maintenant"
         case .offer: "Installer la mise à jour…"
         case .rescan: "Relire les dossiers"
         case .verify: "Vérifier à nouveau"
@@ -140,6 +141,26 @@ enum Diagnostic {
                 ? .init(state: .ok, title: "Fichiers de données complets", detail: want.joined(separator: ", "))
                 : .init(state: .missing, title: "Fichiers de données incomplets",
                         detail: "Manquent : \(missing.joined(separator: ", ")). Copiez-les depuis le dossier du jeu.", fix: .rescan))
+
+        case .dos:
+            if DOSGames.isArchive(m) {
+                let size = ((try? FileManager.default.attributesOfItem(atPath: data)[.size]) as? Int).map {
+                    ByteCountFormatter.string(fromByteCount: Int64($0), countStyle: .file)
+                } ?? "?"
+                items.append(DOSGames.isExtracted(m)
+                    ? .init(state: .ok, title: "Archive décompressée",
+                            detail: "Le jeu est dans votre dossier utilisateur : il se lance même sans le disque des jeux.")
+                    : .init(state: .info, title: "Archive à décompresser",
+                            detail: "\((data as NSString).lastPathComponent) (\(size)) sera décompressée dans votre dossier utilisateur au premier lancement. L'archive elle-même n'est pas modifiée.",
+                            fix: .offer(.needsExtraction)))
+            }
+            if let note = DOSGames.notes[m.name.replacingOccurrences(of: "dos:", with: "")] {
+                items.append(.init(state: .info, title: "Premier lancement", detail: note))
+            }
+            if let k = DOSGames.known(for: m) {
+                items.append(.init(state: .info, title: k.run.count > 1 ? "Commandes" : "Commande",
+                                   detail: "\(k.run.joined(separator: " · ")), lancée\(k.run.count > 1 ? "s" : "") par DOSBox Staging dans le dossier du jeu."))
+            }
 
         default:
             break

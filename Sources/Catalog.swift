@@ -822,6 +822,20 @@ final class Catalog {
                 readLabel: "En savoir plus",
                 acceptLabel: "Télécharger Raze",
                 accept: { [weak self] in self?.downloadEngine("Raze", thenLaunch: launchAfter ? name : nil, install: Raze.install) })
+        case .needsExtraction:
+            // Rien à accepter : l'archive est à l'utilisateur, la copie reste chez lui.
+            let title = "Décompression de \(m.description)…"
+            startJob(title) { [weak self] in
+                guard let self else { return }
+                do {
+                    try await DOSGames.extract(m)
+                    diagnostics[name] = nil
+                    if launchAfter { launch(name) } else { diagnose(name) }
+                } catch is CancellationError {
+                } catch {
+                    notice = ("Décompression interrompue", error.localizedDescription)
+                }
+            }
         }
     }
 

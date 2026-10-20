@@ -12,6 +12,7 @@
 #               leur empreinte (l'étiquette « latest » de Quake3e est réécrite)
 #   Quake       vkQuake 1.37.0 — compilé ici, corrigé (engines/patches) pour passer
 #               par le chargeur Vulkan ; pilotes MoltenVK et, s'il est là, KosmicKrisp
+#   Doom 3      dhewm3 1.5.5 — compilé ici (build_dhewm3.sh), universel, avec la SDL3 de Borne
 #   KosmicKrisp Mesa 26.2.5 — compilé ici (build_kosmickrisp.sh), Apple silicon
 #   (Freedoom, le patch de Quake III, openQ4 et Raze se téléchargent depuis Borne, sur demande.)
 #
@@ -55,6 +56,7 @@ done
 # GZDoom corrigé (replace le pointeur sans événement simulé, donc sans accès d'accessibilité).
 $BORNE/scripts/build_zdoom_ports.sh gzdoom
 GZ=$E/build/zdoom-ports/GZDoom.app
+$BORNE/scripts/build_dhewm3.sh
 
 # MoltenVK, Freedoom.
 [[ -d $E/deps/MoltenVK ]] || tar -xf $D/moltenvk/MoltenVK-macos.tar -C $E/deps
@@ -134,6 +136,7 @@ for arch in arm64 x86_64; do
     fi
     ditto --arch $arch $X/ECWolf.app $P/Engines/ECWolf.app
     ditto $E/build/iortcw-$arch/iowolfsp.app $P/Engines/iortcw.app
+    ditto --arch $arch $E/build/dhewm3/dhewm3.app $P/Engines/dhewm3.app
     # Quake3e : binaire Vulkan et sa SDL2, dans un dossier (pas une app).
     q3arch=$([[ $arch == arm64 ]] && echo aarch64 || echo x86_64)
     mkdir -p $P/Engines/Quake3e

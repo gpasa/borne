@@ -1,4 +1,3 @@
-import CryptoKit
 import Foundation
 
 /// Patch 1.32 de Quake III Arena (fichiers pak1–8 de baseq3, pak1–3 de Team
@@ -51,37 +50,9 @@ enum Quake3Patch {
         try fm.createDirectory(at: tmp, withIntermediateDirectories: true)
         defer { try? fm.removeItem(at: tmp) }
 
-        let (bytes, response) = try await URLSession.shared.bytes(from: url)
-        let total = max(1, response.expectedContentLength)
         let zip = tmp.appendingPathComponent("patch.zip")
-        fm.createFile(atPath: zip.path, contents: nil)
-        let out = try FileHandle(forWritingTo: zip)
-        var hasher = SHA256()
-        var buffer = Data()
-        var done: Int64 = 0
-        do {
-            for try await byte in bytes {
-                buffer.append(byte)
-                if buffer.count >= 1 << 16 {
-                    try Task.checkCancellation()
-                    hasher.update(data: buffer)
-                    try out.write(contentsOf: buffer)
-                    done += Int64(buffer.count)
-                    buffer.removeAll(keepingCapacity: true)
-                    progress(Double(done) / Double(total))
-                }
-            }
-            hasher.update(data: buffer)
-            try out.write(contentsOf: buffer)
-            try out.close()
-        } catch {
-            try? out.close()
-            throw error
-        }
-        let digest = hasher.finalize().map { String(format: "%02x", $0) }.joined()
-        guard digest == sha256 else {
-            throw MAMERunner.Failure(message: "Le fichier téléchargé ne correspond pas au patch attendu ; rien n'a été installé.")
-        }
+        try await VerifiedDownload.fetch(url, mirrors: [VerifiedDownload.mirror(url.lastPathComponent)], sha256: sha256,
+                                         to: zip, what: "le patch 1.32 de Quake III", progress: progress)
         let unpacked = tmp.appendingPathComponent("x")
         let p = Process()
         p.executableURL = URL(fileURLWithPath: "/usr/bin/ditto")

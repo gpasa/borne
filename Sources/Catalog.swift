@@ -167,6 +167,8 @@ final class Catalog {
     var notice: (title: String, message: String)?
     /// Licence à accepter avant un téléchargement (patch Quake III).
     var licenseRequest: LicenseRequest?
+    /// Change à chaque téléchargement de modules : la liste des réglages se relit.
+    private(set) var modulesGeneration = 0
 
     struct LicenseRequest: Identifiable {
         let id = UUID()
@@ -659,6 +661,35 @@ final class Catalog {
         }
     }
 
+    /// Télécharge d'un coup les modules donnés, l'un après l'autre ; un échec
+    /// n'arrête pas les suivants. Interruptible comme les autres travaux.
+    func downloadModules(_ modules: [ExternalModule]) {
+        guard !modules.isEmpty else { return }
+        startJob("Téléchargement des modules…") { [weak self] in
+            guard let self else { return }
+            var failures: [String] = []
+            for (i, module) in modules.enumerated() {
+                let title = "Téléchargement de \(module.title) (\(i + 1)/\(modules.count))…"
+                setProgress(title, 0)
+                do {
+                    try await module.install { p in
+                        Task { @MainActor in self.setProgress(title, p) }
+                    }
+                } catch is CancellationError {
+                    break
+                } catch {
+                    failures.append("\(module.title) : \(error.localizedDescription)")
+                }
+                modulesGeneration += 1
+                if Task.isCancelled { break }
+            }
+            scanEngines()
+            if !failures.isEmpty {
+                notice = ("Certains modules n'ont pas pu être installés", failures.joined(separator: "\n"))
+            }
+        }
+    }
+
     /// Moteur téléchargé sur demande (openQ4, Raze), puis lancement du jeu.
     func downloadEngine(_ label: String, thenLaunch name: String?,
                         install: @escaping (@escaping (Double) -> Void) async throws -> Void) {
@@ -727,6 +758,14 @@ final class Catalog {
                         url: Quake4Patch.pageURL,
                         readLabel: "Voir la source",
                         accept: { [weak self] in self?.downloadEngine("la mise à jour de Quake 4", thenLaunch: name, install: Quake4Patch.install) })
+                    return
+                } catch EngineLaunchError.needsDoom3Patch {
+                    licenseRequest = LicenseRequest(
+                        title: "Mise à jour 1.3.1 de Doom 3",
+                        message: "Votre copie de Doom 3 est celle du disque d'origine ; dhewm3 et Resurrection of Evil ont besoin des fichiers de la mise à jour 1.3.1 d'id Software. Borne peut télécharger le patch officiel (\(Doom3Patch.size), au miroir indiqué par dhewm3) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software, qui suppose de posséder Doom 3 ; son texte est inclus dans le patch et sera rangé avec lui.",
+                        url: Doom3Patch.pageURL,
+                        readLabel: "Voir la source",
+                        accept: { [weak self] in self?.downloadEngine("la mise à jour de Doom 3", thenLaunch: name, install: Doom3Patch.install) })
                     return
                 } catch EngineLaunchError.needsRaze {
                     licenseRequest = LicenseRequest(

@@ -33,7 +33,7 @@ enum OpenQ4 {
     }
 
     static func install(progress: @escaping (Double) -> Void) async throws {
-        try await VerifiedDownload.installApp(from: url, sha256: sha256, what: "openQ4 \(version)",
+        try await VerifiedDownload.installApp(from: url, mirrors: [VerifiedDownload.mirror(url.lastPathComponent)], sha256: sha256, what: "openQ4 \(version)",
                                               appPath: "openq4-0.13.2-macos-arm64-metal-unsigned/openQ4.app",
                                               destination: app, progress: progress)
     }

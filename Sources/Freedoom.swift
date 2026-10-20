@@ -1,4 +1,3 @@
-import CryptoKit
 import Foundation
 
 /// Freedoom, un Doom entièrement libre (BSD), téléchargé sur demande depuis
@@ -19,40 +18,12 @@ enum Freedoom {
     /// Télécharge, vérifie et décompresse. Interruptible ; rien de partiel ne reste.
     static func install(progress: @escaping (Double) -> Void) async throws {
         let fm = FileManager.default
-        let (bytes, response) = try await URLSession.shared.bytes(from: url)
-        let total = max(1, response.expectedContentLength)
         let tmp = fm.temporaryDirectory.appendingPathComponent("borne-freedoom-\(UUID().uuidString)")
         try fm.createDirectory(at: tmp, withIntermediateDirectories: true)
         defer { try? fm.removeItem(at: tmp) }
         let zip = tmp.appendingPathComponent("freedoom.zip")
-        fm.createFile(atPath: zip.path, contents: nil)
-        let out = try FileHandle(forWritingTo: zip)
-        var hasher = SHA256()
-        var buffer = Data()
-        var done: Int64 = 0
-        do {
-            for try await byte in bytes {
-                buffer.append(byte)
-                if buffer.count >= 1 << 16 {
-                    try Task.checkCancellation()
-                    hasher.update(data: buffer)
-                    try out.write(contentsOf: buffer)
-                    done += Int64(buffer.count)
-                    buffer.removeAll(keepingCapacity: true)
-                    progress(Double(done) / Double(total))
-                }
-            }
-            hasher.update(data: buffer)
-            try out.write(contentsOf: buffer)
-            try out.close()
-        } catch {
-            try? out.close()
-            throw error
-        }
-        let digest = hasher.finalize().map { String(format: "%02x", $0) }.joined()
-        guard digest == sha256 else {
-            throw MAMERunner.Failure(message: "Le fichier téléchargé ne correspond pas à l'empreinte publiée par Freedoom ; rien n'a été installé.")
-        }
+        try await VerifiedDownload.fetch(url, mirrors: [VerifiedDownload.mirror(url.lastPathComponent)], sha256: sha256,
+                                         to: zip, what: "Freedoom \(version)", progress: progress)
         // Décompression avec ditto, puis seuls les WAD et les textes de licence sont gardés.
         let unpacked = tmp.appendingPathComponent("x")
         let p = Process()

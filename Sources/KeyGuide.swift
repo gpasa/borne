@@ -70,6 +70,15 @@ enum KeyGuide {
             Entry(keys: "1 à 0", action: "Armes"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
+        case .doom3: [
+            Entry(keys: "W A S D", action: "Se déplacer"),
+            Entry(keys: "Souris", action: "Viser"),
+            Entry(keys: "Clic · X", action: "Tirer"),
+            Entry(keys: "F", action: "Lampe torche"),
+            Entry(keys: "Espace", action: "Sauter"),
+            Entry(keys: "C", action: "S'accroupir"),
+            Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
+        ]
         case .quake4: [
             Entry(keys: "W A S D", action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),

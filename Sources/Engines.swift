@@ -6,7 +6,7 @@ import Foundation
 /// où elles sont, en lecture seule ; chaque moteur écrit dans
 /// <dossier utilisateur>/engines/<moteur>.
 enum Engine: String, CaseIterable, Codable, Identifiable {
-    case doom, quake, wolf3d, quake3, rtcw, quake4, build
+    case doom, quake, wolf3d, quake3, rtcw, quake4, build, doom3
 
     var id: String { rawValue }
 
@@ -18,6 +18,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake3: "Quake III Arena"
         case .rtcw: "Return to Castle Wolfenstein"
         case .quake4: "Quake 4"
+        case .doom3: "Doom 3"
         case .build: "Duke Nukem 3D, Blood…"
         }
     }
@@ -30,6 +31,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake3: "scope"
         case .rtcw: "building.columns"
         case .quake4: "hexagon"
+        case .doom3: "moon"
         case .build: "sunglasses"
         }
     }
@@ -52,6 +54,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake3: [res?.appendingPathComponent("Quake3e/quake3e")]
         case .rtcw: [res?.appendingPathComponent("iortcw.app/Contents/MacOS/iowolfsp")]
         case .quake4: [OpenQ4.executable]  // téléchargé sur demande
+        case .doom3: [res?.appendingPathComponent("dhewm3.app/Contents/MacOS/dhewm3")]
         case .build: [Raze.executable]      // téléchargé sur demande
         }
         return candidates.compactMap { $0 }.first { fm.isExecutableFile(atPath: $0.path) }
@@ -84,6 +87,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake3: return "Quake3e"
         case .rtcw: return "iortcw"
         case .quake4: return "openQ4"
+        case .doom3: return "dhewm3"
         case .build: return "Raze"
         }
     }
@@ -175,6 +179,8 @@ enum EngineCatalog {
         var quakeOrphans: [URL] = []              // extensions Quake rangées hors de leur base
         var q3Base: String?
         var q3Orphans: [URL] = []                 // Team Arena rangée hors de sa base
+        var d3Base: URL?                          // dossier base de Doom 3
+        var d3xpDirs: [URL] = []                  // Resurrection of Evil, souvent installée à part
         let fm = FileManager.default
 
         func add(_ m: Machine) {
@@ -196,6 +202,16 @@ enum EngineCatalog {
                 let isDir = (try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) ?? false
 
                 if isDir {
+                    // Doom 3 : base avec pak000.pk4 ; Resurrection of Evil : d3xp, rattachée ensuite.
+                    if lower == "base", caseInsensitiveChild(url, "pak000.pk4") != nil {
+                        d3Base = d3Base ?? url
+                        add(doom3Game(name: "doom3:base", title: "Doom 3", year: "2004", game: nil, base: url, d3xp: nil))
+                        e.skipDescendants(); continue
+                    }
+                    if lower == "d3xp", caseInsensitiveChild(url, "pak000.pk4") != nil {
+                        d3xpDirs.append(url)
+                        e.skipDescendants(); continue
+                    }
                     // Quake III : baseq3 avec pak0.pk3 ; Team Arena (missionpack) peut être ailleurs.
                     if lower == "baseq3", caseInsensitiveChild(url, "pak0.pk3") != nil {
                         let base = url.deletingLastPathComponent()
@@ -274,6 +290,11 @@ enum EngineCatalog {
         }
 
         // Team Arena rangée à part : rattachée à Quake III.
+        // Resurrection of Evil : a besoin des fichiers de Doom 3.
+        if let base = d3Base, let dir = d3xpDirs.first {
+            add(doom3Game(name: "doom3:d3xp", title: "Doom 3: Resurrection of Evil", year: "2005", game: "d3xp", base: base, d3xp: dir))
+        }
+
         if let base = q3Base {
             for dir in q3Orphans where !seen.contains("quake3:missionpack") {
                 var m = quake3Game(base: URL(fileURLWithPath: base), dir: "missionpack")
@@ -414,6 +435,19 @@ enum EngineCatalog {
         return m
     }
 
+    private static func doom3Game(name: String, title: String, year: String, game: String?, base: URL, d3xp: URL?) -> Machine {
+        var m = Machine(name: name)
+        m.description = title
+        m.year = year
+        m.manufacturer = game == nil ? "id Software" : "Nerve Software / id Software"
+        m.engine = Engine.doom3.rawValue
+        m.dataPath = base.path
+        m.modArg = game
+        m.gamePath = d3xp?.path
+        fillCommon(&m, players: 1)
+        return m
+    }
+
     private static func quake4Game(base: URL) -> Machine {
         var m = Machine(name: "quake4:base")
         m.description = "Quake 4"
@@ -489,6 +523,8 @@ enum EngineLaunchError: Error {
     case needsOpenQ4
     /// Quake 4 d'origine : la mise à jour 1.4.2 d'id Software, après acceptation de sa licence.
     case needsQuake4Patch
+    /// Doom 3 d'origine : la mise à jour 1.3.1 d'id Software, après acceptation de sa licence.
+    case needsDoom3Patch
     /// Jeux Build : Raze à télécharger d'abord.
     case needsRaze
 }
@@ -591,6 +627,38 @@ extension Engine {
             args = ["-iwad", data, "-config", ini.path, "-savedir", saves.path,
                     "-shotdir", user.appendingPathComponent("shots").path,
                     "+vid_fullscreen", Prefs.windowed ? "0" : "1"]
+
+        case .doom3:
+            // dhewm3 veut base et d3xp côte à côte sous fs_basepath, en version 1.3.1 :
+            // dossiers de liens dans le dossier utilisateur, vers les fichiers du jeu
+            // (où qu'ils soient) et, pour un DVD d'origine, ceux du patch.
+            let fm = FileManager.default
+            let base = URL(fileURLWithPath: data)
+            let d3xp = m.gamePath.map { URL(fileURLWithPath: $0) }
+            let patched = Doom3Patch.isNeeded(base: base, d3xp: d3xp)
+            if patched && !Doom3Patch.isInstalled { throw EngineLaunchError.needsDoom3Patch }
+            let root = user.appendingPathComponent("data")
+            try? fm.removeItem(at: root)
+            for (game, dir) in [("base", base), ("d3xp", d3xp)] {
+                guard let dir else { continue }
+                let dst = root.appendingPathComponent(game)
+                try fm.createDirectory(at: dst, withIntermediateDirectories: true)
+                // Pas le code de jeu d'origine (game*.pk4) : dhewm3 a le sien.
+                var sources = try fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil)
+                    .filter { $0.pathExtension.lowercased() == "pk4" && !$0.lastPathComponent.lowercased().hasPrefix("game") }
+                if patched { sources += Doom3Patch.files(for: game) }
+                for src in sources {
+                    let link = dst.appendingPathComponent(src.lastPathComponent.lowercased())
+                    if !fm.fileExists(atPath: link.path) { try fm.createSymbolicLink(at: link, withDestinationURL: src) }
+                }
+            }
+            let saves = user.appendingPathComponent("saves")
+            try fm.createDirectory(at: saves.appendingPathComponent(m.modArg ?? "base"), withIntermediateDirectories: true)
+            try "bind x _attack\n".write(to: saves.appendingPathComponent("\(m.modArg ?? "base")/autoexec.cfg"), atomically: true, encoding: .utf8)
+            args = ["+set", "fs_basepath", root.path, "+set", "fs_savepath", saves.path,
+                    "+set", "fs_configpath", saves.path]
+            if let game = m.modArg { args += ["+set", "fs_game", game] }
+            args += ["+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
 
         case .quake4:
             let base = user.appendingPathComponent("baseoq4")

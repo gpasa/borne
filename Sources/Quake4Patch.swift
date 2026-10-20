@@ -52,26 +52,8 @@ enum Quake4Patch {
         let run = tmp.appendingPathComponent("patch.run")
         try await VerifiedDownload.fetch(url, sha256: sha256, to: run, what: "la mise à jour 1.4.2 de Quake 4") { progress($0 * 0.9) }
 
-        // L'archive tar.gz commence après les lignes du script d'installation.
-        let handle = try FileHandle(forReadingFrom: run)
-        let head = try handle.read(upToCount: 64 << 10) ?? Data()
-        try handle.close()
-        var newlines = 0
-        guard let end = head.firstIndex(where: { byte in
-            if byte == 0x0A { newlines += 1 }
-            return newlines == headerLines
-        }) else { throw MAMERunner.Failure(message: "La mise à jour de Quake 4 est illisible.") }
-        let offset = end + 1
-
         let x = tmp.appendingPathComponent("x")
-        try fm.createDirectory(at: x, withIntermediateDirectories: true)
-        let p = Process()
-        p.executableURL = URL(fileURLWithPath: "/bin/sh")
-        p.arguments = ["-c", "tail -c +\"$1\" \"$2\" | /usr/bin/tar -xzf - -C \"$3\" ./q4base ./us ./License.txt",
-                       "sh", String(offset + 1), run.path, x.path]
-        try p.run()
-        p.waitUntilExit()
-        guard p.terminationStatus == 0 else { throw MAMERunner.Failure(message: "La mise à jour de Quake 4 n'a pas pu être extraite.") }
+        try VerifiedDownload.extractMakeself(run, headerLines: headerLines, members: ["./q4base", "./us", "./License.txt"], into: x)
 
         // Données seulement : paks communs, paks de la version internationale
         // (« us », hors Allemagne), voix anglaises corrigées. Pas de code de jeu.

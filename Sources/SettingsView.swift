@@ -124,10 +124,11 @@ struct SettingsView: View {
                     Text("MoltenVK").tag("moltenvk")
                 }
             } header: {
-                Text("Jeux PC (Doom, Quake, Wolfenstein 3D)")
+                Text("Jeux PC")
             } footer: {
                 Text("Dossiers lus seulement, sous-dossiers compris.")
             }
+
 
             }
             .formStyle(.grouped)
@@ -141,6 +142,8 @@ struct SettingsView: View {
                     .font(.caption).foregroundStyle(.secondary)
                 Button("Afficher dans le Finder") { catalog.revealUserData() }
             }
+
+            ModulesSection(catalog: catalog)
 
             }
             .formStyle(.grouped)
@@ -217,5 +220,51 @@ struct SettingsView: View {
     private func remove(_ path: String) {
         romPaths = Prefs.romPaths.filter { $0 != path }.joined(separator: "\n")
         catalog.scanROMs()
+    }
+}
+
+/// Modules téléchargés sur demande, avec un bouton pour tout prendre d'un coup.
+/// Les patchs d'id Software ne sont pris que si l'utilisateur accepte leurs licences.
+private struct ModulesSection: View {
+    let catalog: Catalog
+    @State private var acceptIdLicenses = false
+
+    var body: some View {
+        let _ = catalog.modulesGeneration
+        let modules = ExternalModule.all.filter(\.isSupported)
+        let missing = modules.filter { !$0.isInstalled() }
+        let wanted = missing.filter { $0.idLicense == nil || acceptIdLicenses }
+        Section {
+            ForEach(modules) { module in
+                HStack {
+                    Image(systemName: module.isInstalled() ? "checkmark.circle.fill" : "arrow.down.circle")
+                        .foregroundStyle(module.isInstalled() ? .green : .secondary)
+                    VStack(alignment: .leading) {
+                        Text(module.title)
+                        Text(module.detail).font(.caption).foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    if let license = module.idLicense {
+                        Link("Licence", destination: license).font(.caption)
+                    }
+                    Text(module.isInstalled() ? "Installé" : module.size)
+                        .font(.caption).foregroundStyle(.secondary).monospacedDigit()
+                }
+            }
+            if missing.contains(where: { $0.idLicense != nil }) {
+                Toggle("J'accepte les licences d'id Software des mises à jour", isOn: $acceptIdLicenses)
+            }
+            HStack {
+                Spacer()
+                Button(missing.isEmpty ? "Tout est installé" : "Tout télécharger (\(wanted.count))") {
+                    catalog.downloadModules(wanted)
+                }
+                .disabled(wanted.isEmpty || catalog.job != nil)
+            }
+        } header: {
+            Text("Modules à télécharger")
+        } footer: {
+            Text("Rangés dans votre dossier utilisateur, une fois pour toutes. Chaque fichier est vérifié par son empreinte ; une copie de secours est gardée sur GitHub quand la licence le permet.")
+        }
     }
 }

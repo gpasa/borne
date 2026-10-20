@@ -84,6 +84,7 @@ codesign --force --sign - $FW
 for f in $APP/Contents/Frameworks/*.dylib(N) $APP/Contents/MacOS/vkquake(N); do codesign --force --sign - $f; done
 for a in $APP/Contents/Resources/Engines/*.app(N); do codesign --force --deep --sign - $a; done
 for f in $APP/Contents/Resources/Engines/Quake3e/*(N); do codesign --force --sign - $f; done
+for f in $APP/Contents/Resources/Engines/yquake2/{quake2,*.dylib,*/game.dylib}(N); do codesign --force --sign - $f; done
 codesign --force --sign - $APP/Contents/MacOS/mame
 codesign --force --sign - $APP
 echo "Assemblé ($ARCH) : $APP"

@@ -6,7 +6,7 @@ import Foundation
 /// où elles sont, en lecture seule ; chaque moteur écrit dans
 /// <dossier utilisateur>/engines/<moteur>.
 enum Engine: String, CaseIterable, Codable, Identifiable {
-    case doom, quake, wolf3d, quake3, rtcw, quake4, build, doom3
+    case doom, quake, wolf3d, quake3, rtcw, quake4, build, doom3, quake2
 
     var id: String { rawValue }
 
@@ -19,6 +19,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .rtcw: "Return to Castle Wolfenstein"
         case .quake4: "Quake 4"
         case .doom3: "Doom 3"
+        case .quake2: "Quake II"
         case .build: "Duke Nukem 3D, Blood…"
         }
     }
@@ -32,6 +33,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .rtcw: "building.columns"
         case .quake4: "hexagon"
         case .doom3: "moon"
+        case .quake2: "triangle"
         case .build: "sunglasses"
         }
     }
@@ -55,6 +57,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .rtcw: [res?.appendingPathComponent("iortcw.app/Contents/MacOS/iowolfsp")]
         case .quake4: [OpenQ4.executable]  // téléchargé sur demande
         case .doom3: [res?.appendingPathComponent("dhewm3.app/Contents/MacOS/dhewm3")]
+        case .quake2: [res?.appendingPathComponent("yquake2/quake2")]
         case .build: [Raze.executable]      // téléchargé sur demande
         }
         return candidates.compactMap { $0 }.first { fm.isExecutableFile(atPath: $0.path) }
@@ -88,6 +91,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .rtcw: return "iortcw"
         case .quake4: return "openQ4"
         case .doom3: return "dhewm3"
+        case .quake2: return "Yamagi Quake II"
         case .build: return "Raze"
         }
     }
@@ -131,7 +135,7 @@ enum EngineCatalog {
     ]
     /// Dossiers de jeux id Tech 2 et 3 (Quake II, Quake III, Return to Castle
     /// Wolfenstein…) : leurs .pk3 ne sont pas des mods de Doom.
-    fileprivate static let foreignDirs: Set<String> = ["baseq2", "baseq3", "missionpack", "baseoa", "main", "etmain"]
+    fileprivate static let foreignDirs: Set<String> = ["baseq3", "missionpack", "baseoa", "main", "etmain"]
 
     /// pak0.pk3, mp_pak1.pk3, sp_pak2.pk3 : archives id Tech 3, jamais des mods de Doom.
     fileprivate static func isIdTech3Archive(_ lower: String) -> Bool {
@@ -202,6 +206,11 @@ enum EngineCatalog {
                 let isDir = (try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) ?? false
 
                 if isDir {
+                    // Quake II : baseq2 avec pak0.pak ; extensions à côté (xatrix, rogue, ctf).
+                    if lower == "baseq2", caseInsensitiveChild(url, "pak0.pak") != nil {
+                        for game in quake2Games(root: url.deletingLastPathComponent()) { add(game) }
+                        e.skipDescendants(); continue
+                    }
                     // Doom 3 : base avec pak000.pk4 ; Resurrection of Evil : d3xp, rattachée ensuite.
                     if lower == "base", caseInsensitiveChild(url, "pak000.pk4") != nil {
                         d3Base = d3Base ?? url
@@ -435,6 +444,28 @@ enum EngineCatalog {
         return m
     }
 
+    private static let quake2Packs: [(dir: String, title: String, year: String, maker: String)] = [
+        ("baseq2", "Quake II", "1997", "id Software"),
+        ("xatrix", "Quake II: The Reckoning", "1998", "Xatrix Entertainment"),
+        ("rogue", "Quake II: Ground Zero", "1998", "Rogue Entertainment"),
+        ("ctf", "Quake II: Capture The Flag", "1998", "id Software"),
+    ]
+
+    private static func quake2Games(root: URL) -> [Machine] {
+        quake2Packs.compactMap { pack in
+            guard let dir = caseInsensitiveChild(root, pack.dir), caseInsensitiveChild(dir, "pak0.pak") != nil else { return nil }
+            var m = Machine(name: "quake2:\(pack.dir)")
+            m.description = pack.title
+            m.year = pack.year
+            m.manufacturer = pack.maker
+            m.engine = Engine.quake2.rawValue
+            m.dataPath = root.path
+            m.modArg = pack.dir == "baseq2" ? nil : pack.dir
+            fillCommon(&m, players: pack.dir == "ctf" ? 16 : 1)
+            return m
+        }
+    }
+
     private static func doom3Game(name: String, title: String, year: String, game: String?, base: URL, d3xp: URL?) -> Machine {
         var m = Machine(name: name)
         m.description = title
@@ -627,6 +658,17 @@ extension Engine {
             args = ["-iwad", data, "-config", ini.path, "-savedir", saves.path,
                     "-shotdir", user.appendingPathComponent("shots").path,
                     "+vid_fullscreen", Prefs.windowed ? "0" : "1"]
+
+        case .quake2:
+            // Yamagi écrit dans $HOME/.yq2 (pas par les API de Foundation) : HOME à part.
+            let game = m.modArg ?? "baseq2"
+            let cfg = home.appendingPathComponent(".yq2/\(game)")
+            try FileManager.default.createDirectory(at: cfg, withIntermediateDirectories: true)
+            try "bind x +attack\n".write(to: cfg.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
+            env["HOME"] = home.path
+            args = ["-datadir", data, "+set", "vid_renderer", "gl3",
+                    "+set", "vid_fullscreen", Prefs.windowed ? "0" : "1"]
+            if let pack = m.modArg { args += ["+set", "game", pack] }
 
         case .doom3:
             // dhewm3 veut base et d3xp côte à côte sous fs_basepath, en version 1.3.1 :

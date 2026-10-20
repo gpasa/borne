@@ -229,6 +229,7 @@ struct GameTable: View {
         case .quake: "Borne cherche un dossier id1 contenant pak0.pak, et les extensions ou mods à côté de lui."
         case .wolf3d: "Borne cherche les fichiers VSWAP.WL6, VSWAP.SOD… de Wolfenstein 3D et Spear of Destiny."
         case .build: "Borne cherche les fichiers principaux des jeux Build : DUKE3D.GRP, BLOOD.RFF, SW.GRP, REDNECK.GRP, STUFF.DAT (Exhumed), NAM.GRP, WW2GI.GRP. Le moteur Raze se télécharge au premier lancement."
+        case .quake2: "Borne cherche le dossier baseq2 de Quake II (pak0.pak…) et, à côté, ses extensions xatrix, rogue et ctf."
         case .doom3: "Borne cherche le dossier base de Doom 3 (pak000.pk4…) et, pour Resurrection of Evil, son dossier d3xp."
         case .quake4: "Borne cherche le dossier q4base de Quake 4 (pak001.pk4…). Le moteur openQ4 se télécharge au premier lancement."
         case .rtcw: "Borne cherche le dossier de Return to Castle Wolfenstein qui contient pak0.pk3 et sp_pak1.pk3 (Main d'une version GOG ou Steam, par exemple). Seuls les fichiers du jeu d'origine sont chargés."

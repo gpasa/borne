@@ -27,12 +27,12 @@ Double-click a game and play.
 - **MAME included**: version 0.289, native on Apple silicon and Intel, nothing else to install.
 - **PC games**: point Borne at your game files and it finds them, add-ons grouped with their game:
   Doom, Doom II, Final Doom, Heretic, Hexen, Strife, Chex Quest, HacX and WAD mods; Quake, its mission
-  packs and mods; Quake III Arena and Team Arena; Return to Castle Wolfenstein (one entry per
+  packs and mods; Quake II, The Reckoning, Ground Zero and Capture The Flag; Quake III Arena and Team Arena; Return to Castle Wolfenstein (one entry per
   language); Wolfenstein 3D and Spear of Destiny; Doom 3 and Resurrection of Evil; Quake 4; Duke Nukem
   3D, Blood, Shadow Warrior, Redneck Rampage, Exhumed, NAM, WW2GI. New files are picked up as soon as
   they appear in the folder.
-  Included engines: UZDoom (GZDoom on Intel and before macOS 26), vkQuake, Quake3e, iortcw, dhewm3,
-  ECWolf. Downloaded on request, checksum verified: openQ4 (Quake 4, Apple silicon), Raze (Build
+  Included engines: UZDoom (GZDoom on Intel and before macOS 26), vkQuake, Yamagi Quake II, Quake3e,
+  iortcw, dhewm3, ECWolf. Downloaded on request, checksum verified: openQ4 (Quake 4, Apple silicon), Raze (Build
   games, built by Borne), the Quake III 1.32, Quake 4 1.4.2 and Doom 3 1.3.1 updates (after you
   accept id Software's licenses in Borne; original discs predate them) and
   [Freedoom](https://freedoom.github.io), a free Doom. **Settings → Data** downloads all of them at
@@ -95,6 +95,8 @@ The app bundles third-party software under their own licenses, included in
   Mesa 26.2.5, MIT, with **SPIRV-Tools**, Apache-2.0 (Apple silicon only).
 - **Quake3e**, official build, GPL-2.0. **iortcw**, built here, GPL-3.0 with additional terms.
 - **ECWolf** 1.4.2, official build, GPL (see its `copyright` file).
+- **Yamagi Quake II** 8.70 with the game code of The Reckoning (xatrix 2.17), Ground Zero (rogue
+  2.16) and Capture The Flag (ctf 1.13), GPL-2.0, built here (`scripts/build_yquake2.sh`).
 - **dhewm3** 1.5.5, GPL-3.0 with id's additional terms, built here (`scripts/build_dhewm3.sh`) with
   OpenAL Soft (LGPL) and a small patch to build its macOS port with SDL3 (`engines/patches`).
 - Not bundled, downloaded on request: **openQ4** 0.13.2 (official release; GPL-3.0 and the Quake 4

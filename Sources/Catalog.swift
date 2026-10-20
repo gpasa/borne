@@ -822,13 +822,21 @@ final class Catalog {
                 readLabel: "En savoir plus",
                 acceptLabel: "Télécharger Raze",
                 accept: { [weak self] in self?.downloadEngine("Raze", thenLaunch: launchAfter ? name : nil, install: Raze.install) })
+        case .needsScummVM:
+            licenseRequest = LicenseRequest(
+                title: "Installer ScummVM ?",
+                message: "\(m.description) se joue avec ScummVM \(ScummVM.version), le moteur libre des jeux d'aventure (LucasArts, Revolution…). Borne peut télécharger sa version officielle pour Mac (\(ScummVM.size), signée et notarisée par l'équipe de ScummVM) depuis scummvm.org et l'installer dans votre dossier utilisateur.",
+                url: ScummVM.pageURL,
+                readLabel: "En savoir plus",
+                acceptLabel: "Télécharger ScummVM",
+                accept: { [weak self] in self?.downloadEngine("ScummVM", thenLaunch: launchAfter ? name : nil, install: ScummVM.install) })
         case .needsExtraction:
             // Rien à accepter : l'archive est à l'utilisateur, la copie reste chez lui.
             let title = "Décompression de \(m.description)…"
             startJob(title) { [weak self] in
                 guard let self else { return }
                 do {
-                    try await DOSGames.extract(m)
+                    if let archive = m.dataPath { try await GameArchives.extract(archive) }
                     diagnostics[name] = nil
                     if launchAfter { launch(name) } else { diagnose(name) }
                 } catch is CancellationError {

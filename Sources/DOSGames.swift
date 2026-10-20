@@ -1,11 +1,9 @@
-import CryptoKit
 import Foundation
 
 /// Jeux DOS, lancés par DOSBox Staging. Borne les reconnaît à leur exécutable,
-/// dans un dossier ou dans une archive (.zip, .rar, .7z). Le disque des jeux
-/// reste en lecture seule : une archive est décompressée dans le dossier
-/// utilisateur au premier lancement ; un dossier est monté tel quel, avec une
-/// surcouche où vont les sauvegardes et réglages du jeu.
+/// dans un dossier ou dans une archive (voir GameArchives). Le disque des jeux
+/// reste en lecture seule : un dossier est monté tel quel, avec une surcouche
+/// où vont les sauvegardes et réglages du jeu.
 enum DOSGames {
     struct Known {
         let title: String
@@ -54,8 +52,6 @@ enum DOSGames {
         "stunts": "Au démarrage, le jeu demande l'affichage et le son : choisissez MCGA/VGA et AdLib ou Sound Blaster.",
     ]
 
-    static let archiveExtensions: Set<String> = ["zip", "rar", "7z"]
-
     // MARK: Détection
 
     /// Le jeu d'un exécutable trouvé dans un dossier.
@@ -63,57 +59,17 @@ enum DOSGames {
         known[exe.lowercased()].map { machine(exe.lowercased(), $0, source: folder.path, inside: nil) }
     }
 
-    /// Les jeux d'une liste d'archives, d'après leur contenu (mis en cache selon
-    /// la taille et la date de chaque archive : seules les nouvelles sont lues).
-    static func games(inArchives archives: [URL]) -> [Machine] {
-        let fm = FileManager.default
-        let cacheURL = root.appendingPathComponent("archives.json")
-        var cache = (try? JSONDecoder().decode([String: Listing].self, from: Data(contentsOf: cacheURL))) ?? [:]
-        var fresh: [String: Listing] = [:]
+    /// Les jeux trouvés dans des archives, d'après leur contenu.
+    static func games(in listings: [(url: URL, entries: [String])]) -> [Machine] {
         var out: [Machine] = []
-        for url in archives {
-            guard let attrs = try? fm.attributesOfItem(atPath: url.path),
-                  let size = attrs[.size] as? Int, let date = attrs[.modificationDate] as? Date else { continue }
-            var listing = cache[url.path]
-            if listing?.size != size || listing?.date != date {
-                listing = Listing(size: size, date: date, entries: entries(of: url) ?? [])
-            }
-            guard let listing else { continue }
-            fresh[url.path] = listing
-            for entry in listing.entries {
+        for (url, entries) in listings {
+            for entry in entries {
                 let parts = entry.split(separator: "/")
                 guard let file = parts.last.map(String.init), let k = known[file.lowercased()] else { continue }
                 out.append(machine(file.lowercased(), k, source: url.path, inside: parts.dropLast().joined(separator: "/")))
             }
         }
-        cache = fresh
-        if let data = try? JSONEncoder().encode(cache) {
-            try? fm.createDirectory(at: root, withIntermediateDirectories: true)
-            try? data.write(to: cacheURL, options: .atomic)
-        }
         return out
-    }
-
-    private struct Listing: Codable {
-        let size: Int
-        let date: Date
-        let entries: [String]
-    }
-
-    /// Liste d'une archive par bsdtar (libarchive, livré avec macOS). Nil si elle
-    /// est illisible : une RAR « solide », par exemple.
-    private static func entries(of archive: URL) -> [String]? {
-        let p = Process()
-        p.executableURL = URL(fileURLWithPath: "/usr/bin/bsdtar")
-        p.arguments = ["-tf", archive.path]
-        let pipe = Pipe()
-        p.standardOutput = pipe
-        p.standardError = FileHandle.nullDevice
-        guard (try? p.run()) != nil else { return nil }
-        let text = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
-        p.waitUntilExit()
-        let lines = text.split(separator: "\n").map(String.init)
-        return p.terminationStatus == 0 || !lines.isEmpty ? lines : nil
     }
 
     private static func machine(_ exe: String, _ k: Known, source: String, inside: String?) -> Machine {
@@ -140,56 +96,7 @@ enum DOSGames {
         return known.first { ($0.key as NSString).deletingPathExtension == stem }?.value
     }
 
-    // MARK: Décompression
-
     static var root: URL { Prefs.userDataRoot.appendingPathComponent("dos") }
-
-    static func isArchive(_ m: Machine) -> Bool {
-        m.dataPath.map { archiveExtensions.contains(URL(fileURLWithPath: $0).pathExtension.lowercased()) } ?? false
-    }
-
-    /// Dossier où une archive est décompressée : un par archive (Monster Bash en
-    /// contient trois épisodes), nommé d'après elle et son chemin.
-    static func extractedFolder(archive: String) -> URL {
-        let name = URL(fileURLWithPath: archive).deletingPathExtension().lastPathComponent
-        let hash = SHA256.hash(data: Data(archive.utf8)).prefix(4).map { String(format: "%02x", $0) }.joined()
-        return root.appendingPathComponent("archives/\(name)-\(hash)")
-    }
-
-    static func isExtracted(_ m: Machine) -> Bool {
-        guard let archive = m.dataPath else { return false }
-        return FileManager.default.fileExists(atPath: extractedFolder(archive: archive).path)
-    }
-
-    /// Décompresse l'archive d'un jeu dans le dossier utilisateur, à côté puis
-    /// renommée : une décompression interrompue ne laisse pas de jeu à moitié là.
-    static func extract(_ m: Machine) async throws {
-        guard let archive = m.dataPath else { return }
-        let fm = FileManager.default
-        let dest = extractedFolder(archive: archive)
-        let tmp = dest.deletingLastPathComponent().appendingPathComponent(".\(dest.lastPathComponent)-\(UUID().uuidString)")
-        try fm.createDirectory(at: tmp, withIntermediateDirectories: true)
-        defer { try? fm.removeItem(at: tmp) }
-        let p = Process()
-        p.executableURL = URL(fileURLWithPath: "/usr/bin/bsdtar")
-        p.arguments = ["-xf", archive, "-C", tmp.path]
-        let err = Pipe()
-        p.standardError = err
-        p.standardOutput = FileHandle.nullDevice
-        try await withTaskCancellationHandler {
-            try await withCheckedThrowingContinuation { (c: CheckedContinuation<Void, Error>) in
-                p.terminationHandler = { _ in c.resume() }
-                do { try p.run() } catch { c.resume(throwing: error) }
-            }
-        } onCancel: { p.terminate() }
-        try Task.checkCancellation()
-        guard p.terminationStatus == 0 else {
-            let text = String(decoding: err.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
-            throw MAMERunner.Failure(message: "L'archive \(URL(fileURLWithPath: archive).lastPathComponent) n'a pas pu être décompressée.\n\(text.trimmingCharacters(in: .whitespacesAndNewlines))")
-        }
-        try? fm.removeItem(at: dest)
-        try fm.moveItem(at: tmp, to: dest)
-    }
 
     // MARK: Lancement
 
@@ -200,11 +107,9 @@ enum DOSGames {
             throw MAMERunner.Failure(message: "Borne ne sait pas lancer ce jeu DOS.")
         }
         var mounts: [String]
-        if isArchive(m) {
-            guard isExtracted(m) else { throw EngineLaunchError.needsExtraction }
-            var dir = extractedFolder(archive: data)
-            if let inside = m.modArg, !inside.isEmpty { dir.appendPathComponent(inside) }
-            mounts = ["mount c \"\(dir.path)\""]
+        if GameArchives.isArchive(data) {
+            guard GameArchives.isExtracted(data) else { throw EngineLaunchError.needsExtraction }
+            mounts = ["mount c \"\(GameArchives.gameFolder(archive: data, inside: m.modArg).path)\""]
         } else {
             // Dossier sur le disque des jeux : les écritures vont dans la surcouche.
             let overlay = root.appendingPathComponent("overlays/\(m.name.replacingOccurrences(of: "dos:", with: ""))")

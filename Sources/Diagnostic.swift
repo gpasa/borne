@@ -29,6 +29,7 @@ enum DiagnosticFix: Equatable {
         case .offer(.needsOpenQ4): "Télécharger openQ4…"
         case .offer(.needsRaze): "Télécharger Raze…"
         case .offer(.needsExtraction): "Décompresser maintenant"
+        case .offer(.needsScummVM): "Télécharger ScummVM…"
         case .offer: "Installer la mise à jour…"
         case .rescan: "Relire les dossiers"
         case .verify: "Vérifier à nouveau"
@@ -48,7 +49,7 @@ enum Diagnostic {
         // Le moteur.
         if engine.executable != nil {
             let how = switch engine {
-            case .quake4, .build: "téléchargé"
+            case .quake4, .build, .scummvm: "téléchargé"
             default: UserDefaults.standard.string(forKey: "enginePath.\(engine.rawValue)")?.isEmpty == false ? "le vôtre" : "inclus dans Borne"
             }
             items.append(.init(state: .ok, title: "Moteur : \(engine.engineName)", detail: how.prefix(1).uppercased() + how.dropFirst() + "."))
@@ -58,6 +59,9 @@ enum Diagnostic {
         } else if engine == .quake4 {
             items.append(.init(state: .missing, title: "Moteur : openQ4, à télécharger",
                                detail: "Libre, \(OpenQ4.size). Borne le range dans votre dossier utilisateur.", fix: .offer(.needsOpenQ4)))
+        } else if engine == .scummvm {
+            items.append(.init(state: .missing, title: "Moteur : ScummVM, à télécharger",
+                               detail: "\(ScummVM.size), signé et notarisé par l'équipe de ScummVM. Borne le range dans votre dossier utilisateur.", fix: .offer(.needsScummVM)))
         } else if engine == .build {
             items.append(.init(state: .missing, title: "Moteur : Raze, à télécharger",
                                detail: "\(Raze.size), signé et notarisé. Borne le range dans votre dossier utilisateur.", fix: .offer(.needsRaze)))
@@ -142,22 +146,22 @@ enum Diagnostic {
                 : .init(state: .missing, title: "Fichiers de données incomplets",
                         detail: "Manquent : \(missing.joined(separator: ", ")). Copiez-les depuis le dossier du jeu.", fix: .rescan))
 
-        case .dos:
-            if DOSGames.isArchive(m) {
+        case .dos, .scummvm:
+            if GameArchives.isArchive(data) {
                 let size = ((try? FileManager.default.attributesOfItem(atPath: data)[.size]) as? Int).map {
                     ByteCountFormatter.string(fromByteCount: Int64($0), countStyle: .file)
                 } ?? "?"
-                items.append(DOSGames.isExtracted(m)
+                items.append(GameArchives.isExtracted(data)
                     ? .init(state: .ok, title: "Archive décompressée",
                             detail: "Le jeu est dans votre dossier utilisateur : il se lance même sans le disque des jeux.")
                     : .init(state: .info, title: "Archive à décompresser",
                             detail: "\((data as NSString).lastPathComponent) (\(size)) sera décompressée dans votre dossier utilisateur au premier lancement. L'archive elle-même n'est pas modifiée.",
                             fix: .offer(.needsExtraction)))
             }
-            if let note = DOSGames.notes[m.name.replacingOccurrences(of: "dos:", with: "")] {
+            if engine == .dos, let note = DOSGames.notes[m.name.replacingOccurrences(of: "dos:", with: "")] {
                 items.append(.init(state: .info, title: "Premier lancement", detail: note))
             }
-            if let k = DOSGames.known(for: m) {
+            if engine == .dos, let k = DOSGames.known(for: m) {
                 items.append(.init(state: .info, title: k.run.count > 1 ? "Commandes" : "Commande",
                                    detail: "\(k.run.joined(separator: " · ")), lancée\(k.run.count > 1 ? "s" : "") par DOSBox Staging dans le dossier du jeu."))
             }

@@ -6,7 +6,7 @@ import Foundation
 /// où elles sont, en lecture seule ; chaque moteur écrit dans
 /// <dossier utilisateur>/engines/<moteur>.
 enum Engine: String, CaseIterable, Codable, Identifiable {
-    case doom, quake, wolf3d, quake3, rtcw, quake4, build, doom3, quake2, dos
+    case doom, quake, wolf3d, quake3, rtcw, quake4, build, doom3, quake2, dos, scummvm
 
     var id: String { rawValue }
 
@@ -22,6 +22,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake2: "Quake II"
         case .build: "Duke Nukem 3D, Blood…"
         case .dos: "Jeux DOS"
+        case .scummvm: "Aventures (ScummVM)"
         }
     }
 
@@ -37,6 +38,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake2: "triangle"
         case .build: "sunglasses"
         case .dos: "pc"
+        case .scummvm: "text.bubble"
         }
     }
 
@@ -62,6 +64,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake2: [res?.appendingPathComponent("yquake2/quake2")]
         case .build: [Raze.executable]      // téléchargé sur demande
         case .dos: [res?.appendingPathComponent("DOSBox Staging.app/Contents/MacOS/dosbox")]
+        case .scummvm: [ScummVM.executable]  // téléchargé sur demande
         }
         return candidates.compactMap { $0 }.first { fm.isExecutableFile(atPath: $0.path) }
     }
@@ -97,6 +100,7 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .quake2: return "Yamagi Quake II"
         case .build: return "Raze"
         case .dos: return "DOSBox Staging"
+        case .scummvm: return "ScummVM"
         }
     }
 
@@ -278,8 +282,11 @@ enum EngineCatalog {
                 case "exe", "com":
                     // Jeux DOS : l'exécutable désigne le jeu.
                     if let m = DOSGames.game(folder: url.deletingLastPathComponent(), exe: name) { add(m) }
-                case _ where DOSGames.archiveExtensions.contains(ext):
+                case _ where GameArchives.extensions.contains(ext):
                     archives.append(url)
+                case _ where ScummVM.known(file: name, folder: url.deletingLastPathComponent().path) != nil:
+                    // Aventures ScummVM : un fichier caractéristique désigne le jeu.
+                    if let m = ScummVM.game(folder: url.deletingLastPathComponent(), file: name) { add(m) }
                 default:
                     // Wolfenstein 3D : VSWAP.<ext> désigne le jeu.
                     if url.deletingPathExtension().lastPathComponent.lowercased() == "vswap", let k = wolf[ext] {
@@ -324,7 +331,8 @@ enum EngineCatalog {
 
         // Jeux DOS dans des archives : après les dossiers, qui l'emportent.
         if Task.isCancelled { return nil }
-        for m in DOSGames.games(inArchives: archives) { add(m) }
+        let listings = GameArchives.listings(archives)
+        for m in DOSGames.games(in: listings) + ScummVM.games(in: listings) { add(m) }
 
         // WAD additionnels : rattachés à leur base, sinon à Doom II, sinon Freedoom 2.
         for (url, known) in pwads {
@@ -574,6 +582,8 @@ enum EngineLaunchError: Error {
     case needsRaze
     /// Jeu DOS en archive : à décompresser dans le dossier utilisateur.
     case needsExtraction
+    /// Aventures : ScummVM à télécharger d'abord.
+    case needsScummVM
 }
 
 struct EngineLaunch {
@@ -592,11 +602,12 @@ extension Engine {
             throw EngineLaunchError.needsOpenQ4
         }
         if self == .build && executable == nil { throw EngineLaunchError.needsRaze }
+        if self == .scummvm && executable == nil { throw EngineLaunchError.needsScummVM }
         guard let exe = executable else {
             throw MAMERunner.Failure(message: "Le moteur \(title) est introuvable. Indiquez-le dans les réglages.")
         }
         // Jeu DOS déjà décompressé : l'archive d'origine n'est plus nécessaire.
-        let extracted = self == .dos && DOSGames.isArchive(m) && DOSGames.isExtracted(m)
+        let extracted = GameArchives.isArchive(m.dataPath) && GameArchives.isExtracted(m.dataPath)
         guard let data = m.dataPath, extracted || FileManager.default.fileExists(atPath: data) else {
             throw MAMERunner.Failure(message: "Les fichiers du jeu sont introuvables : \(m.dataPath ?? "?"). Le disque est-il branché ?")
         }
@@ -742,6 +753,9 @@ extension Engine {
             let base = try Self.rtcwBase(gameDir: URL(fileURLWithPath: data), in: user)
             args = ["+set", "fs_basepath", base.path, "+set", "fs_homepath", user.path,
                     "+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
+
+        case .scummvm:
+            args = try ScummVM.arguments(for: m, user: user)
 
         case .dos:
             // DOSBox Staging range sa configuration dans ~/Library/Preferences/DOSBox.

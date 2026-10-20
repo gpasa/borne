@@ -67,8 +67,10 @@ enum VerifiedDownload {
         }
     }
 
-    /// Extrait une archive (tar.gz par tar, zip par ditto) dans un dossier.
+    /// Extrait une archive (tar.gz par tar, zip par ditto, image disque montée
+    /// en lecture seule puis copiée) dans un dossier.
     static func extract(_ archive: URL, into dir: URL) throws {
+        if archive.pathExtension == "dmg" { return try copyDiskImage(archive, into: dir) }
         let p = Process()
         if archive.pathExtension == "zip" {
             p.executableURL = URL(fileURLWithPath: "/usr/bin/ditto")
@@ -81,6 +83,27 @@ enum VerifiedDownload {
         p.waitUntilExit()
         guard p.terminationStatus == 0 else {
             throw MAMERunner.Failure(message: "L'archive téléchargée n'a pas pu être ouverte.")
+        }
+    }
+
+    private static func copyDiskImage(_ image: URL, into dir: URL) throws {
+        let mount = dir.appendingPathComponent(".mount-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: mount, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: mount) }
+        func run(_ tool: String, _ args: [String]) throws {
+            let p = Process()
+            p.executableURL = URL(fileURLWithPath: tool)
+            p.arguments = args
+            p.standardOutput = FileHandle.nullDevice
+            p.standardError = FileHandle.nullDevice
+            try p.run()
+            p.waitUntilExit()
+            guard p.terminationStatus == 0 else { throw MAMERunner.Failure(message: "L'image disque téléchargée n'a pas pu être ouverte.") }
+        }
+        try run("/usr/bin/hdiutil", ["attach", "-readonly", "-nobrowse", "-noautoopen", "-mountpoint", mount.path, image.path])
+        defer { try? run("/usr/bin/hdiutil", ["detach", mount.path, "-force"]) }
+        for item in try FileManager.default.contentsOfDirectory(atPath: mount.path) where item.hasSuffix(".app") {
+            try run("/usr/bin/ditto", [mount.appendingPathComponent(item).path, dir.appendingPathComponent(item).path])
         }
     }
 

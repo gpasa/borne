@@ -97,6 +97,13 @@ enum KeyGuide {
             Entry(keys: "Molette · 1 à 9", action: "Armes"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
+        case .scummvm: [
+            Entry(keys: "Clic", action: "Agir, marcher, choisir un verbe"),
+            Entry(keys: "Ctrl F5", action: "Menu : sauvegarder, charger, quitter"),
+            Entry(keys: "Échap", action: "Passer une scène"),
+            Entry(keys: "Point", action: "Passer une réplique"),
+            Entry(keys: "⌘ Q", action: "Quitter ScummVM"),
+        ]
         case .dos: [
             Entry(keys: "Selon le jeu", action: "Flèches, Ctrl, Alt, Espace le plus souvent"),
             Entry(keys: "⌘ F10", action: "Capturer ou libérer la souris"),

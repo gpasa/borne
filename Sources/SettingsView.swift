@@ -182,6 +182,7 @@ struct SettingsView: View {
         switch engine {
         case .quake4: OpenQ4.executable != nil ? "Téléchargé (openQ4)" : "À télécharger (openQ4)"
         case .build: Raze.executable != nil ? "Téléchargé (Raze)" : "À télécharger (Raze)"
+        case .scummvm: ScummVM.executable != nil ? "Téléchargé (ScummVM)" : "À télécharger (ScummVM)"
         default: "Intégré (\(engine.engineName))"
         }
     }

@@ -109,6 +109,9 @@ struct GameDetail: View {
                     .font(.callout)
                     }
 
+                    DiagnosticView(machine: m)
+                        .padding(.top, 4)
+
                     let _ = catalog.settingsGeneration
                     if catalog.hasDisplaySettings(m.name) {
                         Button {

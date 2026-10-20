@@ -167,6 +167,11 @@ final class Catalog {
     var notice: (title: String, message: String)?
     /// Licence à accepter avant un téléchargement (patch Quake III).
     var licenseRequest: LicenseRequest?
+    /// Diagnostic de chaque jeu demandé (fiche du jeu), et celui en cours.
+    private(set) var diagnostics: [String: [DiagnosticItem]] = [:]
+    private(set) var diagnosing: String?
+    @ObservationIgnored private var diagnoseTask: Task<Void, Never>?
+
     /// Change à chaque téléchargement de modules : la liste des réglages se relit.
     private(set) var modulesGeneration = 0
 
@@ -294,6 +299,8 @@ final class Catalog {
         if let g = requestedSelection, machines[g] != nil {
             selection = g
             requestedSelection = nil
+            // Captures et tests : -diagnose YES lance le diagnostic du jeu choisi.
+            if UserDefaults.standard.bool(forKey: "diagnose") { diagnose(g) }
         }
         if let g = requestedLaunch, machines[g] != nil {
             requestedLaunch = nil
@@ -730,6 +737,94 @@ final class Catalog {
         if favorites.contains(name) { favorites.remove(name) } else { favorites.insert(name) }
     }
 
+    // MARK: Diagnostic
+
+    /// Jeux PC : instantané. Arcade : MAME liste les ensembles nécessaires et vérifie
+    /// chaque fichier, hors du fil principal ; le verdict rejoint celui de l'audit.
+    func diagnose(_ name: String) {
+        guard let m = machines[name] else { return }
+        if m.engineKind != nil {
+            diagnostics[name] = Diagnostic.engineGame(m)
+            return
+        }
+        diagnoseTask?.cancel()
+        diagnosing = name
+        let machines = self.machines
+        let romFoldersMissing = !missingROMPaths.isEmpty
+        diagnoseTask = Task { [weak self] in
+            let facts = await Task.detached(priority: .userInitiated) { try? Diagnostic.arcadeFacts(name) }.value
+            guard let self, !Task.isCancelled else { return }
+            if let facts {
+                diagnostics[name] = Diagnostic.arcadeItems(m, facts, machines: machines, romFoldersMissing: romFoldersMissing)
+                if let verdict = facts.verdict, audit?[name] != verdict {
+                    audit = (audit ?? [:]).merging([name: verdict]) { _, new in new }
+                    if let audit, let data = try? JSONEncoder().encode(audit) {
+                        try? data.write(to: Self.auditURL, options: .atomic)
+                    }
+                    refreshView()
+                }
+            } else {
+                diagnostics[name] = [.init(state: .info, title: "MAME n'a pas répondu", detail: "Réessayez dans un instant.", fix: .verify)]
+            }
+            if diagnosing == name { diagnosing = nil }
+        }
+    }
+
+    /// Ce que le diagnostic propose de faire (réglages et Finder : la vue s'en charge).
+    func perform(_ fix: DiagnosticFix, for name: String) {
+        switch fix {
+        case .offer(let need): offer(need, for: name, launchAfter: false)
+        case .rescan: rescanAll()
+        case .verify: diagnose(name)
+        case .revealUserData: revealUserData()
+        case .showSettings: break
+        }
+    }
+
+    /// Propose ce qui manque à un jeu PC (moteur à télécharger, mise à jour d'id
+    /// Software à accepter), au lancement ou depuis le diagnostic.
+    func offer(_ need: EngineLaunchError, for name: String, launchAfter: Bool) {
+        guard let m = machines[name] else { return }
+        switch need {
+        case .needsQuake3Patch:
+            licenseRequest = LicenseRequest(
+                title: "Patch 1.32 de Quake III",
+                message: "Votre copie de Quake III date d'avant la mise à jour 1.32, dont les moteurs modernes ont besoin. Borne peut télécharger les fichiers officiels d'id Software (\(Quake3Patch.size), depuis ioquake3). Ils sont soumis à la licence d'id Software, que vous pouvez lire avant d'accepter.",
+                url: Quake3Patch.licenseURL,
+                accept: { [weak self] in self?.downloadQuake3Patch(thenLaunch: launchAfter ? name : nil) })
+        case .needsOpenQ4:
+            licenseRequest = LicenseRequest(
+                title: "Installer openQ4 ?",
+                message: "Quake 4 se joue avec openQ4 \(OpenQ4.version), un moteur libre encore en bêta (rendu Metal). Borne peut le télécharger depuis sa page officielle (\(OpenQ4.size)) et l'installer dans votre dossier utilisateur. Il faut aussi les fichiers d'origine de Quake 4 (dossier q4base).",
+                url: OpenQ4.pageURL,
+                readLabel: "En savoir plus",
+                acceptLabel: "Télécharger openQ4",
+                accept: { [weak self] in self?.downloadEngine("openQ4", thenLaunch: launchAfter ? name : nil, install: OpenQ4.install) })
+        case .needsQuake4Patch:
+            licenseRequest = LicenseRequest(
+                title: "Mise à jour 1.4.2 de Quake 4",
+                message: "Votre copie de Quake 4 est celle du disque d'origine ; openQ4 a besoin des fichiers de la mise à jour 1.4.2 d'id Software. Borne peut télécharger le patch officiel (\(Quake4Patch.size), conservé par archive.org) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software et d'Activision, qui suppose de posséder Quake 4 ; son texte est inclus dans le patch et sera rangé avec lui.",
+                url: Quake4Patch.pageURL,
+                readLabel: "Voir la source",
+                accept: { [weak self] in self?.downloadEngine("la mise à jour de Quake 4", thenLaunch: launchAfter ? name : nil, install: Quake4Patch.install) })
+        case .needsDoom3Patch:
+            licenseRequest = LicenseRequest(
+                title: "Mise à jour 1.3.1 de Doom 3",
+                message: "Votre copie de Doom 3 est celle du disque d'origine ; dhewm3 et Resurrection of Evil ont besoin des fichiers de la mise à jour 1.3.1 d'id Software. Borne peut télécharger le patch officiel (\(Doom3Patch.size), au miroir indiqué par dhewm3) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software, qui suppose de posséder Doom 3 ; son texte est inclus dans le patch et sera rangé avec lui.",
+                url: Doom3Patch.pageURL,
+                readLabel: "Voir la source",
+                accept: { [weak self] in self?.downloadEngine("la mise à jour de Doom 3", thenLaunch: launchAfter ? name : nil, install: Doom3Patch.install) })
+        case .needsRaze:
+            licenseRequest = LicenseRequest(
+                title: "Installer Raze ?",
+                message: "\(m.description) se joue avec Raze \(Raze.version), le moteur de l'équipe de GZDoom pour les jeux Build (Duke Nukem 3D, Blood, Shadow Warrior…). Borne peut télécharger sa version pour Mac (\(Raze.size), signée et notarisée, publiée avec Borne) et l'installer dans votre dossier utilisateur.",
+                url: Raze.pageURL,
+                readLabel: "En savoir plus",
+                acceptLabel: "Télécharger Raze",
+                accept: { [weak self] in self?.downloadEngine("Raze", thenLaunch: launchAfter ? name : nil, install: Raze.install) })
+        }
+    }
+
     func launch(_ name: String) {
         guard running == nil else { return }
         do { try Prefs.prepareUserData() } catch {
@@ -742,46 +837,8 @@ final class Catalog {
                 let l: EngineLaunch
                 do {
                     l = try engine.launch(for: m)
-                } catch EngineLaunchError.needsQuake3Patch {
-                    licenseRequest = LicenseRequest(
-                        title: "Patch 1.32 de Quake III",
-                        message: "Votre copie de Quake III date d'avant la mise à jour 1.32, dont les moteurs modernes ont besoin. Borne peut télécharger les fichiers officiels d'id Software (\(Quake3Patch.size), depuis ioquake3). Ils sont soumis à la licence d'id Software, que vous pouvez lire avant d'accepter.",
-                        url: Quake3Patch.licenseURL,
-                        accept: { [weak self] in self?.downloadQuake3Patch(thenLaunch: name) })
-                    return
-                } catch EngineLaunchError.needsOpenQ4 {
-                    licenseRequest = LicenseRequest(
-                        title: "Installer openQ4 ?",
-                        message: "Quake 4 se joue avec openQ4 \(OpenQ4.version), un moteur libre encore en bêta (rendu Metal). Borne peut le télécharger depuis sa page officielle (\(OpenQ4.size)) et l'installer dans votre dossier utilisateur. Il faut aussi les fichiers d'origine de Quake 4 (dossier q4base).",
-                        url: OpenQ4.pageURL,
-                        readLabel: "En savoir plus",
-                        acceptLabel: "Télécharger openQ4",
-                        accept: { [weak self] in self?.downloadEngine("openQ4", thenLaunch: name, install: OpenQ4.install) })
-                    return
-                } catch EngineLaunchError.needsQuake4Patch {
-                    licenseRequest = LicenseRequest(
-                        title: "Mise à jour 1.4.2 de Quake 4",
-                        message: "Votre copie de Quake 4 est celle du disque d'origine ; openQ4 a besoin des fichiers de la mise à jour 1.4.2 d'id Software. Borne peut télécharger le patch officiel (\(Quake4Patch.size), conservé par archive.org) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software et d'Activision, qui suppose de posséder Quake 4 ; son texte est inclus dans le patch et sera rangé avec lui.",
-                        url: Quake4Patch.pageURL,
-                        readLabel: "Voir la source",
-                        accept: { [weak self] in self?.downloadEngine("la mise à jour de Quake 4", thenLaunch: name, install: Quake4Patch.install) })
-                    return
-                } catch EngineLaunchError.needsDoom3Patch {
-                    licenseRequest = LicenseRequest(
-                        title: "Mise à jour 1.3.1 de Doom 3",
-                        message: "Votre copie de Doom 3 est celle du disque d'origine ; dhewm3 et Resurrection of Evil ont besoin des fichiers de la mise à jour 1.3.1 d'id Software. Borne peut télécharger le patch officiel (\(Doom3Patch.size), au miroir indiqué par dhewm3) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software, qui suppose de posséder Doom 3 ; son texte est inclus dans le patch et sera rangé avec lui.",
-                        url: Doom3Patch.pageURL,
-                        readLabel: "Voir la source",
-                        accept: { [weak self] in self?.downloadEngine("la mise à jour de Doom 3", thenLaunch: name, install: Doom3Patch.install) })
-                    return
-                } catch EngineLaunchError.needsRaze {
-                    licenseRequest = LicenseRequest(
-                        title: "Installer Raze ?",
-                        message: "\(m.description) se joue avec Raze \(Raze.version), le moteur de l'équipe de GZDoom pour les jeux Build (Duke Nukem 3D, Blood, Shadow Warrior…). Borne peut télécharger sa version pour Mac (\(Raze.size), signée et notarisée, publiée avec Borne) et l'installer dans votre dossier utilisateur.",
-                        url: Raze.pageURL,
-                        readLabel: "En savoir plus",
-                        acceptLabel: "Télécharger Raze",
-                        accept: { [weak self] in self?.downloadEngine("Raze", thenLaunch: name, install: Raze.install) })
+                } catch let need as EngineLaunchError {
+                    offer(need, for: name, launchAfter: true)
                     return
                 }
                 p.executableURL = l.executable

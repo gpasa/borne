@@ -26,6 +26,8 @@ enum DOSGames {
 
     /// Par nom d'exécutable, en minuscules.
     static let known: [String: Known] = [
+        "duneprg.exe": .init(title: "Dune", year: "1992", maker: "Cryo Interactive / Virgin Games", run: "DUNE"),
+        "dune2.exe": .init(title: "Dune II: The Battle for Arrakis", year: "1992", maker: "Westwood Studios / Virgin Games", run: "DUNE2"),
         "tnfs.exe": .init(title: "The Need for Speed", year: "1995", maker: "Pioneer Productions / Electronic Arts", run: "TNFS SB"),
         "hocus.exe": .init(title: "Hocus Pocus", year: "1994", maker: "Moonlite Software / Apogee", run: "IF NOT EXIST HOCUS.SAV SETUP", "HOCUS"),
         "keen4e.exe": .init(title: "Commander Keen 4: Secret of the Oracle", year: "1991", maker: "id Software / Apogee", run: "KEEN4E"),

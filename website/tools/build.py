@@ -36,15 +36,16 @@ PAGES = {
     "guide.html": "guide/",
     "guide-arcade.html": "guide/arcade/",
     "guide-pc.html": "guide/jeux-pc/",
+    "guide-preparer.html": "guide/preparer/",
     "jeux.html": "jeux/",
     "assistance.html": "assistance/",
 }
 NAV = ["index.html", "guide.html", "jeux.html", "assistance.html"]
-GUIDE = ["guide.html", "guide-arcade.html", "guide-pc.html"]
+GUIDE = ["guide.html", "guide-arcade.html", "guide-pc.html", "guide-preparer.html"]
 
 T = {
     "fr": dict(locale="fr_FR", nav=["Accueil", "Guide", "Jeux PC", "Assistance"],
-               guide=["Premiers pas", "Arcade", "Jeux PC"], skip="Aller au contenu",
+               guide=["Premiers pas", "Arcade", "Jeux PC", "Préparer les jeux PC"], skip="Aller au contenu",
                nav_label="Navigation principale", guide_label="Parties du guide", other="English",
                dl="Télécharger", dl_as="Apple silicon", dl_intel="Intel",
                donate="Borne est libre et gratuit. Si vous l'aimez, un don aide à le faire évoluer :",
@@ -53,7 +54,7 @@ T = {
                nf=("Page introuvable", "Cette page n'existe pas ou a été déplacée.", "Retour à l'accueil"),
                tagline="votre salle d'arcade sur Mac"),
     "en": dict(locale="en_US", nav=["Home", "Guide", "PC games", "Support"],
-               guide=["Getting started", "Arcade", "PC games"], skip="Skip to content",
+               guide=["Getting started", "Arcade", "PC games", "Preparing PC games"], skip="Skip to content",
                nav_label="Main navigation", guide_label="Guide sections", other="Français",
                dl="Download", dl_as="Apple silicon", dl_intel="Intel",
                donate="Borne is free. If you enjoy it, a donation helps it keep growing:",

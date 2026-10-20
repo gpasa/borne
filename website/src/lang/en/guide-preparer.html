@@ -1,0 +1,98 @@
+<!-- title: Guide · Preparing PC games | description: How to prepare your PC games for Borne: the layout to aim for, where to find the files in a Steam, GOG, CD or DVD version, how to copy them to the Mac, and what to copy for each game. -->
+<h1>Preparing PC games</h1>
+<p class="intro">Borne doesn't read installers or discs: it reads the data files of an installed game. This page explains how to get them from your copy, which files to copy and where to put them. You only do it once per game.</p>
+
+<h2 id="principe">The idea</h2>
+<p>A PC game is made of a Windows or DOS program (<code>.exe</code>, <code>.dll</code>), which is of no use on a Mac, and of data files (levels, graphics, sounds): <code>.wad</code>, <code>.pak</code>, <code>.pk3</code>, <code>.pk4</code>, <code>.grp</code>… Borne's engines read the latter. So you just copy them, keeping the name of their folder when they have one (<code>id1</code>, <code>baseq2</code>, <code>baseq3</code>…).</p>
+<p>Copying the rest as well does no harm, Borne ignores it; but a folder with only the data is lighter and tidier.</p>
+
+<h2 id="rangement">The layout to aim for</h2>
+<p>Create a folder for your PC games, for example <code>PC Games</code> on your external drive, with one subfolder per game. Subfolder names are up to you; only the data files and folders inside matter. Upper and lower case don't matter either.</p>
+<pre class="arbre">PC Games/
+├── Doom/                       doom.wad, doom2.wad, tnt.wad, plutonia.wad,
+│                               heretic.wad, hexen.wad, strife1.wad…
+├── Quake/
+│   ├── id1/                    pak0.pak, pak1.pak
+│   ├── hipnotic/               pak0.pak   (Scourge of Armagon)
+│   └── rogue/                  pak0.pak   (Dissolution of Eternity)
+├── Quake II/
+│   ├── baseq2/                 pak0.pak, pak1.pak, pak2.pak, players/, video/
+│   ├── xatrix/                 pak0.pak   (The Reckoning)
+│   ├── rogue/                  pak0.pak   (Ground Zero)
+│   └── ctf/                    pak0.pak   (Capture The Flag)
+├── Quake III Arena/
+│   ├── baseq3/                 pak0.pk3 … pak8.pk3
+│   └── missionpack/            pak0.pk3 … (Team Arena)
+├── Quake 4/
+│   └── q4base/                 pak001.pk4 … pak022.pk4, zpak_english.pk4
+├── Doom 3/
+│   ├── base/                   pak000.pk4 … pak008.pk4
+│   └── d3xp/                   pak000.pk4, pak001.pk4   (Resurrection of Evil)
+├── Return to Castle Wolfenstein/
+│   └── Main/                   pak0.pk3, sp_pak1.pk3 … sp_pak4.pk3
+├── Wolfenstein 3D/             VSWAP.WL6, GAMEMAPS.WL6, MAPHEAD.WL6, AUDIOT.WL6…
+├── Spear of Destiny/           VSWAP.SOD, GAMEMAPS.SOD… (and .SD2, .SD3)
+└── Duke Nukem 3D/              DUKE3D.GRP</pre>
+<p>Then, in Borne: Settings → Jeux PC → <em>Ajouter un dossier…</em> (Add a folder) and choose <code>PC Games</code>. That's it: each game appears in the sidebar.</p>
+
+<h2 id="sources">Where to find the files</h2>
+
+<h3 id="steam">A Steam version</h3>
+<p>These are Windows games: Steam for Mac shows them in your library but won't install them. Install them with Steam on a Windows PC (yours, a friend's, a virtual machine), then in the Steam library: right-click the game → <em>Manage</em> → <em>Browse local files</em>. The folder that opens (usually <code>…\Steam\steamapps\common\&lt;game name&gt;</code>) holds the data described below.</p>
+<p>Steam versions are already up to date: Quake III, Doom 3 and Quake 4 don't need id Software's updates.</p>
+
+<h3 id="gog">A GOG version</h3>
+<p>Two options:</p>
+<ul>
+  <li><strong>On a Windows PC</strong>: install the game with GOG Galaxy or the offline installer, then copy the installation folder (by default <code>C:\GOG Games\&lt;game name&gt;</code>).</li>
+  <li><strong>Directly on the Mac</strong>, without Windows: download the offline Windows installer from your GOG account (<code>setup_….exe</code>, plus its <code>.bin</code> files if any, kept next to it). The free tool <a href="https://constexpr.org/innoextract/">innoextract</a> extracts the files. In Terminal:
+    <pre>brew install innoextract
+cd ~/Downloads
+innoextract setup_quake_the_offering_*.exe</pre>
+    The game files appear in an <code>app</code> folder (or at the top of the folder): copy the data from there. This needs <a href="https://brew.sh">Homebrew</a>; the most recent GOG installers may not open with the current innoextract: use a PC then.</li>
+</ul>
+
+<h3 id="disque">An original CD or DVD</h3>
+<p>Insert the disc, or double-click its image (<code>.iso</code>): macOS shows it as a disk. Two cases:</p>
+<ul>
+  <li><strong>The data is visible</strong> on the disc, often in a <code>Setup/Data</code> folder or at the top (for example <code>Setup/Data/base</code> for Doom 3, <code>Setup/Data/q4base</code> for Quake 4): just copy it.</li>
+  <li><strong>Only an installer is visible</strong> (<code>setup.exe</code>, <code>.cab</code> or <code>.msi</code> files): the data is compressed inside. Install the game on a Windows PC, then copy the installed folder (usually in <code>C:\Program Files</code> or <code>C:\Program Files (x86)</code>).</li>
+</ul>
+<p>An original disc often predates the game's last update. For Quake III, Doom 3 and Quake 4, Borne offers the official update at first launch: copy the disc's files as they are.</p>
+
+<h3 id="copier">Copying to the Mac</h3>
+<p>Use a USB stick, an external drive or the network (Finder → Go → Connect to Server, <code>smb://</code> for a Windows share). Copy whole folders (<code>id1</code>, <code>baseq2</code>…) rather than their contents, to keep their names. The files can then stay on an external drive: Borne never changes them.</p>
+
+<h2 id="par-jeu">Game by game</h2>
+<p>What to copy from the game's installation folder, and where to put it in your PC games folder. When in doubt, search for the file name in the Finder (<kbd>⌘</kbd><kbd>F</kbd> in the game's folder).</p>
+
+<h3 id="doom">Doom, Doom II, Final Doom, Heretic, Hexen, Strife</h3>
+<p>Copy the game's <code>.wad</code> files (<code>doom.wad</code>, <code>doom2.wad</code>, <code>tnt.wad</code>, <code>plutonia.wad</code>, <code>heretic.wad</code>, <code>hexen.wad</code>, <code>hexdd.wad</code>, <code>strife1.wad</code> with <code>voices.wad</code>) into a single <code>Doom</code> folder. In the Steam and GOG versions they sit in the game's folder or in a subfolder such as <code>base</code> or <code>rerelease</code>. Your mods (<code>.wad</code>, <code>.pk3</code>) go in the same folder.</p>
+<p>No copy of Doom? Freedoom, free and complete, downloads from Borne (Settings → Données).</p>
+
+<h3 id="quake">Quake and its add-ons</h3>
+<p>Copy the <code>id1</code> folder (<code>pak0.pak</code> and <code>pak1.pak</code>), and if present <code>hipnotic</code> and <code>rogue</code>, side by side in a <code>Quake</code> folder. The 2021 Steam version keeps the original game in these folders; its <code>rerelease</code> folder isn't needed. An <code>id1</code> without <code>pak1.pak</code> is the demo version.</p>
+
+<h3 id="quake2">Quake II and its add-ons</h3>
+<p>Copy the <code>baseq2</code> folder (at least <code>pak0.pak</code>; also <code>pak1.pak</code>, <code>pak2.pak</code>, <code>players</code> and <code>video</code> if present), and if present <code>xatrix</code>, <code>rogue</code> and <code>ctf</code>, side by side in a <code>Quake II</code> folder. On a CD they are often locked inside the installer: install the game on a PC then.</p>
+
+<h3 id="quake3">Quake III Arena and Team Arena</h3>
+<p>Copy <code>baseq3</code> and, for Team Arena, <code>missionpack</code>, side by side. An original CD only has <code>pak0.pk3</code> in <code>baseq3</code>: Borne offers the 1.32 update at first launch.</p>
+
+<h3 id="rtcw">Return to Castle Wolfenstein</h3>
+<p>Copy the <code>Main</code> folder (<code>pak0.pk3</code> and <code>sp_pak1.pk3</code> to <code>sp_pak4.pk3</code>; the other files aren't needed). If you have two languages, put each in its own folder: Borne lists them separately.</p>
+
+<h3 id="doom3">Doom 3 and Resurrection of Evil</h3>
+<p>Copy the <code>base</code> folder (<code>pak000.pk4</code> and following) and, for the add-on, <code>d3xp</code>, side by side in a <code>Doom 3</code> folder. On a DVD they are in <code>Setup/Data</code>. The <code>game00.pk4</code> file isn't needed. The 2012 “BFG Edition” isn't supported: you need the original 2004 version (with its <code>base</code> and <code>d3xp</code> folders).</p>
+
+<h3 id="quake4">Quake 4</h3>
+<p>Copy the <code>q4base</code> folder into a <code>Quake 4</code> folder; on a DVD it is in <code>Setup/Data</code>. With a DVD, Borne offers the 1.4.2 update at first launch. Quake 4 requires an Apple silicon Mac.</p>
+
+<h3 id="wolf3d">Wolfenstein 3D and Spear of Destiny</h3>
+<p>Copy the <code>.WL6</code> files (Wolfenstein 3D) or <code>.SOD</code>, <code>.SD2</code>, <code>.SD3</code> (Spear of Destiny and its missions) into one folder per game. In the Steam versions they are often in a <code>base</code> subfolder. <code>.WL1</code> files are the demo version.</p>
+
+<h3 id="build">Duke Nukem 3D, Blood, Shadow Warrior and the Build games</h3>
+<p>Copy the main file (<code>DUKE3D.GRP</code>, <code>SW.GRP</code>, <code>REDNECK.GRP</code>, <code>STUFF.DAT</code>…) into one folder per game. For Blood, copy the whole game folder: <code>BLOOD.RFF</code> needs the files around it. Raze, the engine for these games, downloads from Borne at first launch.</p>
+
+<h2 id="verifier">Checking</h2>
+<p>In Borne, each recognized game appears in its sidebar folder (Doom, Quake, Quake II…), with the number of games found. A game is missing? Check its file or folder name in the <a href="@jeux.html">list of PC games</a>, then rescan the folders (<kbd>⌘</kbd><kbd>R</kbd>).</p>

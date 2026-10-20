@@ -134,6 +134,10 @@ figure.petite img { width: 330px; }
 .tableau td, .touches td { padding: .5rem .6rem; border-bottom: 1px solid var(--bord); vertical-align: top; }
 .tableau.jeux td:first-child { font-weight: 550; width: 42%; }
 .touches td:first-child { white-space: nowrap; width: 1%; }
+pre { overflow-x: auto; background: var(--carte); border: 1px solid var(--bord); border-radius: 10px;
+  padding: .8rem 1rem; font: .82rem/1.5 ui-monospace, "SF Mono", Menlo, monospace; }
+pre.arbre { font-size: .8rem; }
+li pre { margin: .6rem 0; }
 .moteur { color: var(--muted); font-size: .93rem; margin-top: .3rem; }
 .pastille { white-space: nowrap; }
 .pastille::before { content: ""; display: inline-block; width: .65em; height: .65em; border-radius: 50%; margin-right: .3em; vertical-align: .05em; }

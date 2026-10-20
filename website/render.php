@@ -3,7 +3,7 @@
 // puis le témoin, puis Accept-Language, puis l'anglais. Une adresse fixe par langue (lang/<code>/…)
 // passe $force avant d'inclure ce fichier.
 $langues = ['fr', 'en'];
-$routes = ['' => 'index.html', 'guide/' => 'guide.html', 'guide/arcade/' => 'guide-arcade.html', 'guide/jeux-pc/' => 'guide-pc.html', 'jeux/' => 'jeux.html', 'assistance/' => 'assistance.html'];
+$routes = ['' => 'index.html', 'guide/' => 'guide.html', 'guide/arcade/' => 'guide-arcade.html', 'guide/jeux-pc/' => 'guide-pc.html', 'guide/preparer/' => 'guide-preparer.html', 'jeux/' => 'jeux.html', 'assistance/' => 'assistance.html'];
 
 if (isset($force)) {
     $choix = $force;

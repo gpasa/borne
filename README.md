@@ -52,6 +52,11 @@ All versions are on the [Releases](https://github.com/gpasa/borne/releases) page
 
 Borne does **not** include any ROMs. Use only games you are entitled to.
 
+## Support
+
+Borne is free. If you enjoy it, a donation helps keep it going:
+[Ko-fi](https://ko-fi.com/gpasa) · [PayPal](https://paypal.me/GuglielmoPasa). Thank you!
+
 ## Build from source
 
 Requirements: Xcode, [XcodeGen](https://github.com/yonaskolb/XcodeGen), the

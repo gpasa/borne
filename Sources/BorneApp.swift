@@ -54,6 +54,11 @@ struct BorneApp: App {
                 Button("Ouvrir le dossier ROM") { catalog.revealROMFolder() }
                 Button("Afficher les données de jeu") { catalog.revealUserData() }
             }
+            CommandGroup(after: .help) {
+                Divider()
+                Link("Soutenir Borne sur Ko-fi…", destination: Support.kofi)
+                Link("Soutenir Borne par PayPal…", destination: Support.paypal)
+            }
         }
 
         Settings {

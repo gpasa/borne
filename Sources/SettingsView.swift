@@ -34,6 +34,17 @@ struct SettingsView: View {
                 }
                 TextField("Options en plus", text: $extraArgs, prompt: Text("-bgfx_screen_chains crt-geom"))
             }
+
+            Section {
+                HStack(spacing: 16) {
+                    Link("Ko-fi", destination: Support.kofi)
+                    Link("PayPal", destination: Support.paypal)
+                }
+            } header: {
+                Text("Soutenir Borne")
+            } footer: {
+                Text("Borne est libre et gratuit. Si vous l'aimez, un don aide à le faire évoluer. Merci !")
+            }
             }
             .formStyle(.grouped)
             .tabItem { Label("Général", systemImage: "gearshape") }

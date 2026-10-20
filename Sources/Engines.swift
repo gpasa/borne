@@ -664,7 +664,9 @@ extension Engine {
             let game = m.modArg ?? "baseq2"
             let cfg = home.appendingPathComponent(".yq2/\(game)")
             try FileManager.default.createDirectory(at: cfg, withIntermediateDirectories: true)
-            try "bind x +attack\n".write(to: cfg.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
+            // Les touches d'id ne prévoient que les flèches : W A S D en plus.
+            let binds = "bind x +attack\nbind w +forward\nbind s +back\nbind a +moveleft\nbind d +moveright\n"
+            try binds.write(to: cfg.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
             env["HOME"] = home.path
             args = ["-datadir", data, "+set", "vid_renderer", "gl3",
                     "+set", "vid_fullscreen", Prefs.windowed ? "0" : "1"]

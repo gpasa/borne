@@ -426,14 +426,34 @@ enum EngineCatalog {
     }
 
     private static func rtcwGame(gameDir: URL) -> Machine {
-        var m = Machine(name: "rtcw:sp")
-        m.description = "Return to Castle Wolfenstein"
+        // Une entrée par langue : sp_pak1.pk3 porte les textes et menus localisés.
+        let lang = caseInsensitiveChild(gameDir, "sp_pak1.pk3").flatMap(rtcwLanguage)
+        var m = Machine(name: "rtcw:sp" + (lang.map { ":\($0.code)" } ?? ""))
+        m.description = "Return to Castle Wolfenstein" + (lang.map { " (\($0.name))" } ?? "")
         m.year = "2001"
         m.manufacturer = "Gray Matter / id Software"
         m.engine = Engine.rtcw.rawValue
         m.dataPath = gameDir.path
         fillCommon(&m, players: 1)
         return m
+    }
+
+    /// Langue d'une version de RTCW, d'après le premier bouton de son menu principal.
+    private static func rtcwLanguage(_ spPak1: URL) -> (code: String, name: String)? {
+        let p = Process()
+        p.executableURL = URL(fileURLWithPath: "/usr/bin/unzip")
+        p.arguments = ["-p", spPak1.path, "ui/main.menu"]
+        let pipe = Pipe()
+        p.standardOutput = pipe
+        p.standardError = FileHandle.nullDevice
+        guard (try? p.run()) != nil else { return nil }
+        let menu = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self).uppercased()
+        p.waitUntilExit()
+        let known: [(String, String, String)] = [
+            ("\"GIOCA\"", "it", "italien"), ("\"JUGAR\"", "es", "espagnol"), ("\"JOUER\"", "fr", "français"),
+            ("\"SPIELEN\"", "de", "allemand"), ("\"PLAY\"", "en", "anglais"),
+        ]
+        return known.first { menu.contains($0.0) }.map { ($0.1, $0.2) }
     }
 
     private static func wolfGame(_ dir: URL, _ ext: String, _ k: KnownGame) -> Machine {

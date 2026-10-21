@@ -649,7 +649,7 @@ extension Engine {
             let id1 = user.appendingPathComponent("id1")
             try FileManager.default.createDirectory(at: id1, withIntermediateDirectories: true)
             // « - » rétrécit l'image sans retour possible sur un clavier où « = » demande Maj.
-            try (KeyBindings.script(for: self) + "unbind -\n").write(to: id1.appendingPathComponent("borne.cfg"), atomically: true, encoding: .utf8)
+            try ("unbind -\n" + KeyBindings.script(for: self)).write(to: id1.appendingPathComponent("borne.cfg"), atomically: true, encoding: .utf8)
             if let game = m.modArg, let src = m.gamePath {
                 try Self.linkQuakeGame(name: game, from: URL(fileURLWithPath: src), into: user)
             }
@@ -699,7 +699,7 @@ extension Engine {
             // Touches choisies dans Borne (W A S D par défaut : id ne prévoit que les flèches).
             // « - » rétrécit l'image, et « = » ou « + », qui l'agrandissent, demandent
             // Maj sur un clavier suisse ou français : image pleine à chaque lancement.
-            let binds = KeyBindings.script(for: self) + "unbind -\nset viewsize 100\n"
+            let binds = "unbind -\n" + KeyBindings.script(for: self) + "set viewsize 100\n"
             try binds.write(to: cfg.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
             env["HOME"] = home.path
             args = ["-datadir", data, "+set", "vid_renderer", "gl3",

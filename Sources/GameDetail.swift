@@ -140,6 +140,19 @@ struct GameDetail: View {
 
                     Text("Touches").font(.headline).padding(.top, 6)
                     KeyGuideView(machine: m)
+                    if m.engineKind == .dos || m.engineKind == .scummvm {
+                        Button(m.engineKind == .dos ? "Touches de ce jeu…" : "Options de ScummVM…") {
+                            catalog.openKeyEditor(m.name)
+                        }
+                        .controlSize(.small)
+                        .help(m.engineKind == .dos
+                              ? "Ouvre l'éditeur de touches de DOSBox ; ce que vous enregistrez ne vaut que pour ce jeu."
+                              : "Ouvre les options de ScummVM : onglet « Touches » pour les changer.")
+                    } else if m.engineKind == nil || KeyBindings.supported.contains(m.engineKind!) {
+                        SettingsLink { Text("Changer les touches…") }
+                            .controlSize(.small)
+                            .simultaneousGesture(TapGesture().onEnded { UserDefaults.standard.set("keys", forKey: "settingsTab") })
+                    }
 
                     if advanced { ConfigFilesSection(machine: m) }
                 }

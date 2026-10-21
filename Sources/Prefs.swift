@@ -175,7 +175,7 @@ enum Prefs {
             "-samplepath", "\(localSamples.path);\(media)/samples;\(mame)/samples",
             "-artpath", "\(media)/artwork;\(mame)/artwork",
             "-cheatpath", "\(media)/cheat",
-            "-ctrlrpath", "\(mame)/ctrlr",
+            "-ctrlrpath", "\(user)/ctrlr;\(mame)/ctrlr",
             "-hashpath", "\(mame)/hash",
             "-pluginspath", "\(mame)/plugins",
             "-languagepath", "\(mame)/language",
@@ -200,8 +200,12 @@ enum Prefs {
     static var displayArguments: [String] {
         let video = UserDefaults.standard.string(forKey: mameVideoKey) ?? "bgfx"
         var args = ["-video", video]
+        // Touches choisies dans Borne (Réglages → Touches), réécrites à chaque lancement ;
+        // à défaut, celles livrées avec Borne.
+        try? MAMEKeys.write()
         let ctrlr = mameDirectory.appendingPathComponent("ctrlr/borne_mac.cfg")
-        if FileManager.default.fileExists(atPath: ctrlr.path) { args += ["-ctrlr", "borne_mac"] }
+        let ours = MAMEKeys.ctrlrDirectory.appendingPathComponent("borne_mac.cfg")
+        if [ours, ctrlr].contains(where: { FileManager.default.fileExists(atPath: $0.path) }) { args += ["-ctrlr", "borne_mac"] }
         return args
     }
 

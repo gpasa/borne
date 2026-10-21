@@ -1,39 +1,38 @@
 import AppKit
 import SwiftUI
 
-/// Touches utiles pour un jeu, d'après ses commandes et le fichier
-/// ctrlr/borne_mac.cfg (boutons du joueur 1 sur Z X C V B N, pas sur Ctrl).
+/// Touches utiles pour un jeu, d'après ses commandes et les touches choisies
+/// dans Borne (MAMEKeys, KeyBindings).
 enum KeyGuide {
     struct Entry: Hashable {
         let keys: String
         let action: String
     }
 
-    static let player1Buttons = ["Z", "X", "C", "V", "B", "N"]
-    static let player2Buttons = ["A", "S", "Q", "W"]
 
     static func game(_ m: Machine) -> [Entry] {
         if let engine = m.engineKind { return engineKeys(engine) }
-        var e = [Entry(keys: "5", action: "Insérer une pièce"),
-                 Entry(keys: "1", action: "Start (1 joueur)")]
+        let k = { (id: String) in MAMEKeys.label(id: id) ?? "?" }
+        var e = [Entry(keys: k("COIN1"), action: "Insérer une pièce"),
+                 Entry(keys: k("START1"), action: "Start (1 joueur)")]
         let c = Set(m.controls)
         if !c.isDisjoint(with: ["joy", "doublejoy", "stick", "triplejoy"]) {
-            e.append(Entry(keys: "← ↑ → ↓", action: "Joystick"))
+            e.append(Entry(keys: ["LEFT", "UP", "RIGHT", "DOWN"].map { k("P1_JOYSTICK_\($0)") }.joined(separator: " "), action: "Joystick"))
         }
         if !c.isDisjoint(with: ["dial", "paddle", "trackball", "mouse", "lightgun", "positional"]) {
             e.append(Entry(keys: "Souris", action: "Volant, trackball ou pistolet"))
         }
-        let n = min(m.buttons, player1Buttons.count)
+        let n = min(m.buttons, 6)
         if n > 0 {
-            e.append(Entry(keys: player1Buttons.prefix(n).joined(separator: " "),
+            e.append(Entry(keys: (1...n).map { k("P1_BUTTON\($0)") }.joined(separator: " "),
                            action: n == 1 ? "Bouton" : "Boutons 1 à \(n)"))
         }
         if m.players >= 2 {
-            e.append(Entry(keys: "6 puis 2", action: "Pièce et Start (joueur 2)"))
-            e.append(Entry(keys: "R D F G", action: "Joystick joueur 2"))
-            let n2 = min(m.buttons, player2Buttons.count)
+            e.append(Entry(keys: "\(k("COIN2")) puis \(k("START2"))", action: "Pièce et Start (joueur 2)"))
+            e.append(Entry(keys: ["UP", "LEFT", "DOWN", "RIGHT"].map { k("P2_JOYSTICK_\($0)") }.joined(separator: " "), action: "Joystick joueur 2"))
+            let n2 = min(m.buttons, 4)
             if n2 > 0 {
-                e.append(Entry(keys: player2Buttons.prefix(n2).joined(separator: " "), action: "Boutons joueur 2"))
+                e.append(Entry(keys: (1...n2).map { k("P2_BUTTON\($0)") }.joined(separator: " "), action: "Boutons joueur 2"))
             }
         }
         return e
@@ -151,15 +150,15 @@ enum KeyGuide {
     }
 
     /// Sur un clavier Mac, les touches F demandent fn.
-    static let system: [Entry] = [
+    static var system: [Entry] { [
         Entry(keys: "Échap", action: "Quitter et revenir à Borne"),
-        Entry(keys: "P", action: "Pause"),
+        Entry(keys: MAMEKeys.label(id: "UI_PAUSE") ?? "P", action: "Pause"),
         Entry(keys: "fn F3", action: "Remise à zéro"),
         Entry(keys: "Maj fn F7", action: "Sauver l'état"),
         Entry(keys: "fn F7", action: "Recharger l'état"),
         Entry(keys: "fn F12", action: "Capture d'écran"),
-        Entry(keys: "Tab", action: "Menu de MAME (touches, réglages)"),
-    ]
+        Entry(keys: MAMEKeys.label(id: "UI_CONFIGURE") ?? "Tab", action: "Menu de MAME (touches, réglages)"),
+    ] }
 }
 
 struct KeyGuideView: View {

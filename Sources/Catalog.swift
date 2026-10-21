@@ -847,6 +847,53 @@ final class Catalog {
         }
     }
 
+    /// Éditeur de touches de DOSBox pour un jeu, ou options de ScummVM (onglet Touches).
+    func openKeyEditor(_ name: String) {
+        guard let m = machines[name], let engine = m.engineKind else { return }
+        if engine == .scummvm && ScummVM.executable == nil {
+            offer(.needsScummVM, for: name, launchAfter: false)
+            return
+        }
+        guard let exe = engine.executable else { return }
+        let user = engine.userDirectory
+        let home = user.appendingPathComponent("home")
+        try? FileManager.default.createDirectory(at: home, withIntermediateDirectories: true)
+        var env = ProcessInfo.processInfo.environment
+        let p = Process()
+        p.executableURL = exe
+        switch engine {
+        case .dos:
+            env["HOME"] = home.path
+            p.arguments = ["--noprimaryconf", "--nolocalconf",
+                           "--set", "mapperfile=\(DOSGames.mapperFile(for: m, user: user).path)", "--startmapper"]
+        case .scummvm:
+            let ini = user.appendingPathComponent("scummvm.ini")
+            if !FileManager.default.fileExists(atPath: ini.path) {
+                try? "[scummvm]\nupdates_check=0\n".write(to: ini, atomically: true, encoding: .utf8)
+            }
+            p.arguments = ["--config=\(ini.path)"]
+        default:
+            return
+        }
+        p.environment = env
+        p.currentDirectoryURL = user
+        do {
+            try p.run()
+            Task {
+                for _ in 0..<50 {
+                    try? await Task.sleep(for: .milliseconds(100))
+                    if let app = NSRunningApplication(processIdentifier: p.processIdentifier), Self.hasWindow(p.processIdentifier) {
+                        NSApp.yieldActivation(to: app)
+                        app.activate(from: .current, options: [])
+                        return
+                    }
+                }
+            }
+        } catch {
+            notice = ("\(engine.engineName) n'a pas pu s'ouvrir", error.localizedDescription)
+        }
+    }
+
     func launch(_ name: String) {
         guard running == nil else { return }
         do { try Prefs.prepareUserData() } catch {

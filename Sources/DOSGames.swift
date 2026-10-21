@@ -98,6 +98,13 @@ enum DOSGames {
 
     static var root: URL { Prefs.userDataRoot.appendingPathComponent("dos") }
 
+    /// Touches de DOSBox propres à un jeu.
+    static func mapperFile(for m: Machine, user: URL) -> URL {
+        let dir = user.appendingPathComponent("mappers")
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        return dir.appendingPathComponent("\(m.name.replacingOccurrences(of: "dos:", with: "")).map")
+    }
+
     // MARK: Lancement
 
     /// Arguments de DOSBox Staging : lecteur C: sur le dossier du jeu, puis la
@@ -122,6 +129,8 @@ enum DOSGames {
                     "--set", "startup_verbosity=quiet",
                     "--set", "capture_dir=\(shots.path)"]
         if !Prefs.windowed { args.append("--fullscreen") }
+        // Touches propres au jeu, modifiables depuis sa fiche (éditeur de DOSBox).
+        args += ["--set", "mapperfile=\(mapperFile(for: m, user: user).path)"]
         // Mode avancé : réglages DOSBox propres au jeu, lus après ceux de Borne.
         let conf = ConfigFiles.dosConf(for: m)
         if FileManager.default.fileExists(atPath: conf.path) { args += ["--conf", conf.path] }

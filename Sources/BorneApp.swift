@@ -7,7 +7,7 @@ struct BorneApp: App {
     private let updates = Updates.shared
 
     var body: some Scene {
-        WindowGroup("Borne") {
+        WindowGroup(Text(verbatim: "Borne")) {
             ContentView()
                 .environment(catalog)
                 .frame(minWidth: 1000, minHeight: 600)

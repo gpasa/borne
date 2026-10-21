@@ -21,20 +21,20 @@ enum Folder: Hashable {
 
     var title: String {
         switch self {
-        case .all: "Tous les jeux"
-        case .available: "Disponibles"
-        case .unavailable: "Non disponibles"
-        case .favorites: "Favoris"
-        case .local: "Sur ce Mac"
-        case .parents: "Originaux"
-        case .clones: "Clones"
-        case .working: "Fonctionnels"
-        case .notWorking: "Non fonctionnels"
-        case .bios: "BIOS"
-        case .mechanical: "Mécaniques"
-        case .horizontal: "Écran horizontal"
-        case .vertical: "Écran vertical"
-        case .savestate: "Sauvegarde d'état"
+        case .all: String(localized: "Tous les jeux")
+        case .available: String(localized: "Disponibles")
+        case .unavailable: String(localized: "Non disponibles")
+        case .favorites: String(localized: "Favoris")
+        case .local: String(localized: "Sur ce Mac")
+        case .parents: String(localized: "Originaux")
+        case .clones: String(localized: "Clones")
+        case .working: String(localized: "Fonctionnels")
+        case .notWorking: String(localized: "Non fonctionnels")
+        case .bios: String(localized: "BIOS")
+        case .mechanical: String(localized: "Mécaniques")
+        case .horizontal: String(localized: "Écran horizontal")
+        case .vertical: String(localized: "Écran vertical")
+        case .savestate: String(localized: "Sauvegarde d'état")
         case .manufacturer(let s), .year(let s), .source(let s), .cpu(let s), .chooser(let s): s
         case .engine(let e): Engine(rawValue: e)?.title ?? e
         }
@@ -180,8 +180,8 @@ final class Catalog {
         let title: String
         let message: String
         let url: URL
-        var readLabel = "Lire la licence"
-        var acceptLabel = "J'accepte et je télécharge"
+        var readLabel = String(localized: "Lire la licence")
+        var acceptLabel = String(localized: "J'accepte et je télécharge")
         let accept: () -> Void
     }
     /// Change quand des réglages de jeu sont effacés, pour rafraîchir la fiche.
@@ -243,7 +243,7 @@ final class Catalog {
     // MARK: Chargement
 
     func load(forceRefresh: Bool = false) async {
-        phase = .loading("Interrogation de mame…")
+        phase = .loading(String(localized: "Interrogation de mame…"))
         do {
             let version = try await Task.detached { try MAMERunner.version() }.value
             self.version = version
@@ -254,7 +254,7 @@ final class Catalog {
                     return decoded
                 }
                 let list = try MAMERunner.listXML { n in
-                    Task { @MainActor in self.phase = .loading("Lecture des machines : \(n)…") }
+                    Task { @MainActor in self.phase = .loading(String(localized: "Lecture des machines : \(n)…")) }
                 }
                 try JSONEncoder().encode(list).write(to: cache, options: .atomic)
                 return list
@@ -504,12 +504,12 @@ final class Catalog {
             m.needsFiles && (present.contains(m.name) || m.cloneOf.map(present.contains) == true)
         }.map(\.name)
         guard !candidates.isEmpty else {
-            notice = ("Aucun set à vérifier", "Aucun fichier de ROM n'a été trouvé dans les dossiers ROM.")
+            notice = (String(localized: "Aucun set à vérifier"), String(localized: "Aucun fichier de ROM n'a été trouvé dans les dossiers ROM."))
             return
         }
         let args = Prefs.pathArguments + ["-verifyroms"] + candidates
         let total = Double(candidates.count)
-        startJob("Vérification des ROM…") { [weak self] in
+        startJob(String(localized: "Vérification des ROM…")) { [weak self] in
             guard let self else { return }
             var found: [String: AuditResult] = [:]
             var pending: [String: AuditResult] = [:]
@@ -526,7 +526,7 @@ final class Catalog {
                         let done = Double(found.count)
                         Task { @MainActor in
                             self.audit = (self.audit ?? [:]).merging(batch) { _, new in new }
-                            self.setProgress("Vérification des ROM…", min(1, done / total))
+                            self.setProgress(String(localized: "Vérification des ROM…"), min(1, done / total))
                             self.refreshView()
                         }
                     }
@@ -550,20 +550,20 @@ final class Catalog {
     func proposeInstall(_ names: [String]) {
         let games = names.filter { machines[$0]?.engine == nil && available.contains($0) }
         guard !games.isEmpty else {
-            notice = ("Rien à installer", "Ces jeux ne sont pas disponibles sur le disque des jeux.")
+            notice = (String(localized: "Rien à installer"), String(localized: "Ces jeux ne sont pas disponibles sur le disque des jeux."))
             return
         }
         let romPaths = Prefs.romPaths
         let samplePaths = [Prefs.mediaRoot.appendingPathComponent("samples").path]
         let root = Prefs.userDataRoot
         let total = Double(games.count)
-        startJob("Préparation de l'installation…") { [weak self] in
+        startJob(String(localized: "Préparation de l'installation…")) { [weak self] in
             guard let self else { return }
             do {
                 let plan = try await Task.detached {
                     try Installer.plan(games: games, romPaths: romPaths, samplePaths: samplePaths,
                                        userRoot: root) { i in
-                        Task { @MainActor in self.setProgress("Préparation de l'installation…", Double(i) / total) }
+                        Task { @MainActor in self.setProgress(String(localized: "Préparation de l'installation…"), Double(i) / total) }
                     }
                 }.value
                 if Task.isCancelled { return }
@@ -576,17 +576,17 @@ final class Catalog {
                 let freeText = ByteCountFormatter.string(fromByteCount: free, countStyle: .file)
                 let what = games.count == 1
                     ? (machines[games[0]]?.description ?? games[0])
-                    : "\(games.count) jeux"
+                    : String(localized: "\(games.count) jeux")
                 proposal = InstallProposal(
                     plan: plan,
-                    title: "Installer \(what) sur ce Mac ?",
+                    title: String(localized: "Installer \(what) sur ce Mac ?"),
                     message: fits
-                        ? "\(size) à copier (\(plan.items.count) fichiers), \(freeText) libres. Le jeu se lancera ensuite sans le disque des jeux."
-                        : "\(size) à copier, mais seulement \(freeText) libres sur ce Mac (5 Go de marge gardés).",
+                        ? String(localized: "\(size) à copier (\(plan.items.count) fichiers), \(freeText) libres. Le jeu se lancera ensuite sans le disque des jeux.")
+                        : String(localized: "\(size) à copier, mais seulement \(freeText) libres sur ce Mac (5 Go de marge gardés)."),
                     fits: fits)
             } catch is CancellationError {
             } catch {
-                notice = ("Installation impossible", error.localizedDescription)
+                notice = (String(localized: "Installation impossible"), error.localizedDescription)
             }
         }
     }
@@ -595,7 +595,7 @@ final class Catalog {
         proposal = nil
         let root = Prefs.userDataRoot
         let total = max(1, plan.bytes)
-        startJob("Copie sur ce Mac…") { [weak self] in
+        startJob(String(localized: "Copie sur ce Mac…")) { [weak self] in
             guard let self else { return }
             let task = Task.detached { () throws -> [String: AuditResult?] in
                 var done: Int64 = 0
@@ -605,7 +605,7 @@ final class Catalog {
                     if Date().timeIntervalSince(last) > 0.25 {
                         last = Date()
                         let p = Double(done) / Double(total)
-                        Task { @MainActor in self.setProgress("Copie sur ce Mac…", p) }
+                        Task { @MainActor in self.setProgress(String(localized: "Copie sur ce Mac…"), p) }
                     }
                 }
                 var results: [String: AuditResult?] = [:]
@@ -631,12 +631,12 @@ final class Catalog {
                 installed = m
                 scanROMs()
                 if !incomplete.isEmpty {
-                    notice = ("Copie incomplète",
-                              "MAME ne trouve pas tout en local pour : \(incomplete.joined(separator: ", ")). Ces jeux auront encore besoin du disque des jeux.")
+                    notice = (String(localized: "Copie incomplète"),
+                              String(localized: "MAME ne trouve pas tout en local pour : \(incomplete.joined(separator: ", ")). Ces jeux auront encore besoin du disque des jeux."))
                 }
             } catch {
                 if !(error is CancellationError) {
-                    notice = ("Copie interrompue", error.localizedDescription)
+                    notice = (String(localized: "Copie interrompue"), error.localizedDescription)
                 }
             }
         }
@@ -644,33 +644,33 @@ final class Catalog {
 
     /// Télécharge Freedoom (libre) depuis sa release officielle, puis relit les jeux.
     func downloadFreedoom() {
-        startJob("Téléchargement de Freedoom…") { [weak self] in
+        startJob(String(localized: "Téléchargement de Freedoom…")) { [weak self] in
             guard let self else { return }
             do {
                 try await Freedoom.install { p in
-                    Task { @MainActor in self.setProgress("Téléchargement de Freedoom…", p) }
+                    Task { @MainActor in self.setProgress(String(localized: "Téléchargement de Freedoom…"), p) }
                 }
                 scanEngines()
                 folder = .engine(Engine.doom.rawValue)
             } catch is CancellationError {
             } catch {
-                notice = ("Freedoom n'a pas pu être installé", error.localizedDescription)
+                notice = (String(localized: "Freedoom n'a pas pu être installé"), error.localizedDescription)
             }
         }
     }
 
     /// Télécharge le patch 1.32 de Quake III (licence acceptée), puis lance le jeu demandé.
     func downloadQuake3Patch(thenLaunch name: String?) {
-        startJob("Téléchargement du patch Quake III…") { [weak self] in
+        startJob(String(localized: "Téléchargement du patch Quake III…")) { [weak self] in
             guard let self else { return }
             do {
                 try await Quake3Patch.install { p in
-                    Task { @MainActor in self.setProgress("Téléchargement du patch Quake III…", p) }
+                    Task { @MainActor in self.setProgress(String(localized: "Téléchargement du patch Quake III…"), p) }
                 }
                 if let name { launch(name) }
             } catch is CancellationError {
             } catch {
-                notice = ("Le patch n'a pas pu être installé", error.localizedDescription)
+                notice = (String(localized: "Le patch n'a pas pu être installé"), error.localizedDescription)
             }
         }
     }
@@ -679,11 +679,11 @@ final class Catalog {
     /// n'arrête pas les suivants. Interruptible comme les autres travaux.
     func downloadModules(_ modules: [ExternalModule]) {
         guard !modules.isEmpty else { return }
-        startJob("Téléchargement des modules…") { [weak self] in
+        startJob(String(localized: "Téléchargement des modules…")) { [weak self] in
             guard let self else { return }
             var failures: [String] = []
             for (i, module) in modules.enumerated() {
-                let title = "Téléchargement de \(module.title) (\(i + 1)/\(modules.count))…"
+                let title = String(localized: "Téléchargement de \(module.title) (\(i + 1)/\(modules.count))…")
                 setProgress(title, 0)
                 do {
                     try await module.install { p in
@@ -692,14 +692,14 @@ final class Catalog {
                 } catch is CancellationError {
                     break
                 } catch {
-                    failures.append("\(module.title) : \(error.localizedDescription)")
+                    failures.append(String(localized: "\(module.title) : \(error.localizedDescription)"))
                 }
                 modulesGeneration += 1
                 if Task.isCancelled { break }
             }
             scanEngines()
             if !failures.isEmpty {
-                notice = ("Certains modules n'ont pas pu être installés", failures.joined(separator: "\n"))
+                notice = (String(localized: "Certains modules n'ont pas pu être installés"), failures.joined(separator: "\n"))
             }
         }
     }
@@ -707,7 +707,7 @@ final class Catalog {
     /// Moteur téléchargé sur demande (openQ4, Raze), puis lancement du jeu.
     func downloadEngine(_ label: String, thenLaunch name: String?,
                         install: @escaping (@escaping (Double) -> Void) async throws -> Void) {
-        let title = "Téléchargement de \(label)…"
+        let title = String(localized: "Téléchargement de \(label)…")
         startJob(title) { [weak self] in
             guard let self else { return }
             do {
@@ -717,7 +717,7 @@ final class Catalog {
                 if let name { launch(name) }
             } catch is CancellationError {
             } catch {
-                notice = ("Installation interrompue : \(label)", error.localizedDescription)
+                notice = (String(localized: "Installation interrompue : \(label)"), error.localizedDescription)
             }
         }
     }
@@ -764,7 +764,7 @@ final class Catalog {
                     refreshView()
                 }
             } else {
-                diagnostics[name] = [.init(state: .info, title: "MAME n'a pas répondu", detail: "Réessayez dans un instant.", fix: .verify)]
+                diagnostics[name] = [.init(state: .info, title: String(localized: "MAME n'a pas répondu"), detail: String(localized: "Réessayez dans un instant."), fix: .verify)]
             }
             if diagnosing == name { diagnosing = nil }
         }
@@ -788,51 +788,51 @@ final class Catalog {
         switch need {
         case .needsQuake3Patch:
             licenseRequest = LicenseRequest(
-                title: "Patch 1.32 de Quake III",
-                message: "Votre copie de Quake III date d'avant la mise à jour 1.32, dont les moteurs modernes ont besoin. Borne peut télécharger les fichiers officiels d'id Software (\(Quake3Patch.size), depuis ioquake3). Ils sont soumis à la licence d'id Software, que vous pouvez lire avant d'accepter.",
+                title: String(localized: "Patch 1.32 de Quake III"),
+                message: String(localized: "Votre copie de Quake III date d'avant la mise à jour 1.32, dont les moteurs modernes ont besoin. Borne peut télécharger les fichiers officiels d'id Software (\(Quake3Patch.size), depuis ioquake3). Ils sont soumis à la licence d'id Software, que vous pouvez lire avant d'accepter."),
                 url: Quake3Patch.licenseURL,
                 accept: { [weak self] in self?.downloadQuake3Patch(thenLaunch: launchAfter ? name : nil) })
         case .needsOpenQ4:
             licenseRequest = LicenseRequest(
-                title: "Installer openQ4 ?",
-                message: "Quake 4 se joue avec openQ4 \(OpenQ4.version), un moteur libre encore en bêta (rendu Metal). Borne peut le télécharger depuis sa page officielle (\(OpenQ4.size)) et l'installer dans votre dossier utilisateur. Il faut aussi les fichiers d'origine de Quake 4 (dossier q4base).",
+                title: String(localized: "Installer openQ4 ?"),
+                message: String(localized: "Quake 4 se joue avec openQ4 \(OpenQ4.version), un moteur libre encore en bêta (rendu Metal). Borne peut le télécharger depuis sa page officielle (\(OpenQ4.size)) et l'installer dans votre dossier utilisateur. Il faut aussi les fichiers d'origine de Quake 4 (dossier q4base)."),
                 url: OpenQ4.pageURL,
-                readLabel: "En savoir plus",
-                acceptLabel: "Télécharger openQ4",
+                readLabel: String(localized: "En savoir plus"),
+                acceptLabel: String(localized: "Télécharger openQ4"),
                 accept: { [weak self] in self?.downloadEngine("openQ4", thenLaunch: launchAfter ? name : nil, install: OpenQ4.install) })
         case .needsQuake4Patch:
             licenseRequest = LicenseRequest(
-                title: "Mise à jour 1.4.2 de Quake 4",
-                message: "Votre copie de Quake 4 est celle du disque d'origine ; openQ4 a besoin des fichiers de la mise à jour 1.4.2 d'id Software. Borne peut télécharger le patch officiel (\(Quake4Patch.size), conservé par archive.org) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software et d'Activision, qui suppose de posséder Quake 4 ; son texte est inclus dans le patch et sera rangé avec lui.",
+                title: String(localized: "Mise à jour 1.4.2 de Quake 4"),
+                message: String(localized: "Votre copie de Quake 4 est celle du disque d'origine ; openQ4 a besoin des fichiers de la mise à jour 1.4.2 d'id Software. Borne peut télécharger le patch officiel (\(Quake4Patch.size), conservé par archive.org) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software et d'Activision, qui suppose de posséder Quake 4 ; son texte est inclus dans le patch et sera rangé avec lui."),
                 url: Quake4Patch.pageURL,
-                readLabel: "Voir la source",
-                accept: { [weak self] in self?.downloadEngine("la mise à jour de Quake 4", thenLaunch: launchAfter ? name : nil, install: Quake4Patch.install) })
+                readLabel: String(localized: "Voir la source"),
+                accept: { [weak self] in self?.downloadEngine(String(localized: "la mise à jour de Quake 4"), thenLaunch: launchAfter ? name : nil, install: Quake4Patch.install) })
         case .needsDoom3Patch:
             licenseRequest = LicenseRequest(
-                title: "Mise à jour 1.3.1 de Doom 3",
-                message: "Votre copie de Doom 3 est celle du disque d'origine ; dhewm3 et Resurrection of Evil ont besoin des fichiers de la mise à jour 1.3.1 d'id Software. Borne peut télécharger le patch officiel (\(Doom3Patch.size), au miroir indiqué par dhewm3) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software, qui suppose de posséder Doom 3 ; son texte est inclus dans le patch et sera rangé avec lui.",
+                title: String(localized: "Mise à jour 1.3.1 de Doom 3"),
+                message: String(localized: "Votre copie de Doom 3 est celle du disque d'origine ; dhewm3 et Resurrection of Evil ont besoin des fichiers de la mise à jour 1.3.1 d'id Software. Borne peut télécharger le patch officiel (\(Doom3Patch.size), au miroir indiqué par dhewm3) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software, qui suppose de posséder Doom 3 ; son texte est inclus dans le patch et sera rangé avec lui."),
                 url: Doom3Patch.pageURL,
-                readLabel: "Voir la source",
-                accept: { [weak self] in self?.downloadEngine("la mise à jour de Doom 3", thenLaunch: launchAfter ? name : nil, install: Doom3Patch.install) })
+                readLabel: String(localized: "Voir la source"),
+                accept: { [weak self] in self?.downloadEngine(String(localized: "la mise à jour de Doom 3"), thenLaunch: launchAfter ? name : nil, install: Doom3Patch.install) })
         case .needsRaze:
             licenseRequest = LicenseRequest(
-                title: "Installer Raze ?",
-                message: "\(m.description) se joue avec Raze \(Raze.version), le moteur de l'équipe de GZDoom pour les jeux Build (Duke Nukem 3D, Blood, Shadow Warrior…). Borne peut télécharger sa version pour Mac (\(Raze.size), signée et notarisée, publiée avec Borne) et l'installer dans votre dossier utilisateur.",
+                title: String(localized: "Installer Raze ?"),
+                message: String(localized: "\(m.description) se joue avec Raze \(Raze.version), le moteur de l'équipe de GZDoom pour les jeux Build (Duke Nukem 3D, Blood, Shadow Warrior…). Borne peut télécharger sa version pour Mac (\(Raze.size), signée et notarisée, publiée avec Borne) et l'installer dans votre dossier utilisateur."),
                 url: Raze.pageURL,
-                readLabel: "En savoir plus",
-                acceptLabel: "Télécharger Raze",
+                readLabel: String(localized: "En savoir plus"),
+                acceptLabel: String(localized: "Télécharger Raze"),
                 accept: { [weak self] in self?.downloadEngine("Raze", thenLaunch: launchAfter ? name : nil, install: Raze.install) })
         case .needsScummVM:
             licenseRequest = LicenseRequest(
-                title: "Installer ScummVM ?",
-                message: "\(m.description) se joue avec ScummVM \(ScummVM.version), le moteur libre des jeux d'aventure (LucasArts, Revolution…). Borne peut télécharger sa version officielle pour Mac (\(ScummVM.size), signée et notarisée par l'équipe de ScummVM) depuis scummvm.org et l'installer dans votre dossier utilisateur.",
+                title: String(localized: "Installer ScummVM ?"),
+                message: String(localized: "\(m.description) se joue avec ScummVM \(ScummVM.version), le moteur libre des jeux d'aventure (LucasArts, Revolution…). Borne peut télécharger sa version officielle pour Mac (\(ScummVM.size), signée et notarisée par l'équipe de ScummVM) depuis scummvm.org et l'installer dans votre dossier utilisateur."),
                 url: ScummVM.pageURL,
-                readLabel: "En savoir plus",
-                acceptLabel: "Télécharger ScummVM",
+                readLabel: String(localized: "En savoir plus"),
+                acceptLabel: String(localized: "Télécharger ScummVM"),
                 accept: { [weak self] in self?.downloadEngine("ScummVM", thenLaunch: launchAfter ? name : nil, install: ScummVM.install) })
         case .needsExtraction:
             // Rien à accepter : l'archive est à l'utilisateur, la copie reste chez lui.
-            let title = "Décompression de \(m.description)…"
+            let title = String(localized: "Décompression de \(m.description)…")
             startJob(title) { [weak self] in
                 guard let self else { return }
                 do {
@@ -841,7 +841,7 @@ final class Catalog {
                     if launchAfter { launch(name) } else { diagnose(name) }
                 } catch is CancellationError {
                 } catch {
-                    notice = ("Décompression interrompue", error.localizedDescription)
+                    notice = (String(localized: "Décompression interrompue"), error.localizedDescription)
                 }
             }
         }
@@ -890,14 +890,14 @@ final class Catalog {
                 }
             }
         } catch {
-            notice = ("\(engine.engineName) n'a pas pu s'ouvrir", error.localizedDescription)
+            notice = (String(localized: "\(engine.engineName) n'a pas pu s'ouvrir"), error.localizedDescription)
         }
     }
 
     func launch(_ name: String) {
         guard running == nil else { return }
         do { try Prefs.prepareUserData() } catch {
-            notice = ("MAME n'a pas pu lancer le jeu", error.localizedDescription)
+            notice = (String(localized: "MAME n'a pas pu lancer le jeu"), error.localizedDescription)
             return
         }
         let p = Process()
@@ -915,7 +915,7 @@ final class Catalog {
                 p.currentDirectoryURL = l.directory
                 p.environment = l.environment
             } catch {
-                notice = ("\(engine.title) n'a pas pu lancer le jeu", error.localizedDescription)
+                notice = (String(localized: "\(engine.title) n'a pas pu lancer le jeu"), error.localizedDescription)
                 return
             }
         } else {
@@ -941,8 +941,8 @@ final class Catalog {
                 KeyHUD.shared.hide()
                 if status != 0 {
                     let tail = text.split(separator: "\n").suffix(12).joined(separator: "\n")
-                    self.notice = (engineTitle.map { "\($0) s'est arrêté" } ?? "MAME n'a pas pu lancer le jeu",
-                                   tail.isEmpty ? "mame s'est arrêté (code \(status))." : tail)
+                    self.notice = (engineTitle.map { String(localized: "\($0) s'est arrêté") } ?? String(localized: "MAME n'a pas pu lancer le jeu"),
+                                   tail.isEmpty ? String(localized: "mame s'est arrêté (code \(status)).") : tail)
                 }
             }
         }
@@ -951,7 +951,7 @@ final class Catalog {
             running = name
             handOver(to: p.processIdentifier, machine: machines[name])
         } catch {
-            notice = ("MAME n'a pas pu lancer le jeu", error.localizedDescription)
+            notice = (String(localized: "MAME n'a pas pu lancer le jeu"), error.localizedDescription)
         }
     }
 
@@ -1003,7 +1003,7 @@ final class Catalog {
     /// compteurs restent.
     func resetDisplay(_ name: String) {
         guard running != name else {
-            notice = ("Jeu en cours", "Quittez le jeu (Échap) avant de réinitialiser son affichage.")
+            notice = (String(localized: "Jeu en cours"), String(localized: "Quittez le jeu (Échap) avant de réinitialiser son affichage."))
             return
         }
         let url = settingsFile(name)
@@ -1015,21 +1015,21 @@ final class Catalog {
             try doc.xmlData(options: [.nodePrettyPrint]).write(to: url, options: .atomic)
             settingsGeneration += 1
         } catch {
-            notice = ("Réinitialisation impossible", error.localizedDescription)
+            notice = (String(localized: "Réinitialisation impossible"), error.localizedDescription)
         }
     }
 
     /// Met les réglages du jeu à la Corbeille : MAME repart des valeurs d'origine.
     func resetSettings(_ name: String) {
         guard running != name else {
-            notice = ("Jeu en cours", "Quittez le jeu (Échap) avant de réinitialiser ses réglages.")
+            notice = (String(localized: "Jeu en cours"), String(localized: "Quittez le jeu (Échap) avant de réinitialiser ses réglages."))
             return
         }
         do {
             try FileManager.default.trashItem(at: settingsFile(name), resultingItemURL: nil)
             settingsGeneration += 1
         } catch {
-            notice = ("Réinitialisation impossible", error.localizedDescription)
+            notice = (String(localized: "Réinitialisation impossible"), error.localizedDescription)
         }
     }
 

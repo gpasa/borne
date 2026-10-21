@@ -10,10 +10,21 @@ enum GroupKind: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .manufacturer: "Fabricant"
-        case .year: "Année"
-        case .source: "Pilote"
-        case .cpu: "Processeur"
+        case .manufacturer: String(localized: "Fabricant")
+        case .year: String(localized: "Année")
+        case .source: String(localized: "Pilote")
+        case .cpu: String(localized: "Processeur")
+        }
+    }
+
+    /// Invite du champ de recherche : une phrase entière par regroupement
+    /// (« un fabricant », « une année »…).
+    var searchPrompt: String {
+        switch self {
+        case .manufacturer: String(localized: "Rechercher un fabricant")
+        case .year: String(localized: "Rechercher une année")
+        case .source: String(localized: "Rechercher un pilote")
+        case .cpu: String(localized: "Rechercher un processeur")
         }
     }
 
@@ -93,7 +104,7 @@ private struct GroupChooser: View {
         let all = kind.items(catalog)
         let items = filter.isEmpty ? all : all.filter { $0.0.localizedCaseInsensitiveContains(filter) }
         VStack(spacing: 0) {
-            TextField("Rechercher un \(kind.title.lowercased())", text: $filter)
+            TextField(kind.searchPrompt, text: $filter)
                 .textFieldStyle(.roundedBorder)
                 .padding(8)
             Divider()

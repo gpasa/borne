@@ -21,8 +21,8 @@ enum Engine: String, CaseIterable, Codable, Identifiable {
         case .doom3: "Doom 3"
         case .quake2: "Quake II"
         case .build: "Duke Nukem 3D, Blood…"
-        case .dos: "Jeux DOS"
-        case .scummvm: "Aventures (ScummVM)"
+        case .dos: String(localized: "Jeux DOS")
+        case .scummvm: String(localized: "Aventures (ScummVM)")
         }
     }
 
@@ -125,19 +125,19 @@ enum EngineCatalog {
         "doom.wad": .init(title: "Doom", year: "1993", maker: "id Software"),
         "doom2.wad": .init(title: "Doom II: Hell on Earth", year: "1994", maker: "id Software"),
         "tnt.wad": .init(title: "Final Doom: TNT – Evilution", year: "1996", maker: "TeamTNT / id Software"),
-        "plutonia.wad": .init(title: "Final Doom: The Plutonia Experiment", year: "1996", maker: "Dario et Milo Casali / id Software"),
+        "plutonia.wad": .init(title: "Final Doom: The Plutonia Experiment", year: "1996", maker: String(localized: "Dario et Milo Casali / id Software")),
         "heretic1.wad": .init(title: "Heretic (shareware)", year: "1994", maker: "Raven Software"),
         "heretic.wad": .init(title: "Heretic", year: "1994", maker: "Raven Software"),
         "hexen.wad": .init(title: "Hexen: Beyond Heretic", year: "1995", maker: "Raven Software"),
         "hexdd.wad": .init(title: "Hexen: Deathkings of the Dark Citadel", year: "1996", maker: "Raven Software", base: "hexen.wad"),
-        "strife0.wad": .init(title: "Strife (démo)", year: "1996", maker: "Rogue Entertainment"),
+        "strife0.wad": .init(title: String(localized: "Strife (démo)"), year: "1996", maker: "Rogue Entertainment"),
         "strife1.wad": .init(title: "Strife", year: "1996", maker: "Rogue Entertainment"),
         "chex.wad": .init(title: "Chex Quest", year: "1996", maker: "Digital Café"),
         "chex3.wad": .init(title: "Chex Quest 3", year: "2008", maker: "Charles Jacobi"),
         "hacx.wad": .init(title: "HacX", year: "1997", maker: "Banjo Software"),
-        "freedoom1.wad": .init(title: "Freedoom: Phase 1", year: "2024", maker: "Projet Freedoom"),
-        "freedoom2.wad": .init(title: "Freedoom: Phase 2", year: "2024", maker: "Projet Freedoom"),
-        "freedm.wad": .init(title: "FreeDM", year: "2024", maker: "Projet Freedoom"),
+        "freedoom1.wad": .init(title: "Freedoom: Phase 1", year: "2024", maker: String(localized: "Projet Freedoom")),
+        "freedoom2.wad": .init(title: "Freedoom: Phase 2", year: "2024", maker: String(localized: "Projet Freedoom")),
+        "freedm.wad": .init(title: "FreeDM", year: "2024", maker: String(localized: "Projet Freedoom")),
         "nerve.wad": .init(title: "Doom II: No Rest for the Living", year: "2010", maker: "Nerve Software", base: "doom2.wad"),
         "sigil.wad": .init(title: "Sigil", year: "2019", maker: "John Romero", base: "doom.wad"),
     ]
@@ -168,9 +168,9 @@ enum EngineCatalog {
 
     fileprivate static let wolf: [String: KnownGame] = [
         "wl1": .init(title: "Wolfenstein 3D (shareware)", year: "1992", maker: "id Software", players: 1),
-        "wl3": .init(title: "Wolfenstein 3D (épisodes 1 à 3)", year: "1992", maker: "id Software", players: 1),
+        "wl3": .init(title: String(localized: "Wolfenstein 3D (épisodes 1 à 3)"), year: "1992", maker: "id Software", players: 1),
         "wl6": .init(title: "Wolfenstein 3D", year: "1992", maker: "id Software", players: 1),
-        "sdm": .init(title: "Spear of Destiny (démo)", year: "1992", maker: "id Software / FormGen", players: 1),
+        "sdm": .init(title: String(localized: "Spear of Destiny (démo)"), year: "1992", maker: "id Software / FormGen", players: 1),
         "sod": .init(title: "Spear of Destiny", year: "1992", maker: "id Software / FormGen", players: 1),
         "sd2": .init(title: "Spear of Destiny: Return to Danger", year: "1994", maker: "FormGen", players: 1),
         "sd3": .init(title: "Spear of Destiny: Ultimate Challenge", year: "1994", maker: "FormGen", players: 1),
@@ -301,7 +301,7 @@ enum EngineCatalog {
             for dir in quakeOrphans {
                 let lower = dir.lastPathComponent.lowercased()
                 guard !seen.contains("quake:\(lower)") else { continue }
-                let k = quake[lower] ?? KnownGame(title: "\(dir.lastPathComponent) (mod Quake)", year: "", maker: "Mod pour Quake")
+                let k = quake[lower] ?? KnownGame(title: String(localized: "\(dir.lastPathComponent) (mod Quake)"), year: "", maker: String(localized: "Mod pour Quake"))
                 var m = Machine(name: "quake:\(lower)")
                 m.description = k.title
                 m.year = k.year
@@ -340,7 +340,7 @@ enum EngineCatalog {
             let fallback = ["doom2.wad", "freedoom2.wad", "doom.wad", "freedoom1.wad"].first { doomFiles[$0] != nil }
             guard let baseName = known?.base ?? fallback, let base = doomFiles[baseName] else { continue }
             var m = doomGame(url, known ?? KnownGame(title: url.deletingPathExtension().lastPathComponent,
-                                                     year: "", maker: "Mod pour \(doom[baseName]?.title ?? baseName)"))
+                                                     year: "", maker: String(localized: "Mod pour \(doom[baseName]?.title ?? baseName)")))
             m.dataPath = base
             m.modArg = url.path
             m.cloneOf = nil
@@ -401,7 +401,7 @@ enum EngineCatalog {
             let items = ((try? fm.contentsOfDirectory(atPath: url.path)) ?? []).map { $0.lowercased() }
             let playable = items.contains { $0.hasSuffix(".pak") || $0 == "progs.dat" || $0 == "maps" }
             guard playable else { continue }
-            let k = quake[lower] ?? KnownGame(title: "\(dir) (mod Quake)", year: "", maker: "Mod pour Quake")
+            let k = quake[lower] ?? KnownGame(title: String(localized: "\(dir) (mod Quake)"), year: "", maker: String(localized: "Mod pour Quake"))
             var m = Machine(name: "quake:\(lower)")
             m.description = k.title
             m.year = k.year
@@ -431,7 +431,7 @@ enum EngineCatalog {
 
     private static func quake3Game(base: URL, dir: String) -> Machine {
         let lower = dir.lowercased()
-        let k = quake3[lower] ?? KnownGame(title: "\(dir) (mod Quake III)", year: "", maker: "Mod pour Quake III")
+        let k = quake3[lower] ?? KnownGame(title: String(localized: "\(dir) (mod Quake III)"), year: "", maker: String(localized: "Mod pour Quake III"))
         var m = Machine(name: "quake3:\(lower)")
         m.description = k.title
         m.year = k.year
@@ -537,8 +537,8 @@ enum EngineCatalog {
         let menu = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self).uppercased()
         p.waitUntilExit()
         let known: [(String, String, String)] = [
-            ("\"GIOCA\"", "it", "italien"), ("\"JUGAR\"", "es", "espagnol"), ("\"JOUER\"", "fr", "français"),
-            ("\"SPIELEN\"", "de", "allemand"), ("\"PLAY\"", "en", "anglais"),
+            ("\"GIOCA\"", "it", String(localized: "italien")), ("\"JUGAR\"", "es", String(localized: "espagnol")), ("\"JOUER\"", "fr", String(localized: "français")),
+            ("\"SPIELEN\"", "de", String(localized: "allemand")), ("\"PLAY\"", "en", String(localized: "anglais")),
         ]
         return known.first { menu.contains($0.0) }.map { ($0.1, $0.2) }
     }
@@ -597,19 +597,19 @@ extension Engine {
     func launch(for m: Machine) throws -> EngineLaunch {
         if self == .quake4 && executable == nil {
             guard OpenQ4.isSupported else {
-                throw MAMERunner.Failure(message: "openQ4, le moteur de Quake 4, n'existe que pour les Mac Apple silicon.")
+                throw MAMERunner.Failure(message: String(localized: "openQ4, le moteur de Quake 4, n'existe que pour les Mac Apple silicon."))
             }
             throw EngineLaunchError.needsOpenQ4
         }
         if self == .build && executable == nil { throw EngineLaunchError.needsRaze }
         if self == .scummvm && executable == nil { throw EngineLaunchError.needsScummVM }
         guard let exe = executable else {
-            throw MAMERunner.Failure(message: "Le moteur \(title) est introuvable. Indiquez-le dans les réglages.")
+            throw MAMERunner.Failure(message: String(localized: "Le moteur \(title) est introuvable. Indiquez-le dans les réglages."))
         }
         // Jeu DOS déjà décompressé : l'archive d'origine n'est plus nécessaire.
         let extracted = GameArchives.isArchive(m.dataPath) && GameArchives.isExtracted(m.dataPath)
         guard let data = m.dataPath, extracted || FileManager.default.fileExists(atPath: data) else {
-            throw MAMERunner.Failure(message: "Les fichiers du jeu sont introuvables : \(m.dataPath ?? "?"). Le disque est-il branché ?")
+            throw MAMERunner.Failure(message: String(localized: "Les fichiers du jeu sont introuvables : \(m.dataPath ?? "?"). Le disque est-il branché ?"))
         }
         let user = userDirectory
         try FileManager.default.createDirectory(at: user, withIntermediateDirectories: true)

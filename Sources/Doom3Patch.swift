@@ -9,7 +9,7 @@ enum Doom3Patch {
     static let url = URL(string: "https://files.holarse-linuxgaming.de/native/Spiele/Doom%203/doom3-linux-1.3.1.1304.x86.run")!
     static let sha256 = "2f90dff20f2d3c0c47f17b3d6d45c4f0e7d27b986bf6084f21b85180cd1e03b4"
     static let pageURL = URL(string: "https://dhewm3.org/#how-to-install")!
-    static let size = "21 Mo"
+    static let size = String(localized: "21 Mo")
     private static let headerLines = 373
     private static let files = ["base/pak005.pk4", "base/pak006.pk4", "base/pak007.pk4", "base/pak008.pk4", "d3xp/pak001.pk4"]
 
@@ -38,11 +38,11 @@ enum Doom3Patch {
         try fm.createDirectory(at: tmp, withIntermediateDirectories: true)
         defer { try? fm.removeItem(at: tmp) }
         let run = tmp.appendingPathComponent("patch.run")
-        try await VerifiedDownload.fetch(url, sha256: sha256, to: run, what: "la mise à jour 1.3.1 de Doom 3") { progress($0 * 0.9) }
+        try await VerifiedDownload.fetch(url, sha256: sha256, to: run, what: String(localized: "la mise à jour 1.3.1 de Doom 3")) { progress($0 * 0.9) }
         let x = tmp.appendingPathComponent("Doom3Patch")
         try VerifiedDownload.extractMakeself(run, headerLines: headerLines, members: files.map { "./" + $0 } + ["./License.txt"], into: x)
         guard files.allSatisfy({ fm.fileExists(atPath: x.appendingPathComponent($0).path) }) else {
-            throw MAMERunner.Failure(message: "La mise à jour de Doom 3 est incomplète.")
+            throw MAMERunner.Failure(message: String(localized: "La mise à jour de Doom 3 est incomplète."))
         }
         if fm.fileExists(atPath: folder.path) { try fm.removeItem(at: folder) }
         try fm.moveItem(at: x, to: folder)

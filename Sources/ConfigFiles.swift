@@ -20,7 +20,7 @@ enum ConfigFiles {
             // MAME : réglages du jeu, puis ceux communs à tous les jeux (touches).
             let dir = Prefs.userDataRoot.appendingPathComponent("cfg")
             return [File(url: dir.appendingPathComponent("\(m.name).cfg")),
-                    File(url: dir.appendingPathComponent("default.cfg"), shared: "commun à tous les jeux d'arcade")]
+                    File(url: dir.appendingPathComponent("default.cfg"), shared: String(localized: "commun à tous les jeux d'arcade"))]
                 .filter { fm.fileExists(atPath: $0.url.path) }
         }
         if engine == .dos {
@@ -29,7 +29,7 @@ enum ConfigFiles {
         }
         let user = engine.userDirectory
         let home = user.appendingPathComponent("home")
-        let all = "commun aux jeux \(engine.title)"
+        let all = String(localized: "commun aux jeux \(engine.title)")
         var dirs: [(URL, String?)]
         switch engine {
         case .doom: dirs = [(user, all)]
@@ -66,23 +66,29 @@ enum ConfigFiles {
     static func createDOSConf(for m: Machine) throws -> URL {
         let url = dosConf(for: m)
         try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        let header = String(localized: "Réglages DOSBox Staging pour \(m.description), lus par Borne à chaque lancement.")
+        let howTo = String(localized: "Retirez le # d'une ligne pour l'activer. Toutes les options :")
+        let cpu = String(localized: "Vitesse du processeur émulé (jeux en mode réel, puis en mode protégé)")
+        let render = String(localized: "Aspect d'un écran cathodique : crt-auto, sharp, bilinear…")
+        let sound = String(localized: "Carte son : sb16, sbpro2, sb1, gus…")
+        let video = String(localized: "Carte vidéo : svga_s3, vga, ega, cga, tandy…")
         let text = """
-        # Réglages DOSBox Staging pour \(m.description), lus par Borne à chaque lancement.
-        # Retirez le # d'une ligne pour l'activer. Toutes les options :
+        # \(header)
+        # \(howTo)
         # https://www.dosbox-staging.org/manual/
 
         [cpu]
-        # Vitesse du processeur émulé (jeux en mode réel, puis en mode protégé)
+        # \(cpu)
         # cpu_cycles = 3000
         # cpu_cycles_protected = 60000
 
         [render]
-        # Aspect d'un écran cathodique : crt-auto, sharp, bilinear…
+        # \(render)
         # shader = crt-auto
         # aspect = auto
 
         [sblaster]
-        # Carte son : sb16, sbpro2, sb1, gus…
+        # \(sound)
         # sbtype = sb16
 
         [mixer]
@@ -90,7 +96,7 @@ enum ConfigFiles {
         # chorus = normal
 
         [dosbox]
-        # Carte vidéo : svga_s3, vga, ega, cga, tandy…
+        # \(video)
         # machine = svga_s3
         # memsize = 16
 
@@ -115,9 +121,9 @@ struct ConfigFilesSection: View {
         VStack(alignment: .leading, spacing: 6) {
             Text("Configuration").font(.headline).padding(.top, 6)
             if files.isEmpty {
-                Text(machine.engineKind == .dos
-                     ? "Pas de réglages DOSBox propres à ce jeu : il utilise ceux de Borne."
-                     : "Pas encore de fichier : le moteur le crée au premier lancement du jeu.")
+                (machine.engineKind == .dos
+                     ? Text("Pas de réglages DOSBox propres à ce jeu : il utilise ceux de Borne.")
+                     : Text("Pas encore de fichier : le moteur le crée au premier lancement du jeu."))
                     .font(.callout).foregroundStyle(.secondary)
             }
             ForEach(files) { file in
@@ -155,8 +161,8 @@ struct ConfigFilesSection: View {
                 generation += 1
             }
         } message: { file in
-            Text(file.shared.map { "Ce fichier est \($0). " } ?? ""
-                 + "Il va à la Corbeille ; le moteur repart de ses réglages d'origine au prochain lancement. Sauvegardes et scores sont gardés.")
+            Text((file.shared.map { String(localized: "Ce fichier est \($0). ") } ?? "")
+                 + String(localized: "Il va à la Corbeille ; le moteur repart de ses réglages d'origine au prochain lancement. Sauvegardes et scores sont gardés."))
         }
     }
 }

@@ -10,7 +10,7 @@ enum MAMERunner {
     private static func makeProcess(_ args: [String]) throws -> Process {
         let exe = Prefs.mameURL
         guard FileManager.default.isExecutableFile(atPath: exe.path) else {
-            throw Failure(message: "mame introuvable : \(exe.path). Indiquez son emplacement dans les réglages.")
+            throw Failure(message: String(localized: "mame introuvable : \(exe.path). Indiquez son emplacement dans les réglages."))
         }
         try Prefs.prepareUserData()
         let p = Process()

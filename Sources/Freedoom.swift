@@ -7,7 +7,7 @@ enum Freedoom {
     static let url = URL(string: "https://github.com/freedoom/freedoom/releases/download/v0.13.0/freedoom-0.13.0.zip")!
     /// SHA-256 publié dans freedoom-0.13.0-CHECKSUM.
     static let sha256 = "3f9b264f3e3ce503b4fb7f6bdcb1f419d93c7b546f4df3e874dd878db9688f59"
-    static let size = "23 Mo"
+    static let size = String(localized: "23 Mo")
 
     static var folder: URL { Prefs.supportDirectory.appendingPathComponent("Freedoom", isDirectory: true) }
 
@@ -31,7 +31,7 @@ enum Freedoom {
         p.arguments = ["-x", "-k", zip.path, unpacked.path]
         try p.run()
         p.waitUntilExit()
-        guard p.terminationStatus == 0 else { throw MAMERunner.Failure(message: "Décompression de Freedoom impossible.") }
+        guard p.terminationStatus == 0 else { throw MAMERunner.Failure(message: String(localized: "Décompression de Freedoom impossible.")) }
         let staged = tmp.appendingPathComponent("Freedoom")
         try fm.createDirectory(at: staged, withIntermediateDirectories: true)
         let keep: Set<String> = ["freedoom1.wad", "freedoom2.wad", "COPYING.txt", "CREDITS.txt"]
@@ -41,7 +41,7 @@ enum Freedoom {
             try fm.copyItem(at: f, to: staged.appendingPathComponent(f.lastPathComponent))
         }
         guard fm.fileExists(atPath: staged.appendingPathComponent("freedoom2.wad").path) else {
-            throw MAMERunner.Failure(message: "Les WAD de Freedoom sont absents de l'archive.")
+            throw MAMERunner.Failure(message: String(localized: "Les WAD de Freedoom sont absents de l'archive."))
         }
         if fm.fileExists(atPath: folder.path) { try fm.removeItem(at: folder) }
         try fm.moveItem(at: staged, to: folder)

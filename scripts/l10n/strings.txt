@@ -1,0 +1,548 @@
+%@\nLe disque des jeux est-il branché ? Branchez-le, puis relisez les dossiers.
+%@ (%@) sera décompressée dans votre dossier utilisateur au premier lancement. L'archive elle-même n'est pas modifiée.
+%@ (mod Quake III)
+%@ (mod Quake)
+%@ (pavé)
+%@ : %@
+%@ : %@.zip
+%@ Le moteur moderne en a besoin. Borne télécharge la mise à jour officielle d'id Software une fois sa licence acceptée.
+%@ Les fichiers de la mise à jour sont dans votre dossier utilisateur.
+%@ absent
+%@ à copier (%lld fichiers), %@ libres. Le jeu se lancera ensuite sans le disque des jeux.
+%@ à copier, mais seulement %@ libres sur ce Mac (5 Go de marge gardés).
+%@ n'a pas pu être décompressé.\n%@
+%@ n'a pas pu lancer le jeu
+%@ n'a pas pu s'ouvrir
+%@ puis %@
+%@ répond %lld.
+%@ s'est arrêté
+%@ se joue avec Raze %@, le moteur de l'équipe de GZDoom pour les jeux Build (Duke Nukem 3D, Blood, Shadow Warrior…). Borne peut télécharger sa version pour Mac (%@, signée et notarisée, publiée avec Borne) et l'installer dans votre dossier utilisateur.
+%@ se joue avec ScummVM %@, le moteur libre des jeux d'aventure (LucasArts, Revolution…). Borne peut télécharger sa version officielle pour Mac (%@, signée et notarisée par l'équipe de ScummVM) depuis scummvm.org et l'installer dans votre dossier utilisateur.
+%@ · flèches
+%@ — dans l'original
+%@, %@
+%@, joué avec %@.
+%@, lancée par DOSBox Staging dans le dossier du jeu.
+%@, lancées par DOSBox Staging dans le dossier du jeu.
+%@, signé et notarisé par l'équipe de ScummVM. Borne le range dans votre dossier utilisateur.
+%@, signé et notarisé. Borne le range dans votre dossier utilisateur.
+%@.zip est là, mais il lui manque %lld fichier(s) : remplacez-le par l'ensemble de MAME 0.289.
+%lld
+%lld boutons
+%lld fichier(s) absents de %@.zip (%@%@) : remplacez-le par l'ensemble de MAME 0.289.
+%lld fichier(s) attendus dans %@.zip, absent : ajoutez-le à un dossier ROM.
+%lld fichier(s) d'une autre version (%@%@).
+%lld jeux
+%lld jeux affichés · %lld disponibles sur %lld
+-bgfx_screen_chains crt-geom
+1 à 0
+1 à 4
+1 à 7
+1 à 8
+21 Mo
+23 Mo
+27 Mo
+34 Mo
+169 Mo
+288 Mo
+641 Mo
+Absentes
+Afficher dans le Finder
+Afficher les données de jeu
+Agir, marcher, choisir un verbe
+Agrandir l'image
+Ajouter aux favoris
+Ajouter un dossier de jeux…
+Ajouter un dossier…
+Ajoutez %@.zip (%@) à un dossier ROM, puis relisez les dossiers.
+Année
+Annuler
+Appuyez sur une touche…
+Arcade
+Arcade : MAME
+Arcade : joueur 1
+Arcade : joueur 2
+Archive à décompresser
+Archive décompressée
+Archive incomplète : %@.
+Arme précédente
+Arme suivante
+Armes
+Arrêter
+Arrêter la tâche en cours
+Aspect d'un écran cathodique : crt-auto, sharp, bilinear…
+Au démarrage, le jeu demande l'affichage et le son : choisissez MCGA/VGA et AdLib ou Sound Blaster.
+Au premier lancement, le programme SETUP du jeu demande la carte son : choisissez Sound Blaster (port 220, IRQ 7, DMA 1) et la carte musicale Sound Blaster ou AdLib.
+Aucun fichier de ROM n'a été trouvé dans les dossiers ROM.
+Aucun jeu %@
+Aucun jeu choisi
+Aucun jeu disponible
+Aucun set à vérifier
+Aucun zpak_<langue>.pk4 dans q4base : les personnages ne parlent pas. Copiez celui de votre version.
+Aucune ROM requise
+Aucune requise
+Automatique
+Avancer
+Aventures (ScummVM)
+Aventures : « Options de ScummVM… » sur la fiche d'un jeu ouvre ses options, onglet « Touches ».
+À télécharger (Raze)
+À télécharger (ScummVM)
+À télécharger (openQ4)
+BIOS
+Bas
+Bon
+Borne cherche le dossier base de Doom 3 (pak000.pk4…) et, pour Resurrection of Evil, son dossier d3xp.
+Borne cherche le dossier baseq2 de Quake II (pak0.pak…) et, à côté, ses extensions xatrix, rogue et ctf.
+Borne cherche le dossier de Return to Castle Wolfenstein qui contient pak0.pk3 et sp_pak1.pk3 (Main d'une version GOG ou Steam, par exemple). Seuls les fichiers du jeu d'origine sont chargés.
+Borne cherche le dossier q4base de Quake 4 (pak001.pk4…). Le moteur openQ4 se télécharge au premier lancement.
+Borne cherche les fichiers .wad et .pk3 (doom2.wad, heretic.wad…) dans les dossiers que vous lui indiquez, sous-dossiers compris.
+Borne cherche les fichiers VSWAP.WL6, VSWAP.SOD… de Wolfenstein 3D et Spear of Destiny.
+Borne cherche les fichiers principaux des jeux Build : DUKE3D.GRP, BLOOD.RFF, SW.GRP, REDNECK.GRP, STUFF.DAT (Exhumed), NAM.GRP, WW2GI.GRP. Le moteur Raze se télécharge au premier lancement.
+Borne cherche un dossier baseq3 contenant pak0.pk3, et Team Arena (missionpack) où qu'elle soit.
+Borne cherche un dossier id1 contenant pak0.pak, et les extensions ou mods à côté de lui.
+Borne d’arcade
+Borne est libre et gratuit. Si vous l'aimez, un don aide à le faire évoluer. Merci !
+Borne ne sait pas lancer ce jeu DOS.
+Borne reconnaît les jeux DOS à leur exécutable (TNFS.EXE pour Need for Speed, KEEN4E.EXE…), dans un dossier, une archive .zip, .rar, .7z ou une image .iso. Une archive est décompressée dans votre dossier utilisateur au premier lancement.
+Borne reconnaît les jeux d'aventure à leurs fichiers (MONKEY1.000, TENTACLE.000, FT.LA0…), dans un dossier, une archive ou une image .iso. ScummVM se télécharge au premier lancement.
+Borne vérifie chaque jour s'il existe une nouvelle version sur GitHub. Chaque mise à jour est signée : une version qui ne viendrait pas de Borne est refusée.
+Bouton
+Bouton 1
+Bouton 2
+Bouton 3
+Bouton 4
+Bouton 5
+Bouton 6
+Boutons 1 à %lld
+Boutons joueur 2
+Branchez le disque, puis relisez les dossiers ROM (⌘R).\n%@
+Capture
+Capture d'écran
+Capturer ou libérer la souris
+Caractéristiques
+Carte
+Carte son : sb16, sbpro2, sb1, gus…
+Carte vidéo : svga_s3, vga, ega, cga, tandy…
+Ce fichier est %@.
+Ce fichier est %@. 
+Ce jeu se lance sans fichier.
+Celle du jeu
+Certains modules n'ont pas pu être installés
+Ces jeux ne sont pas disponibles sur le disque des jeux.
+Changer les touches…
+Chargement rapide
+Choisir
+Choisir…
+Choisissez le dossier « roms », ou le dossier qui le contient (avec samples, artwork…). Les deux conviennent.
+Clic
+Clic droit
+Clic milieu
+Clic · %@
+Cliquez, puis appuyez sur la touche ou le bouton de souris voulu. Échap annule.
+Clones
+Collection fusionnée : les fichiers du clone sont dans %@.zip.
+Commande
+Commandes
+Complet
+Configuration
+Console
+Copie incomplète
+Copie interrompue
+Copie le jeu et ce dont il a besoin, pour jouer sans le disque des jeux
+Copie sur ce Mac.
+Copie sur ce Mac…
+Copiez voices.wad à côté de strife1.wad : le jeu tourne sans, mais les personnages ne parlent pas.
+Courir
+Courir (maintenir)
+Créer des réglages DOSBox pour ce jeu
+Dans une fenêtre
+Dans votre dossier utilisateur, jamais à côté des fichiers du jeu.
+Dario et Milo Casali / id Software
+Décompresser maintenant
+Décompression de %@…
+Décompression de Freedoom impossible.
+Décompression interrompue
+Diagnostic
+Diagnostiquer
+Disponibles
+Disque des jeux
+Disque des jeux : %@ (ROM dans « roms »).
+Disque des jeux introuvable
+Disque des jeux introuvable : branchez-le, puis relisez.
+Données
+Données de jeu
+Doom entièrement libre
+Doom, Quake I à 4, Doom 3, Return to Castle Wolfenstein et les jeux Build. La souris vise et le clic tire toujours. Le saut et l'accroupissement n'existent pas dans Doom d'origine ; « Utiliser » sert dans Doom, RTCW et les jeux Build.
+Dossier
+Dossier contenant vos jeux Doom, Quake ou Wolfenstein 3D (lu seulement, sous-dossiers compris)
+Dossier utilisateur, jamais sur le disque des jeux
+Dossiers ROM
+Dossiers lus seulement, sous-dossiers compris.
+Double-cliquez sur un jeu pour le lancer.
+Droite
+E (Espace : Build, F : RTCW)
+Emplacement
+En cours : %@
+En savoir plus
+Enregistrer
+Entrée
+Entrée (pavé)
+Espace
+Espace (E : Build)
+Espace · %@
+Exécutable
+Extension
+Échantillons sonores présents.
+Échap
+Écran
+Écran horizontal
+Écran titre
+Écran vertical
+Écran, touches et volume tels que MAME les a enregistrés pour ce jeu
+État
+F12 pendant le jeu en crée une
+Fabricant
+Favori
+Favoris
+Fichier
+Fichiers de RTCW complets
+Fichiers de RTCW incomplets
+Fichiers de données complets
+Fichiers de données incomplets
+Fichiers du jeu introuvables
+Fichiers du jeu introuvables.
+Fichiers du jeu présents
+Flèches
+Flèches · %@
+Flèches, Ctrl, Alt, Espace le plus souvent
+Fonctionnels
+Freedoom n'a pas pu être installé
+Fronton
+Gauche
+Général
+Haut
+Il va à la Corbeille ; le moteur repart de ses réglages d'origine au prochain lancement. Sauvegardes et scores sont gardés.
+Image
+Images
+Imparfait
+Incorrect
+Insérer une pièce
+Installation impossible
+Installation interrompue : %@
+Installer
+Installer %@ sur ce Mac ?
+Installer Raze ?
+Installer ScummVM ?
+Installer la mise à jour…
+Installer les favoris sur ce Mac…
+Installer openQ4 ?
+Installer sur ce Mac…
+Installé
+Installé sur ce Mac
+Interrogation de mame…
+Intégré
+Intégré (%@)
+J'accepte et je télécharge
+J'accepte les licences d'id Software des mises à jour
+Jeu
+Jeu PC · %@
+Jeu de base
+Jeu en cours
+Jeu, nom court, fabricant
+Jeux
+Jeux DOS
+Jeux DOS : sur la fiche du jeu, « Touches de ce jeu… » ouvre l'éditeur de DOSBox ; ce que vous y enregistrez ne vaut que pour ce jeu.
+Jeux DOS et aventures
+Jeux PC
+Jeux PC : autres actions
+Jeux d'aventure LucasArts, Revolution…
+Jouable. %lld fichier(s) n'ont jamais été copiés correctement par personne : leur absence n'est pas de votre fait.
+Joueurs
+Joystick
+Joystick joueur 2
+Ko-fi
+L'archive téléchargée est illisible.
+L'archive téléchargée n'a pas pu être extraite.
+L'archive téléchargée n'a pas pu être ouverte.
+L'image disque téléchargée n'a pas pu être ouverte.
+L'original
+La fiche de chaque jeu montre ses fichiers de configuration, à modifier ou à réinitialiser.
+La mise à jour de Doom 3 est incomplète.
+La mise à jour de Quake 4 est incomplète.
+Lampe torche
+Lancement
+Lancer
+Le BIOS
+Le dossier « roms » ou celui qui le contient. Lu seulement, jamais modifié.
+Le fichier téléchargé n'est pas celui attendu (%@) ; rien n'a été installé.
+Le jeu
+Le jeu est dans votre dossier utilisateur : il se lance même sans le disque des jeux.
+Le jeu tourne, sans certains bruitages. Placez %@.zip dans le dossier samples, à côté du dossier roms.
+Le moteur %@ est introuvable. Indiquez-le dans les réglages.
+Le moteur choisi dans Réglages → Jeux PC n'existe plus : choisissez-en un autre, ou « Intégré ».
+Le patch n'a pas pu être installé
+Le patch téléchargé est incomplet.
+Le serveur
+Lecture des machines : %lld…
+Les WAD de Freedoom sont absents de l'archive.
+Les ensembles d'une autre version de MAME ne correspondent souvent pas : ceux de Borne doivent être faits pour MAME 0.289.
+Les fichiers du jeu sont introuvables : %@. Le disque est-il branché ?
+Les installer automatiquement
+Les touches portent le nom écrit sur votre clavier. Une touche changée pour un seul jeu dans le menu de MAME (Tab) garde la priorité.
+Libre, %@. Borne le range dans votre dossier utilisateur.
+Licence
+Lire la licence
+MAME
+MAME %@
+MAME %@ · ROM non vérifiées
+MAME liste les fichiers dont le jeu a besoin et vérifie chacun
+MAME n'a pas pu lancer le jeu
+MAME n'a pas répondu
+MAME ne répond pas
+MAME ne trouve pas tout en local pour : %@. Ces jeux auront encore besoin du disque des jeux.
+Maj
+Maj fn F7
+Manquent : %@. Copiez-les depuis le dossier du jeu.
+Manquent : %@. sp_pak3 et sp_pak4 viennent de la mise à jour 1.41 ; copiez-les depuis une version à jour (Steam, GOG).
+Matriciel
+Meilleur disponible
+Menu : sauvegarder, charger, quitter
+Menu de MAME
+Menu de MAME (touches, réglages)
+Menu, quitter
+Menu, sauvegarde, quitter
+Metal (bgfx)
+Mécaniques
+Mise à jour %@ installée
+Mise à jour %@ nécessaire
+Mise à jour 1.3.1 de Doom 3
+Mise à jour 1.4.2 de Quake 4
+Mise à jour d'id Software
+Mise à jour d'id Software (DVD d'origine)
+Mises à jour
+Mod introuvable
+Mod pour %@
+Mod pour Quake
+Mod pour Quake III
+Mod présent
+Mode avancé
+Modifier…
+Modules à télécharger
+Molette · 1 à 9
+Molette ↑
+Molette ↓
+MoltenVK
+Moteur
+Moteur %@
+Moteur : %@
+Moteur : Raze, à télécharger
+Moteur : ScummVM, à télécharger
+Moteur : openQ4
+Moteur : openQ4, à télécharger
+Moteur introuvable
+Ni le jeu ni son original ne sont dans les dossiers ROM.
+Nom
+Nom court
+Non
+Non disponibles
+Non fonctionnels
+OK
+OpenGL
+Options de ScummVM…
+Options en plus
+Ordinateur de mission
+Original
+Originaux
+Ouvre l'éditeur de touches de DOSBox ; ce que vous enregistrez ne vaut que pour ce jeu.
+Ouvre les options de ScummVM : onglet « Touches » pour les changer.
+Ouvrir le dossier ROM
+Ouvrir les portes
+Ouvrir les réglages
+Ouvrir, utiliser
+Où sont vos jeux ? Choisissez le dossier « roms », ou celui qui le contient.
+Panneau de commande
+Pas à droite
+Pas à gauche
+Pas d'image
+Pas de côté
+Pas de réglages DOSBox propres à ce jeu : il utilise ceux de Borne.
+Pas encore choisi
+Pas encore de fichier : le moteur le crée au premier lancement du jeu.
+Passer une réplique
+Passer une scène
+Patch 1.32 de Quake III
+Pause
+PayPal
+Pièce
+Pièce et Start (joueur 2)
+Pilote
+Pilote Vulkan de Quake
+Placez vos ensembles de ROM (.zip) dans le dossier ROM, puis relisez-le (⌘R).
+Plein écran ou fenêtre
+Point
+Position de l'écran, touches et volume reviennent aux valeurs d'origine. Le fichier va à la Corbeille ; sauvegardes et meilleurs scores sont gardés.
+Position, échelle et vue de l'écran ; touches et volume restent
+Pour les commandes dont la touche d'origine demande Maj sur votre clavier (« = », « + », « [ »…), ou que vous préférez ailleurs. Chaque jeu ignore celles qu'il n'a pas.
+Premier lancement
+Préliminaire
+Préparation de l'installation…
+Présentes (non vérifiées)
+Prise en charge
+Processeur
+Processeurs
+Projet Freedoom
+Prospectus
+Quake 4 ne se joue que sur un Mac Apple silicon : openQ4 n'existe pas pour Intel.
+Quake 4 se joue avec openQ4 %@, un moteur libre encore en bêta (rendu Metal). Borne peut le télécharger depuis sa page officielle (%@) et l'installer dans votre dossier utilisateur. Il faut aussi les fichiers d'origine de Quake 4 (dossier q4base).
+Quitter DOSBox
+Quitter ScummVM
+Quitter et revenir à Borne
+Quittez le jeu (Échap) avant de réinitialiser ses réglages.
+Quittez le jeu (Échap) avant de réinitialiser son affichage.
+ROM
+ROM : %@ ; samples et artwork cherchés à côté.
+Racine
+Rangés dans votre dossier utilisateur, une fois pour toutes. Chaque fichier est vérifié par son empreinte ; une copie de secours est gardée sur GitHub quand la licence le permet.
+Recharger l'état
+Recharger la liste de MAME
+Rechercher les mises à jour automatiquement
+Rechercher les mises à jour…
+Rechercher un fabricant
+Rechercher un pilote
+Rechercher un processeur
+Rechercher une année
+Reculer
+Regrouper par
+Relire
+Relire les dossiers
+Relire les dossiers de jeux
+Remise à zéro
+Rendu
+Rendu de MAME
+Retirer
+Retirer des favoris
+Retirez le # d'une ligne pour l'activer. Toutes les options :
+Revenir aux touches d'origine
+Revenir à la touche d'origine
+Réduire l'image
+Réessayer
+Réessayez dans un instant.
+Réglages
+Réglages DOSBox Staging pour %@, lus par Borne à chaque lancement.
+Réinitialisation impossible
+Réinitialiser
+Réinitialiser %@ ?
+Réinitialiser l'affichage
+Réinitialiser les réglages de %@ ?
+Réinitialiser tous les réglages du jeu
+Réinitialiser tous les réglages…
+Réinitialiser…
+Rien à installer
+S'accroupir
+Sauter
+Sauvegarde
+Sauvegarde d'état
+Sauvegarde rapide
+Sauvegardes
+Sauvegardes et réglages
+Sauvegardes, réglages par jeu, scores, captures et enregistrements.
+Sauver l'état
+Scores
+Se déplacer
+Se déplacer (ou flèches)
+Selon le jeu
+Sons : %@.zip
+Sons : %@.zip absent
+Souris
+Sous-dossiers snap, titles, marquees, flyers, cabinets, cpanel.
+Soutenir Borne
+Soutenir Borne par PayPal…
+Soutenir Borne sur Ko-fi…
+Spear of Destiny (démo)
+Start
+Start (1 joueur)
+Strife (démo)
+Supprimer la copie
+Supprimer la copie sur ce Mac
+Sur ce Mac
+Téléchargement de %@ (%lld/%lld)…
+Téléchargement de %@…
+Téléchargement de Freedoom…
+Téléchargement des modules…
+Téléchargement du patch Quake III…
+Téléchargement impossible : %@.
+Télécharger Freedoom (%@, libre)
+Télécharger Freedoom (Doom libre)…
+Télécharger Raze
+Télécharger Raze…
+Télécharger ScummVM
+Télécharger ScummVM…
+Télécharger openQ4
+Télécharger openQ4…
+Téléchargé (Raze)
+Téléchargé (ScummVM)
+Téléchargé (openQ4)
+Tirer
+Tirer (en plus du clic)
+Touches
+Touches de ce jeu…
+Tous les fichiers sont présents et justes.
+Tous les jeux
+Tout est installé
+Tout télécharger (%lld)
+Un dossier ROM est introuvable : le disque des jeux est-il branché ?
+Un jeu est en cours : le moteur peut réécrire ce fichier en quittant. Enregistrez une fois le jeu fermé.
+Un périphérique
+Utiliser, ouvrir
+Vectoriel
+Verr. maj
+Version %@
+Version à jour
+Version de démonstration
+Vérification MAME : aucun fichier trouvé
+Vérification MAME : complet
+Vérification MAME : incomplet
+Vérification MAME : meilleur disponible
+Vérification MAME : sans réponse
+Vérification des ROM…
+Vérifie le jeu, son original, son BIOS, ses périphériques et ses sons, et dit comment compléter ce qui manque.
+Vérifier à nouveau
+Vérifier les ROM
+Viser
+Vitesse du processeur émulé (jeux en mode réel, puis en mode protégé)
+Voir la source
+Voix absentes
+Voix de Strife absentes
+Volant, trackball ou pistolet
+Votre copie contient déjà la mise à jour %@.
+Votre copie date d'avant la mise à jour 1.32 (pas de pak8.pk3 dans baseq3).
+Votre copie de Doom 3 est celle du disque d'origine ; dhewm3 et Resurrection of Evil ont besoin des fichiers de la mise à jour 1.3.1 d'id Software. Borne peut télécharger le patch officiel (%@, au miroir indiqué par dhewm3) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software, qui suppose de posséder Doom 3 ; son texte est inclus dans le patch et sera rangé avec lui.
+Votre copie de Quake 4 est celle du disque d'origine ; openQ4 a besoin des fichiers de la mise à jour 1.4.2 d'id Software. Borne peut télécharger le patch officiel (%@, conservé par archive.org) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software et d'Activision, qui suppose de posséder Quake 4 ; son texte est inclus dans le patch et sera rangé avec lui.
+Votre copie de Quake III date d'avant la mise à jour 1.32, dont les moteurs modernes ont besoin. Borne peut télécharger les fichiers officiels d'id Software (%@, depuis ioquake3). Ils sont soumis à la licence d'id Software, que vous pouvez lire avant d'accepter.
+Votre copie vient du DVD d'origine (q4base s'arrête avant pak022.pk4).
+Votre copie vient du disque d'origine (pas de pak008.pk4 ou de d3xp/pak001.pk4).
+Votre copie vient du disque d'origine (pas de pak008.pk4).
+Wolfenstein 3D (épisodes 1 à 3)
+allemand
+anglais
+commun aux jeux %@
+commun à tous les jeux d'arcade
+espagnol
+français
+horizontal
+id1 n'a pas de pak1.pak : seul le premier épisode est jouable. Copiez pak1.pak depuis votre version complète.
+inclus dans Borne
+italien
+la mise à jour 1.3.1 de Doom 3
+la mise à jour 1.4.2 de Quake 4
+la mise à jour de Doom 3
+la mise à jour de Quake 4
+le patch 1.32 de Quake III
+le vôtre
+mame intégré à Borne
+mame introuvable : %@. Indiquez son emplacement dans les réglages.
+mame s'est arrêté (code %d).
+openQ4, le moteur de Quake 4, n'existe que pour les Mac Apple silicon.
+téléchargé
+vertical
+⌥ Entrée

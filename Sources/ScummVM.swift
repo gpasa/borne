@@ -8,7 +8,7 @@ enum ScummVM {
     static let url = URL(string: "https://downloads.scummvm.org/frs/scummvm/2026.4.0/scummvm-2026.4.0-macosx.dmg")!
     static let sha256 = "5614527fa57ffce14773c69923b96eeb7b1b135bcd96bfe74640ca341cad4598"
     static let pageURL = URL(string: "https://www.scummvm.org")!
-    static let size = "169 Mo"
+    static let size = String(localized: "169 Mo")
 
     static var app: URL {
         Prefs.supportDirectory.appendingPathComponent("Engines/ScummVM.app", isDirectory: true)
@@ -111,7 +111,7 @@ enum ScummVM {
     /// ScummVM lit le dossier du jeu sans y écrire : réglages et sauvegardes
     /// vont dans le dossier utilisateur.
     static func arguments(for m: Machine, user: URL) throws -> [String] {
-        guard let data = m.dataPath else { throw MAMERunner.Failure(message: "Fichiers du jeu introuvables.") }
+        guard let data = m.dataPath else { throw MAMERunner.Failure(message: String(localized: "Fichiers du jeu introuvables.")) }
         let dir: URL
         if GameArchives.isArchive(data) {
             guard GameArchives.isExtracted(data) else { throw EngineLaunchError.needsExtraction }

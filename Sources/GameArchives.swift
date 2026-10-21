@@ -119,7 +119,7 @@ enum GameArchives {
     }
 
     private static func failure(_ url: URL, _ text: String) -> Error {
-        MAMERunner.Failure(message: "\(url.lastPathComponent) n'a pas pu être décompressé.\n\(text.trimmingCharacters(in: .whitespacesAndNewlines))")
+        MAMERunner.Failure(message: String(localized: "\(url.lastPathComponent) n'a pas pu être décompressé.\n\(text.trimmingCharacters(in: .whitespacesAndNewlines))"))
     }
 
     // MARK: Outils

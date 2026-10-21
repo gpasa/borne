@@ -53,7 +53,7 @@ enum Prefs {
     }
 
     static var mameURLPlaceholder: String {
-        bundledMameURL != nil ? "mame intégré à Borne" : defaultMamePath
+        bundledMameURL != nil ? String(localized: "mame intégré à Borne") : defaultMamePath
     }
 
     /// Dossier de l'installation de mame : hash/, plugins/, bgfx/, language/…
@@ -95,15 +95,15 @@ enum Prefs {
             // Racine du disque des jeux : roms/, samples/, artwork/… dedans.
             d.set(url.path, forKey: mediaPathKey)
             d.removeObject(forKey: romPathsKey)
-            return "Disque des jeux : \(url.path) (ROM dans « roms »)."
+            return String(localized: "Disque des jeux : \(url.path) (ROM dans « roms »).")
         }
         // Le dossier des ROM lui-même : samples/, artwork/… à côté de lui.
         d.set(url.deletingLastPathComponent().path, forKey: mediaPathKey)
         d.set(url.path, forKey: romPathsKey)
-        return "ROM : \(url.path) ; samples et artwork cherchés à côté."
+        return String(localized: "ROM : \(url.path) ; samples et artwork cherchés à côté.")
     }
 
-    static let gamesFolderPrompt = "Choisissez le dossier « roms », ou le dossier qui le contient (avec samples, artwork…). Les deux conviennent."
+    static let gamesFolderPrompt = String(localized: "Choisissez le dossier « roms », ou le dossier qui le contient (avec samples, artwork…). Les deux conviennent.")
 
     /// Racine des packs d'images : snap/, titles/, marquees/, flyers/, cabinets/, cpanel/.
     static var artworkRoot: URL {

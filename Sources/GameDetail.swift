@@ -80,7 +80,7 @@ struct GameDetail: View {
                             }
                             if let game = m.modArg, engine == .quake { info("Extension", game) }
                             info("Emplacement", (m.dataPath ?? "") as String)
-                            info("Sauvegardes", "Dossier utilisateur, jamais sur le disque des jeux")
+                            info("Sauvegardes", String(localized: "Dossier utilisateur, jamais sur le disque des jeux"))
                         }
                         .font(.callout)
                     } else {
@@ -91,7 +91,7 @@ struct GameDetail: View {
                         }
                         info("Pilote", m.sourcefile)
                         info("État", m.statusLabel)
-                        info("Sauvegarde", m.savestate ? "Prise en charge" : "Non")
+                        info("Sauvegarde", m.savestate ? String(localized: "Prise en charge") : String(localized: "Non"))
                         info("ROM", romText(m))
                         if !m.screen.isEmpty {
                             info("Écran", screenText(m))
@@ -101,7 +101,7 @@ struct GameDetail: View {
                         }
                         if !m.controls.isEmpty {
                             info("Commandes", m.controls.joined(separator: ", ")
-                                 + (m.buttons > 0 ? " · \(m.buttons) boutons" : ""))
+                                 + (m.buttons > 0 ? " · " + String(localized: "\(m.buttons) boutons") : ""))
                         }
                         if !m.cpus.isEmpty {
                             info("Processeurs", m.cpus.joined(separator: ", "))
@@ -141,13 +141,13 @@ struct GameDetail: View {
                     Text("Touches").font(.headline).padding(.top, 6)
                     KeyGuideView(machine: m)
                     if m.engineKind == .dos || m.engineKind == .scummvm {
-                        Button(m.engineKind == .dos ? "Touches de ce jeu…" : "Options de ScummVM…") {
+                        Button(m.engineKind == .dos ? String(localized: "Touches de ce jeu…") : String(localized: "Options de ScummVM…")) {
                             catalog.openKeyEditor(m.name)
                         }
                         .controlSize(.small)
                         .help(m.engineKind == .dos
-                              ? "Ouvre l'éditeur de touches de DOSBox ; ce que vous enregistrez ne vaut que pour ce jeu."
-                              : "Ouvre les options de ScummVM : onglet « Touches » pour les changer.")
+                              ? Text("Ouvre l'éditeur de touches de DOSBox ; ce que vous enregistrez ne vaut que pour ce jeu.")
+                              : Text("Ouvre les options de ScummVM : onglet « Touches » pour les changer."))
                     } else if m.engineKind == nil || KeyBindings.supported.contains(m.engineKind!) {
                         SettingsLink { Text("Changer les touches…") }
                             .controlSize(.small)
@@ -164,7 +164,7 @@ struct GameDetail: View {
         }
     }
 
-    private func info(_ label: String, _ value: String) -> some View {
+    private func info(_ label: LocalizedStringKey, _ value: String) -> some View {
         GridRow {
             Text(label).foregroundStyle(.secondary).gridColumnAlignment(.trailing)
             Text(value).textSelection(.enabled)
@@ -192,16 +192,16 @@ struct GameDetail: View {
     }
 
     private func romText(_ m: Machine) -> String {
-        if !m.needsFiles { return "Aucune requise" }
+        if !m.needsFiles { return String(localized: "Aucune requise") }
         if let r = catalog.auditResult(m.name) { return r.label }
-        return catalog.available.contains(m.name) ? "Présentes (non vérifiées)" : "Absentes"
+        return catalog.available.contains(m.name) ? String(localized: "Présentes (non vérifiées)") : String(localized: "Absentes")
     }
 
     private func screenText(_ m: Machine) -> String {
-        var parts = [m.screen == "vector" ? "Vectoriel" : m.screen == "lcd" ? "LCD" : "Matriciel"]
+        var parts = [m.screen == "vector" ? String(localized: "Vectoriel") : m.screen == "lcd" ? "LCD" : String(localized: "Matriciel")]
         if m.width > 0 { parts.append("\(m.width) × \(m.height)") }
         if m.refresh > 0 { parts.append(String(format: "%.2f Hz", m.refresh)) }
-        parts.append(m.isVertical ? "vertical" : "horizontal")
+        parts.append(m.isVertical ? String(localized: "vertical") : String(localized: "horizontal"))
         return parts.joined(separator: " · ")
     }
 
@@ -236,12 +236,12 @@ enum PictureKind: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .snap: "Capture"
-        case .title: "Écran titre"
-        case .marquee: "Fronton"
-        case .flyer: "Prospectus"
-        case .cabinet: "Borne"
-        case .cpanel: "Panneau de commande"
+        case .snap: String(localized: "Capture")
+        case .title: String(localized: "Écran titre")
+        case .marquee: String(localized: "Fronton")
+        case .flyer: String(localized: "Prospectus")
+        case .cabinet: String(localized: "Borne d’arcade", comment: "Image : photo du meuble de la borne")
+        case .cpanel: String(localized: "Panneau de commande")
         }
     }
 

@@ -24,6 +24,7 @@ targets:
     sources:
       - path: Sources
       - path: Resources/Assets.xcassets
+      - path: Resources/Localizable.xcstrings
     dependencies:
       - package: Sparkle
     info:
@@ -44,6 +45,9 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: org.pasahome.Borne
         BORNE_FEED_URL: https://github.com/gpasa/borne/releases/latest/download/appcast-arm64.xml
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        # Français (langue source) et anglais : Resources/Localizable.xcstrings.
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
         # Outil personnel : pas de bac à sable, il doit lancer mame et lire
         # les dossiers de ROM où qu'ils soient.
         ENABLE_APP_SANDBOX: NO

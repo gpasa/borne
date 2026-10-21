@@ -89,13 +89,13 @@ struct GameTableView: NSViewRepresentable {
 
         static let all: [Column] = [
             .init(id: "flags", title: "", width: 34, minWidth: 30, sortKey: nil),
-            .init(id: "description", title: "Jeu", width: 320, minWidth: 150, sortKey: "description"),
-            .init(id: "name", title: "Nom", width: 90, minWidth: 50, sortKey: "name"),
-            .init(id: "manufacturer", title: "Fabricant", width: 160, minWidth: 70, sortKey: "manufacturer"),
-            .init(id: "year", title: "Année", width: 50, minWidth: 40, sortKey: "year"),
-            .init(id: "status", title: "État", width: 100, minWidth: 60, sortKey: "status"),
-            .init(id: "parent", title: "Original", width: 80, minWidth: 50, sortKey: "parent"),
-            .init(id: "source", title: "Pilote", width: 140, minWidth: 70, sortKey: "source"),
+            .init(id: "description", title: String(localized: "Jeu"), width: 320, minWidth: 150, sortKey: "description"),
+            .init(id: "name", title: String(localized: "Nom"), width: 90, minWidth: 50, sortKey: "name"),
+            .init(id: "manufacturer", title: String(localized: "Fabricant"), width: 160, minWidth: 70, sortKey: "manufacturer"),
+            .init(id: "year", title: String(localized: "Année"), width: 50, minWidth: 40, sortKey: "year"),
+            .init(id: "status", title: String(localized: "État"), width: 100, minWidth: 60, sortKey: "status"),
+            .init(id: "parent", title: String(localized: "Original"), width: 80, minWidth: 50, sortKey: "parent"),
+            .init(id: "source", title: String(localized: "Pilote"), width: 140, minWidth: 70, sortKey: "source"),
         ]
     }
 
@@ -127,7 +127,7 @@ struct GameTableView: NSViewRepresentable {
                 if catalog.isLocal(m.name) { s += "⌂" }
                 field.stringValue = s
                 field.textColor = .systemYellow
-                field.toolTip = catalog.isLocal(m.name) ? "Installé sur ce Mac" : nil
+                field.toolTip = catalog.isLocal(m.name) ? String(localized: "Installé sur ce Mac") : nil
             case "description":
                 field.stringValue = m.isClone ? "    " + m.description : m.description
             case "name": field.stringValue = m.name
@@ -229,21 +229,21 @@ struct GameTableView: NSViewRepresentable {
                 menu.addItem(i)
             }
             menu.autoenablesItems = false
-            item("Lancer", enabled: catalog.running == nil) { [catalog] in catalog.launch(name) }
-            item(catalog.favorites.contains(name) ? "Retirer des favoris" : "Ajouter aux favoris") { [catalog] in
+            item(String(localized: "Lancer"), enabled: catalog.running == nil) { [catalog] in catalog.launch(name) }
+            item(catalog.favorites.contains(name) ? String(localized: "Retirer des favoris") : String(localized: "Ajouter aux favoris")) { [catalog] in
                 catalog.toggleFavorite(name)
             }
             if catalog.hasDisplaySettings(name) {
-                item("Réinitialiser l'affichage") { [catalog] in catalog.resetDisplay(name) }
+                item(String(localized: "Réinitialiser l'affichage")) { [catalog] in catalog.resetDisplay(name) }
             }
             if catalog.hasSettings(name) {
-                item("Réinitialiser tous les réglages du jeu") { [catalog] in catalog.resetSettings(name) }
+                item(String(localized: "Réinitialiser tous les réglages du jeu")) { [catalog] in catalog.resetSettings(name) }
             }
             menu.addItem(.separator())
             if catalog.isLocal(name) {
-                item("Supprimer la copie sur ce Mac") { [catalog] in catalog.uninstall(name) }
+                item(String(localized: "Supprimer la copie sur ce Mac")) { [catalog] in catalog.uninstall(name) }
             } else {
-                item("Installer sur ce Mac…", enabled: catalog.available.contains(name)) { [catalog] in
+                item(String(localized: "Installer sur ce Mac…"), enabled: catalog.available.contains(name)) { [catalog] in
                     catalog.proposeInstall([name])
                 }
             }

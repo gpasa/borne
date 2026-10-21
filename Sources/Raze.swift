@@ -11,7 +11,7 @@ enum Raze {
     static let url = URL(string: "https://github.com/gpasa/borne/releases/download/raze-1.11.0-borne/Raze-1.11.0-borne.zip")!
     static let sha256 = "5bdcdc0928931dfb9783b165badc5a2785c4f24b16cf24c9afbc5847e0fa5876"
     static let pageURL = URL(string: "https://github.com/gpasa/borne/releases/tag/raze-1.11.0-borne")!
-    static let size = "34 Mo"
+    static let size = String(localized: "34 Mo")
 
     static var app: URL {
         Prefs.supportDirectory.appendingPathComponent("Engines/Raze.app", isDirectory: true)

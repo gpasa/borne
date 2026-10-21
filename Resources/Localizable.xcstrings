@@ -1,0 +1,5492 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "%@\nLe disque des jeux est-il branché ? Branchez-le, puis relisez les dossiers." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@\nIs the games drive connected? Connect it, then rescan the folders."
+          }
+        }
+      }
+    },
+    "%@ (%@) sera décompressée dans votre dossier utilisateur au premier lancement. L'archive elle-même n'est pas modifiée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (%@) will be unpacked into your user folder the first time you play. The archive itself is not changed."
+          }
+        }
+      }
+    },
+    "%@ (mod Quake III)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (Quake III mod)"
+          }
+        }
+      }
+    },
+    "%@ (mod Quake)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (Quake mod)"
+          }
+        }
+      }
+    },
+    "%@ (pavé)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (keypad)"
+          }
+        }
+      }
+    },
+    "%@ : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@"
+          }
+        }
+      }
+    },
+    "%@ : %@.zip" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@.zip"
+          }
+        }
+      }
+    },
+    "%@ Le moteur moderne en a besoin. Borne télécharge la mise à jour officielle d'id Software une fois sa licence acceptée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ The modern engine needs it. Borne downloads id Software's official update once you accept its license."
+          }
+        }
+      }
+    },
+    "%@ Les fichiers de la mise à jour sont dans votre dossier utilisateur." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ The update's files are in your user folder."
+          }
+        }
+      }
+    },
+    "%@ absent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ missing"
+          }
+        }
+      }
+    },
+    "%@ n'a pas pu lancer le jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ could not start the game"
+          }
+        }
+      }
+    },
+    "%@ n'a pas pu s'ouvrir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ could not open"
+          }
+        }
+      }
+    },
+    "%@ n'a pas pu être décompressé.\n%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ could not be unpacked.\n%@"
+          }
+        }
+      }
+    },
+    "%@ puis %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ then %@"
+          }
+        }
+      }
+    },
+    "%@ répond %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ answers %lld."
+          }
+        }
+      }
+    },
+    "%@ s'est arrêté" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ stopped"
+          }
+        }
+      }
+    },
+    "%@ se joue avec Raze %@, le moteur de l'équipe de GZDoom pour les jeux Build (Duke Nukem 3D, Blood, Shadow Warrior…). Borne peut télécharger sa version pour Mac (%@, signée et notarisée, publiée avec Borne) et l'installer dans votre dossier utilisateur." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ runs with Raze %@, the GZDoom team's engine for Build games (Duke Nukem 3D, Blood, Shadow Warrior…). Borne can download its Mac version (%@, signed and notarized, published with Borne) and install it in your user folder."
+          }
+        }
+      }
+    },
+    "%@ se joue avec ScummVM %@, le moteur libre des jeux d'aventure (LucasArts, Revolution…). Borne peut télécharger sa version officielle pour Mac (%@, signée et notarisée par l'équipe de ScummVM) depuis scummvm.org et l'installer dans votre dossier utilisateur." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ runs with ScummVM %@, the open-source engine for adventure games (LucasArts, Revolution…). Borne can download its official Mac version (%@, signed and notarized by the ScummVM team) from scummvm.org and install it in your user folder."
+          }
+        }
+      }
+    },
+    "%@ · flèches" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · arrows"
+          }
+        }
+      }
+    },
+    "%@ à copier (%lld fichiers), %@ libres. Le jeu se lancera ensuite sans le disque des jeux." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ to copy (%lld files), %@ free. The game will then run without the games drive."
+          }
+        }
+      }
+    },
+    "%@ à copier, mais seulement %@ libres sur ce Mac (5 Go de marge gardés)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ to copy, but only %@ free on this Mac (keeping a 5 GB margin)."
+          }
+        }
+      }
+    },
+    "%@ — dans l'original" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ — in the parent"
+          }
+        }
+      }
+    },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %@"
+          }
+        }
+      }
+    },
+    "%@, joué avec %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, played with %@."
+          }
+        }
+      }
+    },
+    "%@, lancée par DOSBox Staging dans le dossier du jeu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, run by DOSBox Staging in the game's folder."
+          }
+        }
+      }
+    },
+    "%@, lancées par DOSBox Staging dans le dossier du jeu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, run by DOSBox Staging in the game's folder."
+          }
+        }
+      }
+    },
+    "%@, signé et notarisé par l'équipe de ScummVM. Borne le range dans votre dossier utilisateur." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, signed and notarized by the ScummVM team. Borne keeps it in your user folder."
+          }
+        }
+      }
+    },
+    "%@, signé et notarisé. Borne le range dans votre dossier utilisateur." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, signed and notarized. Borne keeps it in your user folder."
+          }
+        }
+      }
+    },
+    "%@.zip est là, mais il lui manque %lld fichier(s) : remplacez-le par l'ensemble de MAME 0.289." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@.zip is there, but %lld file(s) are missing from it: replace it with the MAME 0.289 set."
+          }
+        }
+      }
+    },
+    "%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
+    },
+    "%lld boutons" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld buttons"
+          }
+        }
+      }
+    },
+    "%lld fichier(s) absents de %@.zip (%@%@) : remplacez-le par l'ensemble de MAME 0.289." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld file(s) missing from %@.zip (%@%@): replace it with the MAME 0.289 set."
+          }
+        }
+      }
+    },
+    "%lld fichier(s) attendus dans %@.zip, absent : ajoutez-le à un dossier ROM." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld file(s) expected in %@.zip, which is missing: add it to a ROM folder."
+          }
+        }
+      }
+    },
+    "%lld fichier(s) d'une autre version (%@%@)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld file(s) from another version (%@%@)."
+          }
+        }
+      }
+    },
+    "%lld jeux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld games"
+          }
+        }
+      }
+    },
+    "%lld jeux affichés · %lld disponibles sur %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld games shown · %lld available out of %lld"
+          }
+        }
+      }
+    },
+    "-bgfx_screen_chains crt-geom" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "-bgfx_screen_chains crt-geom"
+          }
+        }
+      }
+    },
+    "1 à 0" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 to 0"
+          }
+        }
+      }
+    },
+    "1 à 4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 to 4"
+          }
+        }
+      }
+    },
+    "1 à 7" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 to 7"
+          }
+        }
+      }
+    },
+    "1 à 8" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 to 8"
+          }
+        }
+      }
+    },
+    "169 Mo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "169 MB"
+          }
+        }
+      }
+    },
+    "21 Mo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "21 MB"
+          }
+        }
+      }
+    },
+    "23 Mo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "23 MB"
+          }
+        }
+      }
+    },
+    "27 Mo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "27 MB"
+          }
+        }
+      }
+    },
+    "288 Mo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "288 MB"
+          }
+        }
+      }
+    },
+    "34 Mo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "34 MB"
+          }
+        }
+      }
+    },
+    "641 Mo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "641 MB"
+          }
+        }
+      }
+    },
+    "Absentes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missing"
+          }
+        }
+      }
+    },
+    "Afficher dans le Finder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show in Finder"
+          }
+        }
+      }
+    },
+    "Afficher les données de jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Game Data"
+          }
+        }
+      }
+    },
+    "Agir, marcher, choisir un verbe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Act, walk, pick a verb"
+          }
+        }
+      }
+    },
+    "Agrandir l'image" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enlarge view"
+          }
+        }
+      }
+    },
+    "Ajouter aux favoris" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to Favorites"
+          }
+        }
+      }
+    },
+    "Ajouter un dossier de jeux…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a Games Folder…"
+          }
+        }
+      }
+    },
+    "Ajouter un dossier…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a Folder…"
+          }
+        }
+      }
+    },
+    "Ajoutez %@.zip (%@) à un dossier ROM, puis relisez les dossiers." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add %@.zip (%@) to a ROM folder, then rescan the folders."
+          }
+        }
+      }
+    },
+    "Annuler" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Année" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year"
+          }
+        }
+      }
+    },
+    "Appuyez sur une touche…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Press a key…"
+          }
+        }
+      }
+    },
+    "Arcade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade"
+          }
+        }
+      }
+    },
+    "Arcade : MAME" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade: MAME"
+          }
+        }
+      }
+    },
+    "Arcade : joueur 1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade: player 1"
+          }
+        }
+      }
+    },
+    "Arcade : joueur 2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade: player 2"
+          }
+        }
+      }
+    },
+    "Archive décompressée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archive unpacked"
+          }
+        }
+      }
+    },
+    "Archive incomplète : %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incomplete archive: %@."
+          }
+        }
+      }
+    },
+    "Archive à décompresser" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archive to unpack"
+          }
+        }
+      }
+    },
+    "Arme précédente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous weapon"
+          }
+        }
+      }
+    },
+    "Arme suivante" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next weapon"
+          }
+        }
+      }
+    },
+    "Armes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weapons"
+          }
+        }
+      }
+    },
+    "Arrêter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
+        }
+      }
+    },
+    "Arrêter la tâche en cours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop the current task"
+          }
+        }
+      }
+    },
+    "Aspect d'un écran cathodique : crt-auto, sharp, bilinear…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CRT look: crt-auto, sharp, bilinear…"
+          }
+        }
+      }
+    },
+    "Au démarrage, le jeu demande l'affichage et le son : choisissez MCGA/VGA et AdLib ou Sound Blaster." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At startup the game asks for display and sound: choose MCGA/VGA and AdLib or Sound Blaster."
+          }
+        }
+      }
+    },
+    "Au premier lancement, le programme SETUP du jeu demande la carte son : choisissez Sound Blaster (port 220, IRQ 7, DMA 1) et la carte musicale Sound Blaster ou AdLib." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The first time, the game's SETUP program asks for the sound card: choose Sound Blaster (port 220, IRQ 7, DMA 1) and Sound Blaster or AdLib for music."
+          }
+        }
+      }
+    },
+    "Aucun fichier de ROM n'a été trouvé dans les dossiers ROM." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No ROM file was found in the ROM folders."
+          }
+        }
+      }
+    },
+    "Aucun jeu %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No %@ games"
+          }
+        }
+      }
+    },
+    "Aucun jeu choisi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Game Selected"
+          }
+        }
+      }
+    },
+    "Aucun jeu disponible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Games Available"
+          }
+        }
+      }
+    },
+    "Aucun set à vérifier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No sets to verify"
+          }
+        }
+      }
+    },
+    "Aucun zpak_<langue>.pk4 dans q4base : les personnages ne parlent pas. Copiez celui de votre version." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No zpak_<language>.pk4 in q4base: characters don't speak. Copy the one from your version."
+          }
+        }
+      }
+    },
+    "Aucune ROM requise" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No ROM needed"
+          }
+        }
+      }
+    },
+    "Aucune requise" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None needed"
+          }
+        }
+      }
+    },
+    "Automatique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatic"
+          }
+        }
+      }
+    },
+    "Avancer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forward"
+          }
+        }
+      }
+    },
+    "Aventures (ScummVM)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adventures (ScummVM)"
+          }
+        }
+      }
+    },
+    "Aventures : « Options de ScummVM… » sur la fiche d'un jeu ouvre ses options, onglet « Touches »." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adventures: “ScummVM Options…” on a game's details opens its options, “Keymaps” tab."
+          }
+        }
+      }
+    },
+    "BIOS" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BIOS"
+          }
+        }
+      }
+    },
+    "Bas" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Down"
+          }
+        }
+      }
+    },
+    "Bon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good"
+          }
+        }
+      }
+    },
+    "Borne cherche le dossier base de Doom 3 (pak000.pk4…) et, pour Resurrection of Evil, son dossier d3xp." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne looks for Doom 3's base folder (pak000.pk4…) and, for Resurrection of Evil, its d3xp folder."
+          }
+        }
+      }
+    },
+    "Borne cherche le dossier baseq2 de Quake II (pak0.pak…) et, à côté, ses extensions xatrix, rogue et ctf." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne looks for Quake II's baseq2 folder (pak0.pak…) and, next to it, the xatrix, rogue and ctf add-ons."
+          }
+        }
+      }
+    },
+    "Borne cherche le dossier de Return to Castle Wolfenstein qui contient pak0.pk3 et sp_pak1.pk3 (Main d'une version GOG ou Steam, par exemple). Seuls les fichiers du jeu d'origine sont chargés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne looks for the Return to Castle Wolfenstein folder that holds pak0.pk3 and sp_pak1.pk3 (Main in a GOG or Steam version, for example). Only the original game's files are loaded."
+          }
+        }
+      }
+    },
+    "Borne cherche le dossier q4base de Quake 4 (pak001.pk4…). Le moteur openQ4 se télécharge au premier lancement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne looks for Quake 4's q4base folder (pak001.pk4…). The openQ4 engine downloads the first time you play."
+          }
+        }
+      }
+    },
+    "Borne cherche les fichiers .wad et .pk3 (doom2.wad, heretic.wad…) dans les dossiers que vous lui indiquez, sous-dossiers compris." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne looks for .wad and .pk3 files (doom2.wad, heretic.wad…) in the folders you give it, subfolders included."
+          }
+        }
+      }
+    },
+    "Borne cherche les fichiers VSWAP.WL6, VSWAP.SOD… de Wolfenstein 3D et Spear of Destiny." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne looks for the VSWAP.WL6, VSWAP.SOD… files of Wolfenstein 3D and Spear of Destiny."
+          }
+        }
+      }
+    },
+    "Borne cherche les fichiers principaux des jeux Build : DUKE3D.GRP, BLOOD.RFF, SW.GRP, REDNECK.GRP, STUFF.DAT (Exhumed), NAM.GRP, WW2GI.GRP. Le moteur Raze se télécharge au premier lancement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne looks for the main files of Build games: DUKE3D.GRP, BLOOD.RFF, SW.GRP, REDNECK.GRP, STUFF.DAT (Exhumed), NAM.GRP, WW2GI.GRP. The Raze engine downloads the first time you play."
+          }
+        }
+      }
+    },
+    "Borne cherche un dossier baseq3 contenant pak0.pk3, et Team Arena (missionpack) où qu'elle soit." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne looks for a baseq3 folder holding pak0.pk3, and Team Arena (missionpack) wherever it is."
+          }
+        }
+      }
+    },
+    "Borne cherche un dossier id1 contenant pak0.pak, et les extensions ou mods à côté de lui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne looks for an id1 folder holding pak0.pak, and the add-ons or mods next to it."
+          }
+        }
+      }
+    },
+    "Borne d’arcade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cabinet"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne"
+          }
+        }
+      }
+    },
+    "Borne est libre et gratuit. Si vous l'aimez, un don aide à le faire évoluer. Merci !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne is free and open source. If you enjoy it, a donation helps it grow. Thank you!"
+          }
+        }
+      }
+    },
+    "Borne ne sait pas lancer ce jeu DOS." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne doesn't know how to start this DOS game."
+          }
+        }
+      }
+    },
+    "Borne reconnaît les jeux DOS à leur exécutable (TNFS.EXE pour Need for Speed, KEEN4E.EXE…), dans un dossier, une archive .zip, .rar, .7z ou une image .iso. Une archive est décompressée dans votre dossier utilisateur au premier lancement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne recognizes DOS games by their executable (TNFS.EXE for Need for Speed, KEEN4E.EXE…), in a folder, a .zip, .rar or .7z archive, or an .iso image. An archive is unpacked into your user folder the first time you play."
+          }
+        }
+      }
+    },
+    "Borne reconnaît les jeux d'aventure à leurs fichiers (MONKEY1.000, TENTACLE.000, FT.LA0…), dans un dossier, une archive ou une image .iso. ScummVM se télécharge au premier lancement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne recognizes adventure games by their files (MONKEY1.000, TENTACLE.000, FT.LA0…), in a folder, an archive or an .iso image. ScummVM downloads the first time you play."
+          }
+        }
+      }
+    },
+    "Borne vérifie chaque jour s'il existe une nouvelle version sur GitHub. Chaque mise à jour est signée : une version qui ne viendrait pas de Borne est refusée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borne checks GitHub daily for a new version. Every update is signed: a version that doesn't come from Borne is refused."
+          }
+        }
+      }
+    },
+    "Bouton" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Button"
+          }
+        }
+      }
+    },
+    "Bouton 1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Button 1"
+          }
+        }
+      }
+    },
+    "Bouton 2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Button 2"
+          }
+        }
+      }
+    },
+    "Bouton 3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Button 3"
+          }
+        }
+      }
+    },
+    "Bouton 4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Button 4"
+          }
+        }
+      }
+    },
+    "Bouton 5" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Button 5"
+          }
+        }
+      }
+    },
+    "Bouton 6" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Button 6"
+          }
+        }
+      }
+    },
+    "Boutons 1 à %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buttons 1 to %lld"
+          }
+        }
+      }
+    },
+    "Boutons joueur 2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Player 2 buttons"
+          }
+        }
+      }
+    },
+    "Branchez le disque, puis relisez les dossiers ROM (⌘R).\n%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect the drive, then rescan the ROM folders (⌘R).\n%@"
+          }
+        }
+      }
+    },
+    "Capture" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screenshot"
+          }
+        }
+      }
+    },
+    "Capture d'écran" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screenshot"
+          }
+        }
+      }
+    },
+    "Capturer ou libérer la souris" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capture or release the mouse"
+          }
+        }
+      }
+    },
+    "Caractéristiques" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Features"
+          }
+        }
+      }
+    },
+    "Carte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map"
+          }
+        }
+      }
+    },
+    "Carte son : sb16, sbpro2, sb1, gus…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound card: sb16, sbpro2, sb1, gus…"
+          }
+        }
+      }
+    },
+    "Carte vidéo : svga_s3, vga, ega, cga, tandy…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Video card: svga_s3, vga, ega, cga, tandy…"
+          }
+        }
+      }
+    },
+    "Ce fichier est %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file is %@."
+          }
+        }
+      }
+    },
+    "Ce fichier est %@. " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file is %@. "
+          }
+        }
+      }
+    },
+    "Ce jeu se lance sans fichier." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This game runs without any file."
+          }
+        }
+      }
+    },
+    "Celle du jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game's own"
+          }
+        }
+      }
+    },
+    "Certains modules n'ont pas pu être installés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some modules could not be installed"
+          }
+        }
+      }
+    },
+    "Ces jeux ne sont pas disponibles sur le disque des jeux." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "These games are not available on the games drive."
+          }
+        }
+      }
+    },
+    "Changer les touches…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Keys…"
+          }
+        }
+      }
+    },
+    "Chargement rapide" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quick load"
+          }
+        }
+      }
+    },
+    "Choisir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose"
+          }
+        }
+      }
+    },
+    "Choisir…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose…"
+          }
+        }
+      }
+    },
+    "Choisissez le dossier « roms », ou le dossier qui le contient (avec samples, artwork…). Les deux conviennent." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose the “roms” folder, or the folder that contains it (with samples, artwork…). Either works."
+          }
+        }
+      }
+    },
+    "Clic" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click"
+          }
+        }
+      }
+    },
+    "Clic droit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Right click"
+          }
+        }
+      }
+    },
+    "Clic milieu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Middle click"
+          }
+        }
+      }
+    },
+    "Clic · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click · %@"
+          }
+        }
+      }
+    },
+    "Cliquez, puis appuyez sur la touche ou le bouton de souris voulu. Échap annule." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click, then press the key or mouse button you want. Esc cancels."
+          }
+        }
+      }
+    },
+    "Clones" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clones"
+          }
+        }
+      }
+    },
+    "Collection fusionnée : les fichiers du clone sont dans %@.zip." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merged set: the clone's files are in %@.zip."
+          }
+        }
+      }
+    },
+    "Commande" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Command"
+          }
+        }
+      }
+    },
+    "Commandes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commands"
+          }
+        }
+      }
+    },
+    "Complet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Complete"
+          }
+        }
+      }
+    },
+    "Configuration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration"
+          }
+        }
+      }
+    },
+    "Console" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Console"
+          }
+        }
+      }
+    },
+    "Copie incomplète" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incomplete copy"
+          }
+        }
+      }
+    },
+    "Copie interrompue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy interrupted"
+          }
+        }
+      }
+    },
+    "Copie le jeu et ce dont il a besoin, pour jouer sans le disque des jeux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copies the game and what it needs, to play without the games drive"
+          }
+        }
+      }
+    },
+    "Copie sur ce Mac." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy on this Mac."
+          }
+        }
+      }
+    },
+    "Copie sur ce Mac…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copying to this Mac…"
+          }
+        }
+      }
+    },
+    "Copiez voices.wad à côté de strife1.wad : le jeu tourne sans, mais les personnages ne parlent pas." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy voices.wad next to strife1.wad: the game runs without it, but characters don't speak."
+          }
+        }
+      }
+    },
+    "Courir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Run"
+          }
+        }
+      }
+    },
+    "Courir (maintenir)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Run (hold)"
+          }
+        }
+      }
+    },
+    "Créer des réglages DOSBox pour ce jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create DOSBox Settings for This Game"
+          }
+        }
+      }
+    },
+    "Dans une fenêtre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In a window"
+          }
+        }
+      }
+    },
+    "Dans votre dossier utilisateur, jamais à côté des fichiers du jeu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In your user folder, never next to the game's files."
+          }
+        }
+      }
+    },
+    "Dario et Milo Casali / id Software" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dario and Milo Casali / id Software"
+          }
+        }
+      }
+    },
+    "Diagnostic" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diagnostic"
+          }
+        }
+      }
+    },
+    "Diagnostiquer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diagnose"
+          }
+        }
+      }
+    },
+    "Disponibles" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Available"
+          }
+        }
+      }
+    },
+    "Disque des jeux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Games drive"
+          }
+        }
+      }
+    },
+    "Disque des jeux : %@ (ROM dans « roms »)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Games drive: %@ (ROMs in “roms”)."
+          }
+        }
+      }
+    },
+    "Disque des jeux introuvable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Games drive not found"
+          }
+        }
+      }
+    },
+    "Disque des jeux introuvable : branchez-le, puis relisez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Games drive not found: connect it, then rescan."
+          }
+        }
+      }
+    },
+    "Données" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data"
+          }
+        }
+      }
+    },
+    "Données de jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game data"
+          }
+        }
+      }
+    },
+    "Doom entièrement libre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entirely free Doom"
+          }
+        }
+      }
+    },
+    "Doom, Quake I à 4, Doom 3, Return to Castle Wolfenstein et les jeux Build. La souris vise et le clic tire toujours. Le saut et l'accroupissement n'existent pas dans Doom d'origine ; « Utiliser » sert dans Doom, RTCW et les jeux Build." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doom, Quake I to 4, Doom 3, Return to Castle Wolfenstein and Build games. The mouse always aims and clicking always fires. The original Doom has no jumping or crouching; “Use” applies to Doom, RTCW and Build games."
+          }
+        }
+      }
+    },
+    "Dossier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folder"
+          }
+        }
+      }
+    },
+    "Dossier contenant vos jeux Doom, Quake ou Wolfenstein 3D (lu seulement, sous-dossiers compris)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folder holding your Doom, Quake or Wolfenstein 3D games (read only, subfolders included)"
+          }
+        }
+      }
+    },
+    "Dossier utilisateur, jamais sur le disque des jeux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User folder, never on the games drive"
+          }
+        }
+      }
+    },
+    "Dossiers ROM" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ROM folders"
+          }
+        }
+      }
+    },
+    "Dossiers lus seulement, sous-dossiers compris." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folders are only read, subfolders included."
+          }
+        }
+      }
+    },
+    "Double-cliquez sur un jeu pour le lancer." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double-click a game to play it."
+          }
+        }
+      }
+    },
+    "Droite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Right"
+          }
+        }
+      }
+    },
+    "Décompresser maintenant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpack Now"
+          }
+        }
+      }
+    },
+    "Décompression de %@…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpacking %@…"
+          }
+        }
+      }
+    },
+    "Décompression de Freedoom impossible." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freedoom could not be unpacked."
+          }
+        }
+      }
+    },
+    "Décompression interrompue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpacking interrupted"
+          }
+        }
+      }
+    },
+    "E (Espace : Build, F : RTCW)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E (Space: Build, F: RTCW)"
+          }
+        }
+      }
+    },
+    "Emplacement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
+          }
+        }
+      }
+    },
+    "En cours : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In progress: %@"
+          }
+        }
+      }
+    },
+    "En savoir plus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn More"
+          }
+        }
+      }
+    },
+    "Enregistrer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "Entrée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Return"
+          }
+        }
+      }
+    },
+    "Entrée (pavé)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter (keypad)"
+          }
+        }
+      }
+    },
+    "Espace" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Space"
+          }
+        }
+      }
+    },
+    "Espace (E : Build)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Space (E: Build)"
+          }
+        }
+      }
+    },
+    "Espace · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Space · %@"
+          }
+        }
+      }
+    },
+    "Extension" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add-on"
+          }
+        }
+      }
+    },
+    "Exécutable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Executable"
+          }
+        }
+      }
+    },
+    "F12 pendant le jeu en crée une" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "F12 during play takes one"
+          }
+        }
+      }
+    },
+    "Fabricant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manufacturer"
+          }
+        }
+      }
+    },
+    "Favori" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorite"
+          }
+        }
+      }
+    },
+    "Favoris" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorites"
+          }
+        }
+      }
+    },
+    "Fichier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File"
+          }
+        }
+      }
+    },
+    "Fichiers de RTCW complets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RTCW files complete"
+          }
+        }
+      }
+    },
+    "Fichiers de RTCW incomplets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RTCW files incomplete"
+          }
+        }
+      }
+    },
+    "Fichiers de données complets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data files complete"
+          }
+        }
+      }
+    },
+    "Fichiers de données incomplets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data files incomplete"
+          }
+        }
+      }
+    },
+    "Fichiers du jeu introuvables" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game files not found"
+          }
+        }
+      }
+    },
+    "Fichiers du jeu introuvables." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game files not found."
+          }
+        }
+      }
+    },
+    "Fichiers du jeu présents" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game files present"
+          }
+        }
+      }
+    },
+    "Flèches" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrows"
+          }
+        }
+      }
+    },
+    "Flèches · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrows · %@"
+          }
+        }
+      }
+    },
+    "Flèches, Ctrl, Alt, Espace le plus souvent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usually arrows, Ctrl, Alt, Space"
+          }
+        }
+      }
+    },
+    "Fonctionnels" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Working"
+          }
+        }
+      }
+    },
+    "Freedoom n'a pas pu être installé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freedoom could not be installed"
+          }
+        }
+      }
+    },
+    "Fronton" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marquee"
+          }
+        }
+      }
+    },
+    "Gauche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Left"
+          }
+        }
+      }
+    },
+    "Général" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "Haut" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up"
+          }
+        }
+      }
+    },
+    "Il va à la Corbeille ; le moteur repart de ses réglages d'origine au prochain lancement. Sauvegardes et scores sont gardés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It goes to the Trash; the engine starts from its original settings next time. Saves and scores are kept."
+          }
+        }
+      }
+    },
+    "Image" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Picture"
+          }
+        }
+      }
+    },
+    "Images" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pictures"
+          }
+        }
+      }
+    },
+    "Imparfait" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imperfect"
+          }
+        }
+      }
+    },
+    "Incorrect" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incorrect"
+          }
+        }
+      }
+    },
+    "Installation impossible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installation failed"
+          }
+        }
+      }
+    },
+    "Installation interrompue : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installation interrupted: %@"
+          }
+        }
+      }
+    },
+    "Installer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install"
+          }
+        }
+      }
+    },
+    "Installer %@ sur ce Mac ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install %@ on this Mac?"
+          }
+        }
+      }
+    },
+    "Installer Raze ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install Raze?"
+          }
+        }
+      }
+    },
+    "Installer ScummVM ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install ScummVM?"
+          }
+        }
+      }
+    },
+    "Installer la mise à jour…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install the Update…"
+          }
+        }
+      }
+    },
+    "Installer les favoris sur ce Mac…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install Favorites on This Mac…"
+          }
+        }
+      }
+    },
+    "Installer openQ4 ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install openQ4?"
+          }
+        }
+      }
+    },
+    "Installer sur ce Mac…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install on This Mac…"
+          }
+        }
+      }
+    },
+    "Installé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installed"
+          }
+        }
+      }
+    },
+    "Installé sur ce Mac" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installed on this Mac"
+          }
+        }
+      }
+    },
+    "Insérer une pièce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insert a coin"
+          }
+        }
+      }
+    },
+    "Interrogation de mame…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asking mame…"
+          }
+        }
+      }
+    },
+    "Intégré" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Built-in"
+          }
+        }
+      }
+    },
+    "Intégré (%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Built-in (%@)"
+          }
+        }
+      }
+    },
+    "J'accepte et je télécharge" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accept and Download"
+          }
+        }
+      }
+    },
+    "J'accepte les licences d'id Software des mises à jour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I accept id Software's licenses for the updates"
+          }
+        }
+      }
+    },
+    "Jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game"
+          }
+        }
+      }
+    },
+    "Jeu PC · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PC game · %@"
+          }
+        }
+      }
+    },
+    "Jeu de base" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base game"
+          }
+        }
+      }
+    },
+    "Jeu en cours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game running"
+          }
+        }
+      }
+    },
+    "Jeu, nom court, fabricant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game, short name, manufacturer"
+          }
+        }
+      }
+    },
+    "Jeux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Games"
+          }
+        }
+      }
+    },
+    "Jeux DOS" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DOS Games"
+          }
+        }
+      }
+    },
+    "Jeux DOS : sur la fiche du jeu, « Touches de ce jeu… » ouvre l'éditeur de DOSBox ; ce que vous y enregistrez ne vaut que pour ce jeu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DOS games: “Keys for This Game…” on the game's details opens the DOSBox editor; what you save there applies to that game only."
+          }
+        }
+      }
+    },
+    "Jeux DOS et aventures" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DOS games and adventures"
+          }
+        }
+      }
+    },
+    "Jeux PC" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PC Games"
+          }
+        }
+      }
+    },
+    "Jeux PC : autres actions" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PC games: other actions"
+          }
+        }
+      }
+    },
+    "Jeux d'aventure LucasArts, Revolution…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LucasArts, Revolution… adventure games"
+          }
+        }
+      }
+    },
+    "Jouable. %lld fichier(s) n'ont jamais été copiés correctement par personne : leur absence n'est pas de votre fait." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playable. %lld file(s) have never been dumped correctly by anyone: their absence is not your doing."
+          }
+        }
+      }
+    },
+    "Joueurs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Players"
+          }
+        }
+      }
+    },
+    "Joystick" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joystick"
+          }
+        }
+      }
+    },
+    "Joystick joueur 2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Player 2 joystick"
+          }
+        }
+      }
+    },
+    "Ko-fi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ko-fi"
+          }
+        }
+      }
+    },
+    "L'archive téléchargée est illisible." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The downloaded archive is unreadable."
+          }
+        }
+      }
+    },
+    "L'archive téléchargée n'a pas pu être extraite." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The downloaded archive could not be extracted."
+          }
+        }
+      }
+    },
+    "L'archive téléchargée n'a pas pu être ouverte." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The downloaded archive could not be opened."
+          }
+        }
+      }
+    },
+    "L'image disque téléchargée n'a pas pu être ouverte." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The downloaded disk image could not be opened."
+          }
+        }
+      }
+    },
+    "L'original" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The parent"
+          }
+        }
+      }
+    },
+    "La fiche de chaque jeu montre ses fichiers de configuration, à modifier ou à réinitialiser." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each game's details show its configuration files, to edit or reset."
+          }
+        }
+      }
+    },
+    "La mise à jour de Doom 3 est incomplète." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Doom 3 update is incomplete."
+          }
+        }
+      }
+    },
+    "La mise à jour de Quake 4 est incomplète." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Quake 4 update is incomplete."
+          }
+        }
+      }
+    },
+    "Lampe torche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flashlight"
+          }
+        }
+      }
+    },
+    "Lancement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Launch"
+          }
+        }
+      }
+    },
+    "Lancer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play"
+          }
+        }
+      }
+    },
+    "Le BIOS" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The BIOS"
+          }
+        }
+      }
+    },
+    "Le dossier « roms » ou celui qui le contient. Lu seulement, jamais modifié." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The “roms” folder or the one that contains it. Only read, never changed."
+          }
+        }
+      }
+    },
+    "Le fichier téléchargé n'est pas celui attendu (%@) ; rien n'a été installé." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The downloaded file is not the expected one (%@); nothing was installed."
+          }
+        }
+      }
+    },
+    "Le jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game"
+          }
+        }
+      }
+    },
+    "Le jeu est dans votre dossier utilisateur : il se lance même sans le disque des jeux." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game is in your user folder: it runs even without the games drive."
+          }
+        }
+      }
+    },
+    "Le jeu tourne, sans certains bruitages. Placez %@.zip dans le dossier samples, à côté du dossier roms." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game runs, without some sound effects. Put %@.zip in the samples folder, next to the roms folder."
+          }
+        }
+      }
+    },
+    "Le moteur %@ est introuvable. Indiquez-le dans les réglages." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The %@ engine was not found. Set it in Settings."
+          }
+        }
+      }
+    },
+    "Le moteur choisi dans Réglages → Jeux PC n'existe plus : choisissez-en un autre, ou « Intégré »." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The engine chosen in Settings → PC Games no longer exists: choose another one, or “Built-in”."
+          }
+        }
+      }
+    },
+    "Le patch n'a pas pu être installé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The patch could not be installed"
+          }
+        }
+      }
+    },
+    "Le patch téléchargé est incomplet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The downloaded patch is incomplete."
+          }
+        }
+      }
+    },
+    "Le serveur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The server"
+          }
+        }
+      }
+    },
+    "Lecture des machines : %lld…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading machines: %lld…"
+          }
+        }
+      }
+    },
+    "Les WAD de Freedoom sont absents de l'archive." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freedoom's WADs are missing from the archive."
+          }
+        }
+      }
+    },
+    "Les ensembles d'une autre version de MAME ne correspondent souvent pas : ceux de Borne doivent être faits pour MAME 0.289." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sets from another MAME version often don't match: Borne's must be made for MAME 0.289."
+          }
+        }
+      }
+    },
+    "Les fichiers du jeu sont introuvables : %@. Le disque est-il branché ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game's files were not found: %@. Is the drive connected?"
+          }
+        }
+      }
+    },
+    "Les installer automatiquement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install them automatically"
+          }
+        }
+      }
+    },
+    "Les touches portent le nom écrit sur votre clavier. Une touche changée pour un seul jeu dans le menu de MAME (Tab) garde la priorité." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keys show the name printed on your keyboard. A key changed for a single game in MAME's menu (Tab) takes precedence."
+          }
+        }
+      }
+    },
+    "Libre, %@. Borne le range dans votre dossier utilisateur." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open source, %@. Borne keeps it in your user folder."
+          }
+        }
+      }
+    },
+    "Licence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "License"
+          }
+        }
+      }
+    },
+    "Lire la licence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read the License"
+          }
+        }
+      }
+    },
+    "MAME" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME"
+          }
+        }
+      }
+    },
+    "MAME %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME %@"
+          }
+        }
+      }
+    },
+    "MAME %@ · ROM non vérifiées" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME %@ · ROMs not verified"
+          }
+        }
+      }
+    },
+    "MAME liste les fichiers dont le jeu a besoin et vérifie chacun" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME lists the files the game needs and checks each one"
+          }
+        }
+      }
+    },
+    "MAME n'a pas pu lancer le jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME could not start the game"
+          }
+        }
+      }
+    },
+    "MAME n'a pas répondu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME didn't answer"
+          }
+        }
+      }
+    },
+    "MAME ne répond pas" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME is not answering"
+          }
+        }
+      }
+    },
+    "MAME ne trouve pas tout en local pour : %@. Ces jeux auront encore besoin du disque des jeux." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME doesn't find everything locally for: %@. These games will still need the games drive."
+          }
+        }
+      }
+    },
+    "Maj" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shift"
+          }
+        }
+      }
+    },
+    "Maj fn F7" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shift fn F7"
+          }
+        }
+      }
+    },
+    "Manquent : %@. Copiez-les depuis le dossier du jeu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missing: %@. Copy them from the game's folder."
+          }
+        }
+      }
+    },
+    "Manquent : %@. sp_pak3 et sp_pak4 viennent de la mise à jour 1.41 ; copiez-les depuis une version à jour (Steam, GOG)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missing: %@. sp_pak3 and sp_pak4 come from update 1.41; copy them from an up-to-date version (Steam, GOG)."
+          }
+        }
+      }
+    },
+    "Matriciel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raster"
+          }
+        }
+      }
+    },
+    "Meilleur disponible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best available"
+          }
+        }
+      }
+    },
+    "Menu : sauvegarder, charger, quitter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu: save, load, quit"
+          }
+        }
+      }
+    },
+    "Menu de MAME" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME menu"
+          }
+        }
+      }
+    },
+    "Menu de MAME (touches, réglages)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME menu (keys, settings)"
+          }
+        }
+      }
+    },
+    "Menu, quitter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu, quit"
+          }
+        }
+      }
+    },
+    "Menu, sauvegarde, quitter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu, save, quit"
+          }
+        }
+      }
+    },
+    "Metal (bgfx)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Metal (bgfx)"
+          }
+        }
+      }
+    },
+    "Mise à jour %@ installée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update %@ installed"
+          }
+        }
+      }
+    },
+    "Mise à jour %@ nécessaire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update %@ needed"
+          }
+        }
+      }
+    },
+    "Mise à jour 1.3.1 de Doom 3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doom 3 1.3.1 update"
+          }
+        }
+      }
+    },
+    "Mise à jour 1.4.2 de Quake 4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quake 4 1.4.2 update"
+          }
+        }
+      }
+    },
+    "Mise à jour d'id Software" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "id Software update"
+          }
+        }
+      }
+    },
+    "Mise à jour d'id Software (DVD d'origine)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "id Software update (original DVD)"
+          }
+        }
+      }
+    },
+    "Mises à jour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updates"
+          }
+        }
+      }
+    },
+    "Mod introuvable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mod not found"
+          }
+        }
+      }
+    },
+    "Mod pour %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mod for %@"
+          }
+        }
+      }
+    },
+    "Mod pour Quake" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mod for Quake"
+          }
+        }
+      }
+    },
+    "Mod pour Quake III" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mod for Quake III"
+          }
+        }
+      }
+    },
+    "Mod présent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mod present"
+          }
+        }
+      }
+    },
+    "Mode avancé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced mode"
+          }
+        }
+      }
+    },
+    "Modifier…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit…"
+          }
+        }
+      }
+    },
+    "Modules à télécharger" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modules to download"
+          }
+        }
+      }
+    },
+    "Molette · 1 à 9" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wheel · 1 to 9"
+          }
+        }
+      }
+    },
+    "Molette ↑" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wheel ↑"
+          }
+        }
+      }
+    },
+    "Molette ↓" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wheel ↓"
+          }
+        }
+      }
+    },
+    "MoltenVK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MoltenVK"
+          }
+        }
+      }
+    },
+    "Moteur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engine"
+          }
+        }
+      }
+    },
+    "Moteur %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ engine"
+          }
+        }
+      }
+    },
+    "Moteur : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engine: %@"
+          }
+        }
+      }
+    },
+    "Moteur : Raze, à télécharger" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engine: Raze, to download"
+          }
+        }
+      }
+    },
+    "Moteur : ScummVM, à télécharger" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engine: ScummVM, to download"
+          }
+        }
+      }
+    },
+    "Moteur : openQ4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engine: openQ4"
+          }
+        }
+      }
+    },
+    "Moteur : openQ4, à télécharger" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engine: openQ4, to download"
+          }
+        }
+      }
+    },
+    "Moteur introuvable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engine not found"
+          }
+        }
+      }
+    },
+    "Mécaniques" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mechanical"
+          }
+        }
+      }
+    },
+    "Ni le jeu ni son original ne sont dans les dossiers ROM." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neither the game nor its parent is in the ROM folders."
+          }
+        }
+      }
+    },
+    "Nom" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "Nom court" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Short name"
+          }
+        }
+      }
+    },
+    "Non" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No"
+          }
+        }
+      }
+    },
+    "Non disponibles" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unavailable"
+          }
+        }
+      }
+    },
+    "Non fonctionnels" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not working"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "OpenGL" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenGL"
+          }
+        }
+      }
+    },
+    "Options de ScummVM…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScummVM Options…"
+          }
+        }
+      }
+    },
+    "Options en plus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extra options"
+          }
+        }
+      }
+    },
+    "Ordinateur de mission" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mission computer"
+          }
+        }
+      }
+    },
+    "Original" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parent"
+          }
+        }
+      }
+    },
+    "Originaux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parents"
+          }
+        }
+      }
+    },
+    "Ouvre l'éditeur de touches de DOSBox ; ce que vous enregistrez ne vaut que pour ce jeu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens the DOSBox key editor; what you save applies to this game only."
+          }
+        }
+      }
+    },
+    "Ouvre les options de ScummVM : onglet « Touches » pour les changer." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens ScummVM's options: “Keymaps” tab to change them."
+          }
+        }
+      }
+    },
+    "Ouvrir le dossier ROM" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open ROM Folder"
+          }
+        }
+      }
+    },
+    "Ouvrir les portes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open doors"
+          }
+        }
+      }
+    },
+    "Ouvrir les réglages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Ouvrir, utiliser" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open, use"
+          }
+        }
+      }
+    },
+    "Où sont vos jeux ? Choisissez le dossier « roms », ou celui qui le contient." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Where are your games? Choose the “roms” folder, or the one that contains it."
+          }
+        }
+      }
+    },
+    "Panneau de commande" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Control panel"
+          }
+        }
+      }
+    },
+    "Pas d'image" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No picture"
+          }
+        }
+      }
+    },
+    "Pas de côté" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strafe"
+          }
+        }
+      }
+    },
+    "Pas de réglages DOSBox propres à ce jeu : il utilise ceux de Borne." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No DOSBox settings of its own: this game uses Borne's."
+          }
+        }
+      }
+    },
+    "Pas encore choisi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not chosen yet"
+          }
+        }
+      }
+    },
+    "Pas encore de fichier : le moteur le crée au premier lancement du jeu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No file yet: the engine creates it the first time the game runs."
+          }
+        }
+      }
+    },
+    "Pas à droite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strafe right"
+          }
+        }
+      }
+    },
+    "Pas à gauche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strafe left"
+          }
+        }
+      }
+    },
+    "Passer une réplique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip a line"
+          }
+        }
+      }
+    },
+    "Passer une scène" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip a scene"
+          }
+        }
+      }
+    },
+    "Patch 1.32 de Quake III" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quake III 1.32 patch"
+          }
+        }
+      }
+    },
+    "Pause" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        }
+      }
+    },
+    "PayPal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PayPal"
+          }
+        }
+      }
+    },
+    "Pilote" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Driver"
+          }
+        }
+      }
+    },
+    "Pilote Vulkan de Quake" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quake's Vulkan driver"
+          }
+        }
+      }
+    },
+    "Pièce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coin"
+          }
+        }
+      }
+    },
+    "Pièce et Start (joueur 2)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coin and Start (player 2)"
+          }
+        }
+      }
+    },
+    "Placez vos ensembles de ROM (.zip) dans le dossier ROM, puis relisez-le (⌘R)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Put your ROM sets (.zip) in the ROM folder, then rescan it (⌘R)."
+          }
+        }
+      }
+    },
+    "Plein écran ou fenêtre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full screen or window"
+          }
+        }
+      }
+    },
+    "Point" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Period"
+          }
+        }
+      }
+    },
+    "Position de l'écran, touches et volume reviennent aux valeurs d'origine. Le fichier va à la Corbeille ; sauvegardes et meilleurs scores sont gardés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen position, keys and volume go back to their original values. The file goes to the Trash; saves and high scores are kept."
+          }
+        }
+      }
+    },
+    "Position, échelle et vue de l'écran ; touches et volume restent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen position, scale and view; keys and volume stay"
+          }
+        }
+      }
+    },
+    "Pour les commandes dont la touche d'origine demande Maj sur votre clavier (« = », « + », « [ »…), ou que vous préférez ailleurs. Chaque jeu ignore celles qu'il n'a pas." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For commands whose original key needs Shift on your keyboard (“=”, “+”, “[”…), or that you'd rather have elsewhere. Each game ignores the ones it doesn't have."
+          }
+        }
+      }
+    },
+    "Premier lancement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First launch"
+          }
+        }
+      }
+    },
+    "Prise en charge" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supported"
+          }
+        }
+      }
+    },
+    "Processeur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CPU"
+          }
+        }
+      }
+    },
+    "Processeurs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CPUs"
+          }
+        }
+      }
+    },
+    "Projet Freedoom" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freedoom Project"
+          }
+        }
+      }
+    },
+    "Prospectus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flyer"
+          }
+        }
+      }
+    },
+    "Préliminaire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preliminary"
+          }
+        }
+      }
+    },
+    "Préparation de l'installation…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preparing the installation…"
+          }
+        }
+      }
+    },
+    "Présentes (non vérifiées)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Present (not verified)"
+          }
+        }
+      }
+    },
+    "Quake 4 ne se joue que sur un Mac Apple silicon : openQ4 n'existe pas pour Intel." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quake 4 only plays on an Apple silicon Mac: openQ4 doesn't exist for Intel."
+          }
+        }
+      }
+    },
+    "Quake 4 se joue avec openQ4 %@, un moteur libre encore en bêta (rendu Metal). Borne peut le télécharger depuis sa page officielle (%@) et l'installer dans votre dossier utilisateur. Il faut aussi les fichiers d'origine de Quake 4 (dossier q4base)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quake 4 runs with openQ4 %@, an open-source engine still in beta (Metal rendering). Borne can download it from its official page (%@) and install it in your user folder. You also need Quake 4's original files (q4base folder)."
+          }
+        }
+      }
+    },
+    "Quitter DOSBox" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit DOSBox"
+          }
+        }
+      }
+    },
+    "Quitter ScummVM" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit ScummVM"
+          }
+        }
+      }
+    },
+    "Quitter et revenir à Borne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit and go back to Borne"
+          }
+        }
+      }
+    },
+    "Quittez le jeu (Échap) avant de réinitialiser ses réglages." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit the game (Esc) before resetting its settings."
+          }
+        }
+      }
+    },
+    "Quittez le jeu (Échap) avant de réinitialiser son affichage." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit the game (Esc) before resetting its display."
+          }
+        }
+      }
+    },
+    "ROM" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ROM"
+          }
+        }
+      }
+    },
+    "ROM : %@ ; samples et artwork cherchés à côté." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ROMs: %@; samples and artwork are looked for next to it."
+          }
+        }
+      }
+    },
+    "Racine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Root"
+          }
+        }
+      }
+    },
+    "Rangés dans votre dossier utilisateur, une fois pour toutes. Chaque fichier est vérifié par son empreinte ; une copie de secours est gardée sur GitHub quand la licence le permet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kept in your user folder, once and for all. Each file is checked against its fingerprint; a backup copy is kept on GitHub when the license allows."
+          }
+        }
+      }
+    },
+    "Recharger l'état" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Load state"
+          }
+        }
+      }
+    },
+    "Recharger la liste de MAME" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reload MAME's List"
+          }
+        }
+      }
+    },
+    "Rechercher les mises à jour automatiquement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for updates automatically"
+          }
+        }
+      }
+    },
+    "Rechercher les mises à jour…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for Updates…"
+          }
+        }
+      }
+    },
+    "Rechercher un fabricant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search manufacturers"
+          }
+        }
+      }
+    },
+    "Rechercher un pilote" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search drivers"
+          }
+        }
+      }
+    },
+    "Rechercher un processeur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search CPUs"
+          }
+        }
+      }
+    },
+    "Rechercher une année" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search years"
+          }
+        }
+      }
+    },
+    "Reculer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
+    },
+    "Regrouper par" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group by"
+          }
+        }
+      }
+    },
+    "Relire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rescan"
+          }
+        }
+      }
+    },
+    "Relire les dossiers" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rescan Folders"
+          }
+        }
+      }
+    },
+    "Relire les dossiers de jeux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rescan Game Folders"
+          }
+        }
+      }
+    },
+    "Remise à zéro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        }
+      }
+    },
+    "Rendu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rendering"
+          }
+        }
+      }
+    },
+    "Rendu de MAME" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME rendering"
+          }
+        }
+      }
+    },
+    "Retirer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "Retirer des favoris" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from Favorites"
+          }
+        }
+      }
+    },
+    "Retirez le # d'une ligne pour l'activer. Toutes les options :" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove the # from a line to turn it on. All options:"
+          }
+        }
+      }
+    },
+    "Revenir aux touches d'origine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore Original Keys"
+          }
+        }
+      }
+    },
+    "Revenir à la touche d'origine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore the original key"
+          }
+        }
+      }
+    },
+    "Rien à installer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to install"
+          }
+        }
+      }
+    },
+    "Réduire l'image" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shrink view"
+          }
+        }
+      }
+    },
+    "Réessayer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try Again"
+          }
+        }
+      }
+    },
+    "Réessayez dans un instant." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again in a moment."
+          }
+        }
+      }
+    },
+    "Réglages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "Réglages DOSBox Staging pour %@, lus par Borne à chaque lancement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DOSBox Staging settings for %@, read by Borne at every launch."
+          }
+        }
+      }
+    },
+    "Réinitialisation impossible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset failed"
+          }
+        }
+      }
+    },
+    "Réinitialiser" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        }
+      }
+    },
+    "Réinitialiser %@ ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset %@?"
+          }
+        }
+      }
+    },
+    "Réinitialiser l'affichage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset Display"
+          }
+        }
+      }
+    },
+    "Réinitialiser les réglages de %@ ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset the settings of %@?"
+          }
+        }
+      }
+    },
+    "Réinitialiser tous les réglages du jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset All the Game's Settings"
+          }
+        }
+      }
+    },
+    "Réinitialiser tous les réglages…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset All Settings…"
+          }
+        }
+      }
+    },
+    "Réinitialiser…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset…"
+          }
+        }
+      }
+    },
+    "S'accroupir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crouch"
+          }
+        }
+      }
+    },
+    "Sauter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jump"
+          }
+        }
+      }
+    },
+    "Sauvegarde" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save state"
+          }
+        }
+      }
+    },
+    "Sauvegarde d'état" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save states"
+          }
+        }
+      }
+    },
+    "Sauvegarde rapide" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quick save"
+          }
+        }
+      }
+    },
+    "Sauvegardes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saves"
+          }
+        }
+      }
+    },
+    "Sauvegardes et réglages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saves and settings"
+          }
+        }
+      }
+    },
+    "Sauvegardes, réglages par jeu, scores, captures et enregistrements." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saves, per-game settings, scores, screenshots and recordings."
+          }
+        }
+      }
+    },
+    "Sauver l'état" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save state"
+          }
+        }
+      }
+    },
+    "Scores" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scores"
+          }
+        }
+      }
+    },
+    "Se déplacer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move"
+          }
+        }
+      }
+    },
+    "Se déplacer (ou flèches)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move (or arrows)"
+          }
+        }
+      }
+    },
+    "Selon le jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depends on the game"
+          }
+        }
+      }
+    },
+    "Sons : %@.zip" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sounds: %@.zip"
+          }
+        }
+      }
+    },
+    "Sons : %@.zip absent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sounds: %@.zip missing"
+          }
+        }
+      }
+    },
+    "Souris" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mouse"
+          }
+        }
+      }
+    },
+    "Sous-dossiers snap, titles, marquees, flyers, cabinets, cpanel." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subfolders snap, titles, marquees, flyers, cabinets, cpanel."
+          }
+        }
+      }
+    },
+    "Soutenir Borne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support Borne"
+          }
+        }
+      }
+    },
+    "Soutenir Borne par PayPal…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support Borne via PayPal…"
+          }
+        }
+      }
+    },
+    "Soutenir Borne sur Ko-fi…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support Borne on Ko-fi…"
+          }
+        }
+      }
+    },
+    "Spear of Destiny (démo)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spear of Destiny (demo)"
+          }
+        }
+      }
+    },
+    "Start" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        }
+      }
+    },
+    "Start (1 joueur)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start (1 player)"
+          }
+        }
+      }
+    },
+    "Strife (démo)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strife (demo)"
+          }
+        }
+      }
+    },
+    "Supprimer la copie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the Copy"
+          }
+        }
+      }
+    },
+    "Supprimer la copie sur ce Mac" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the Copy on This Mac"
+          }
+        }
+      }
+    },
+    "Sur ce Mac" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On This Mac"
+          }
+        }
+      }
+    },
+    "Tirer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fire"
+          }
+        }
+      }
+    },
+    "Tirer (en plus du clic)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fire (besides clicking)"
+          }
+        }
+      }
+    },
+    "Touches" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keys"
+          }
+        }
+      }
+    },
+    "Touches de ce jeu…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keys for This Game…"
+          }
+        }
+      }
+    },
+    "Tous les fichiers sont présents et justes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All files are present and correct."
+          }
+        }
+      }
+    },
+    "Tous les jeux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Games"
+          }
+        }
+      }
+    },
+    "Tout est installé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything is installed"
+          }
+        }
+      }
+    },
+    "Tout télécharger (%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download All (%lld)"
+          }
+        }
+      }
+    },
+    "Téléchargement de %@ (%lld/%lld)…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading %@ (%lld/%lld)…"
+          }
+        }
+      }
+    },
+    "Téléchargement de %@…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading %@…"
+          }
+        }
+      }
+    },
+    "Téléchargement de Freedoom…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading Freedoom…"
+          }
+        }
+      }
+    },
+    "Téléchargement des modules…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading modules…"
+          }
+        }
+      }
+    },
+    "Téléchargement du patch Quake III…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading the Quake III patch…"
+          }
+        }
+      }
+    },
+    "Téléchargement impossible : %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download failed: %@."
+          }
+        }
+      }
+    },
+    "Télécharger Freedoom (%@, libre)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download Freedoom (%@, free)"
+          }
+        }
+      }
+    },
+    "Télécharger Freedoom (Doom libre)…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download Freedoom (free Doom)…"
+          }
+        }
+      }
+    },
+    "Télécharger Raze" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download Raze"
+          }
+        }
+      }
+    },
+    "Télécharger Raze…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download Raze…"
+          }
+        }
+      }
+    },
+    "Télécharger ScummVM" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download ScummVM"
+          }
+        }
+      }
+    },
+    "Télécharger ScummVM…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download ScummVM…"
+          }
+        }
+      }
+    },
+    "Télécharger openQ4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download openQ4"
+          }
+        }
+      }
+    },
+    "Télécharger openQ4…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download openQ4…"
+          }
+        }
+      }
+    },
+    "Téléchargé (Raze)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloaded (Raze)"
+          }
+        }
+      }
+    },
+    "Téléchargé (ScummVM)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloaded (ScummVM)"
+          }
+        }
+      }
+    },
+    "Téléchargé (openQ4)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloaded (openQ4)"
+          }
+        }
+      }
+    },
+    "Un dossier ROM est introuvable : le disque des jeux est-il branché ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A ROM folder was not found: is the games drive connected?"
+          }
+        }
+      }
+    },
+    "Un jeu est en cours : le moteur peut réécrire ce fichier en quittant. Enregistrez une fois le jeu fermé." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A game is running: the engine may rewrite this file when it quits. Save once the game is closed."
+          }
+        }
+      }
+    },
+    "Un périphérique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A device"
+          }
+        }
+      }
+    },
+    "Utiliser, ouvrir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use, open"
+          }
+        }
+      }
+    },
+    "Vectoriel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vector"
+          }
+        }
+      }
+    },
+    "Verr. maj" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caps Lock"
+          }
+        }
+      }
+    },
+    "Version %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@"
+          }
+        }
+      }
+    },
+    "Version de démonstration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demo version"
+          }
+        }
+      }
+    },
+    "Version à jour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up-to-date version"
+          }
+        }
+      }
+    },
+    "Viser" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aim"
+          }
+        }
+      }
+    },
+    "Vitesse du processeur émulé (jeux en mode réel, puis en mode protégé)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emulated CPU speed (real-mode games, then protected-mode games)"
+          }
+        }
+      }
+    },
+    "Voir la source" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View the Source"
+          }
+        }
+      }
+    },
+    "Voix absentes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voices missing"
+          }
+        }
+      }
+    },
+    "Voix de Strife absentes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strife voices missing"
+          }
+        }
+      }
+    },
+    "Volant, trackball ou pistolet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wheel, trackball or light gun"
+          }
+        }
+      }
+    },
+    "Votre copie contient déjà la mise à jour %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your copy already includes update %@."
+          }
+        }
+      }
+    },
+    "Votre copie date d'avant la mise à jour 1.32 (pas de pak8.pk3 dans baseq3)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your copy predates update 1.32 (no pak8.pk3 in baseq3)."
+          }
+        }
+      }
+    },
+    "Votre copie de Doom 3 est celle du disque d'origine ; dhewm3 et Resurrection of Evil ont besoin des fichiers de la mise à jour 1.3.1 d'id Software. Borne peut télécharger le patch officiel (%@, au miroir indiqué par dhewm3) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software, qui suppose de posséder Doom 3 ; son texte est inclus dans le patch et sera rangé avec lui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your copy of Doom 3 comes from the original disc; dhewm3 and Resurrection of Evil need the files of id Software's 1.3.1 update. Borne can download the official patch (%@, from the mirror dhewm3 points to) and keep only its data, in your user folder. It is covered by id Software's limited use license, which requires owning Doom 3; its text is included in the patch and will be kept with it."
+          }
+        }
+      }
+    },
+    "Votre copie de Quake 4 est celle du disque d'origine ; openQ4 a besoin des fichiers de la mise à jour 1.4.2 d'id Software. Borne peut télécharger le patch officiel (%@, conservé par archive.org) et n'en garder que les données, dans votre dossier utilisateur. Il est soumis à la licence d'utilisation limitée d'id Software et d'Activision, qui suppose de posséder Quake 4 ; son texte est inclus dans le patch et sera rangé avec lui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your copy of Quake 4 comes from the original disc; openQ4 needs the files of id Software's 1.4.2 update. Borne can download the official patch (%@, preserved by archive.org) and keep only its data, in your user folder. It is covered by id Software and Activision's limited use license, which requires owning Quake 4; its text is included in the patch and will be kept with it."
+          }
+        }
+      }
+    },
+    "Votre copie de Quake III date d'avant la mise à jour 1.32, dont les moteurs modernes ont besoin. Borne peut télécharger les fichiers officiels d'id Software (%@, depuis ioquake3). Ils sont soumis à la licence d'id Software, que vous pouvez lire avant d'accepter." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your copy of Quake III predates update 1.32, which modern engines need. Borne can download id Software's official files (%@, from ioquake3). They are covered by id Software's license, which you can read before accepting."
+          }
+        }
+      }
+    },
+    "Votre copie vient du DVD d'origine (q4base s'arrête avant pak022.pk4)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your copy comes from the original DVD (q4base stops before pak022.pk4)."
+          }
+        }
+      }
+    },
+    "Votre copie vient du disque d'origine (pas de pak008.pk4 ou de d3xp/pak001.pk4)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your copy comes from the original disc (no pak008.pk4 or d3xp/pak001.pk4)."
+          }
+        }
+      }
+    },
+    "Votre copie vient du disque d'origine (pas de pak008.pk4)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your copy comes from the original disc (no pak008.pk4)."
+          }
+        }
+      }
+    },
+    "Vérification MAME : aucun fichier trouvé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME check: no file found"
+          }
+        }
+      }
+    },
+    "Vérification MAME : complet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME check: complete"
+          }
+        }
+      }
+    },
+    "Vérification MAME : incomplet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME check: incomplete"
+          }
+        }
+      }
+    },
+    "Vérification MAME : meilleur disponible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME check: best available"
+          }
+        }
+      }
+    },
+    "Vérification MAME : sans réponse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAME check: no answer"
+          }
+        }
+      }
+    },
+    "Vérification des ROM…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifying ROMs…"
+          }
+        }
+      }
+    },
+    "Vérifie le jeu, son original, son BIOS, ses périphériques et ses sons, et dit comment compléter ce qui manque." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checks the game, its parent, its BIOS, its devices and its sounds, and says how to complete what's missing."
+          }
+        }
+      }
+    },
+    "Vérifier les ROM" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verify ROMs"
+          }
+        }
+      }
+    },
+    "Vérifier à nouveau" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check Again"
+          }
+        }
+      }
+    },
+    "Wolfenstein 3D (épisodes 1 à 3)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wolfenstein 3D (episodes 1 to 3)"
+          }
+        }
+      }
+    },
+    "allemand" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "German"
+          }
+        }
+      }
+    },
+    "anglais" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "English"
+          }
+        }
+      }
+    },
+    "commun aux jeux %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "shared by the %@ games"
+          }
+        }
+      }
+    },
+    "commun à tous les jeux d'arcade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "shared by all arcade games"
+          }
+        }
+      }
+    },
+    "espagnol" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spanish"
+          }
+        }
+      }
+    },
+    "français" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "French"
+          }
+        }
+      }
+    },
+    "horizontal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "horizontal"
+          }
+        }
+      }
+    },
+    "id1 n'a pas de pak1.pak : seul le premier épisode est jouable. Copiez pak1.pak depuis votre version complète." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "id1 has no pak1.pak: only the first episode is playable. Copy pak1.pak from your full version."
+          }
+        }
+      }
+    },
+    "inclus dans Borne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "included in Borne"
+          }
+        }
+      }
+    },
+    "italien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Italian"
+          }
+        }
+      }
+    },
+    "la mise à jour 1.3.1 de Doom 3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the Doom 3 1.3.1 update"
+          }
+        }
+      }
+    },
+    "la mise à jour 1.4.2 de Quake 4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the Quake 4 1.4.2 update"
+          }
+        }
+      }
+    },
+    "la mise à jour de Doom 3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the Doom 3 update"
+          }
+        }
+      }
+    },
+    "la mise à jour de Quake 4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the Quake 4 update"
+          }
+        }
+      }
+    },
+    "le patch 1.32 de Quake III" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the Quake III 1.32 patch"
+          }
+        }
+      }
+    },
+    "le vôtre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yours"
+          }
+        }
+      }
+    },
+    "mame introuvable : %@. Indiquez son emplacement dans les réglages." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mame not found: %@. Set its location in Settings."
+          }
+        }
+      }
+    },
+    "mame intégré à Borne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mame built into Borne"
+          }
+        }
+      }
+    },
+    "mame s'est arrêté (code %d)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mame stopped (code %d)."
+          }
+        }
+      }
+    },
+    "openQ4, le moteur de Quake 4, n'existe que pour les Mac Apple silicon." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "openQ4, Quake 4's engine, only exists for Apple silicon Macs."
+          }
+        }
+      }
+    },
+    "téléchargé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "downloaded"
+          }
+        }
+      }
+    },
+    "vertical" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vertical"
+          }
+        }
+      }
+    },
+    "À télécharger (Raze)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To download (Raze)"
+          }
+        }
+      }
+    },
+    "À télécharger (ScummVM)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To download (ScummVM)"
+          }
+        }
+      }
+    },
+    "À télécharger (openQ4)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To download (openQ4)"
+          }
+        }
+      }
+    },
+    "Échantillons sonores présents." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound samples present."
+          }
+        }
+      }
+    },
+    "Échap" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esc"
+          }
+        }
+      }
+    },
+    "Écran" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen"
+          }
+        }
+      }
+    },
+    "Écran horizontal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horizontal screen"
+          }
+        }
+      }
+    },
+    "Écran titre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title screen"
+          }
+        }
+      }
+    },
+    "Écran vertical" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vertical screen"
+          }
+        }
+      }
+    },
+    "Écran, touches et volume tels que MAME les a enregistrés pour ce jeu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen, keys and volume as MAME saved them for this game"
+          }
+        }
+      }
+    },
+    "État" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
+          }
+        }
+      }
+    },
+    "⌥ Entrée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⌥ Return"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

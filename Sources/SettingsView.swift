@@ -62,7 +62,7 @@ struct SettingsView: View {
             Form {
             Section {
                 HStack {
-                    Text(mediaPath.isEmpty ? "Pas encore choisi" : mediaPath)
+                    Text(mediaPath.isEmpty ? String(localized: "Pas encore choisi") : mediaPath)
                         .lineLimit(1).truncationMode(.middle)
                         .foregroundStyle(mediaPath.isEmpty ? .secondary : .primary)
                     Spacer()
@@ -191,10 +191,10 @@ struct SettingsView: View {
         /// Moteurs inclus, ou téléchargés sur demande (openQ4, Raze) : le dire tel quel.
     private var builtInLabel: String {
         switch engine {
-        case .quake4: OpenQ4.executable != nil ? "Téléchargé (openQ4)" : "À télécharger (openQ4)"
-        case .build: Raze.executable != nil ? "Téléchargé (Raze)" : "À télécharger (Raze)"
-        case .scummvm: ScummVM.executable != nil ? "Téléchargé (ScummVM)" : "À télécharger (ScummVM)"
-        default: "Intégré (\(engine.engineName))"
+        case .quake4: OpenQ4.executable != nil ? String(localized: "Téléchargé (openQ4)") : String(localized: "À télécharger (openQ4)")
+        case .build: Raze.executable != nil ? String(localized: "Téléchargé (Raze)") : String(localized: "À télécharger (Raze)")
+        case .scummvm: ScummVM.executable != nil ? String(localized: "Téléchargé (ScummVM)") : String(localized: "À télécharger (ScummVM)")
+        default: String(localized: "Intégré (\(engine.engineName))")
         }
     }
 
@@ -220,7 +220,7 @@ struct SettingsView: View {
         }
     }
 
-    private func pathRow(_ label: String, _ value: Binding<String>, placeholder: String,
+    private func pathRow(_ label: LocalizedStringKey, _ value: Binding<String>, placeholder: String,
                          directory: Bool, changed: @escaping () -> Void) -> some View {
         HStack {
             TextField(label, text: value, prompt: Text(placeholder))
@@ -281,7 +281,7 @@ private struct ModulesSection: View {
                     if let license = module.idLicense {
                         Link("Licence", destination: license).font(.caption)
                     }
-                    Text(module.isInstalled() ? "Installé" : module.size)
+                    Text(module.isInstalled() ? String(localized: "Installé") : module.size)
                         .font(.caption).foregroundStyle(.secondary).monospacedDigit()
                 }
             }
@@ -290,7 +290,7 @@ private struct ModulesSection: View {
             }
             HStack {
                 Spacer()
-                Button(missing.isEmpty ? "Tout est installé" : "Tout télécharger (\(wanted.count))") {
+                Button(missing.isEmpty ? String(localized: "Tout est installé") : String(localized: "Tout télécharger (\(wanted.count))")) {
                     catalog.downloadModules(wanted)
                 }
                 .disabled(wanted.isEmpty || catalog.job != nil)

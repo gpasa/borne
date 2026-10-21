@@ -171,8 +171,7 @@ struct GameTable: View {
                     ContentUnavailableView {
                         Label("Disque des jeux introuvable", systemImage: "externaldrive.badge.xmark")
                     } description: {
-                        Text("Branchez le disque, puis relisez les dossiers ROM (⌘R).\n"
-                             + catalog.missingROMPaths.joined(separator: "\n"))
+                        Text("Branchez le disque, puis relisez les dossiers ROM (⌘R).\n\(catalog.missingROMPaths.joined(separator: "\n"))")
                     } actions: {
                         Button("Relire") { catalog.rescanAll() }
                         SettingsLink { Text("Réglages") }
@@ -198,9 +197,9 @@ struct GameTable: View {
         if !catalog.machines.isEmpty && !catalog.missingROMPaths.isEmpty {
             HStack {
                 Image(systemName: "externaldrive.badge.questionmark")
-                Text(UserDefaults.standard.string(forKey: Prefs.mediaPathKey)?.isEmpty == false
-                     ? "Disque des jeux introuvable : branchez-le, puis relisez."
-                     : "Où sont vos jeux ? Choisissez le dossier « roms », ou celui qui le contient.")
+                UserDefaults.standard.string(forKey: Prefs.mediaPathKey)?.isEmpty == false
+                     ? Text("Disque des jeux introuvable : branchez-le, puis relisez.")
+                     : Text("Où sont vos jeux ? Choisissez le dossier « roms », ou celui qui le contient.")
                 Spacer()
                 Button("Choisir…") { chooseMediaFolder() }
                 Button("Relire") { catalog.rescanAll() }
@@ -225,17 +224,17 @@ struct GameTable: View {
 
     private func engineHint(_ e: Engine) -> String {
         switch e {
-        case .doom: "Borne cherche les fichiers .wad et .pk3 (doom2.wad, heretic.wad…) dans les dossiers que vous lui indiquez, sous-dossiers compris."
-        case .quake: "Borne cherche un dossier id1 contenant pak0.pak, et les extensions ou mods à côté de lui."
-        case .wolf3d: "Borne cherche les fichiers VSWAP.WL6, VSWAP.SOD… de Wolfenstein 3D et Spear of Destiny."
-        case .build: "Borne cherche les fichiers principaux des jeux Build : DUKE3D.GRP, BLOOD.RFF, SW.GRP, REDNECK.GRP, STUFF.DAT (Exhumed), NAM.GRP, WW2GI.GRP. Le moteur Raze se télécharge au premier lancement."
-        case .quake2: "Borne cherche le dossier baseq2 de Quake II (pak0.pak…) et, à côté, ses extensions xatrix, rogue et ctf."
-        case .doom3: "Borne cherche le dossier base de Doom 3 (pak000.pk4…) et, pour Resurrection of Evil, son dossier d3xp."
-        case .quake4: "Borne cherche le dossier q4base de Quake 4 (pak001.pk4…). Le moteur openQ4 se télécharge au premier lancement."
-        case .rtcw: "Borne cherche le dossier de Return to Castle Wolfenstein qui contient pak0.pk3 et sp_pak1.pk3 (Main d'une version GOG ou Steam, par exemple). Seuls les fichiers du jeu d'origine sont chargés."
-        case .scummvm: "Borne reconnaît les jeux d'aventure à leurs fichiers (MONKEY1.000, TENTACLE.000, FT.LA0…), dans un dossier, une archive ou une image .iso. ScummVM se télécharge au premier lancement."
-        case .dos: "Borne reconnaît les jeux DOS à leur exécutable (TNFS.EXE pour Need for Speed, KEEN4E.EXE…), dans un dossier, une archive .zip, .rar, .7z ou une image .iso. Une archive est décompressée dans votre dossier utilisateur au premier lancement."
-        case .quake3: "Borne cherche un dossier baseq3 contenant pak0.pk3, et Team Arena (missionpack) où qu'elle soit."
+        case .doom: String(localized: "Borne cherche les fichiers .wad et .pk3 (doom2.wad, heretic.wad…) dans les dossiers que vous lui indiquez, sous-dossiers compris.")
+        case .quake: String(localized: "Borne cherche un dossier id1 contenant pak0.pak, et les extensions ou mods à côté de lui.")
+        case .wolf3d: String(localized: "Borne cherche les fichiers VSWAP.WL6, VSWAP.SOD… de Wolfenstein 3D et Spear of Destiny.")
+        case .build: String(localized: "Borne cherche les fichiers principaux des jeux Build : DUKE3D.GRP, BLOOD.RFF, SW.GRP, REDNECK.GRP, STUFF.DAT (Exhumed), NAM.GRP, WW2GI.GRP. Le moteur Raze se télécharge au premier lancement.")
+        case .quake2: String(localized: "Borne cherche le dossier baseq2 de Quake II (pak0.pak…) et, à côté, ses extensions xatrix, rogue et ctf.")
+        case .doom3: String(localized: "Borne cherche le dossier base de Doom 3 (pak000.pk4…) et, pour Resurrection of Evil, son dossier d3xp.")
+        case .quake4: String(localized: "Borne cherche le dossier q4base de Quake 4 (pak001.pk4…). Le moteur openQ4 se télécharge au premier lancement.")
+        case .rtcw: String(localized: "Borne cherche le dossier de Return to Castle Wolfenstein qui contient pak0.pk3 et sp_pak1.pk3 (Main d'une version GOG ou Steam, par exemple). Seuls les fichiers du jeu d'origine sont chargés.")
+        case .scummvm: String(localized: "Borne reconnaît les jeux d'aventure à leurs fichiers (MONKEY1.000, TENTACLE.000, FT.LA0…), dans un dossier, une archive ou une image .iso. ScummVM se télécharge au premier lancement.")
+        case .dos: String(localized: "Borne reconnaît les jeux DOS à leur exécutable (TNFS.EXE pour Need for Speed, KEEN4E.EXE…), dans un dossier, une archive .zip, .rar, .7z ou une image .iso. Une archive est décompressée dans votre dossier utilisateur au premier lancement.")
+        case .quake3: String(localized: "Borne cherche un dossier baseq3 contenant pak0.pk3, et Team Arena (missionpack) où qu'elle soit.")
         }
     }
 
@@ -244,7 +243,7 @@ struct GameTable: View {
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = true
-        panel.message = "Dossier contenant vos jeux Doom, Quake ou Wolfenstein 3D (lu seulement, sous-dossiers compris)"
+        panel.message = String(localized: "Dossier contenant vos jeux Doom, Quake ou Wolfenstein 3D (lu seulement, sous-dossiers compris)")
         guard panel.runModal() == .OK else { return }
         for url in panel.urls { Prefs.addEngineFolder(url.path) }
         catalog.scanEngines()
@@ -255,7 +254,7 @@ struct GameTable: View {
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
         panel.message = Prefs.gamesFolderPrompt
-        panel.prompt = "Choisir"
+        panel.prompt = String(localized: "Choisir")
         guard panel.runModal() == .OK, let url = panel.url else { return }
         catalog.gamesFolderNote = Prefs.adoptGamesFolder(url)
         catalog.scanROMs()
@@ -278,7 +277,7 @@ struct GameTable: View {
             } else if let r = catalog.running {
                 Text("En cours : \(catalog.machines[r]?.description ?? r)")
             } else if !catalog.version.isEmpty {
-                Text("MAME \(catalog.version)\(catalog.hasAudit ? "" : " · ROM non vérifiées")")
+                catalog.hasAudit ? Text("MAME \(catalog.version)") : Text("MAME \(catalog.version) · ROM non vérifiées")
             }
         }
         .font(.caption)

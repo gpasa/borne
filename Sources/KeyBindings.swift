@@ -18,24 +18,24 @@ enum KeyAction: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .forward: "Avancer"
-        case .back: "Reculer"
-        case .left: "Pas à gauche"
-        case .right: "Pas à droite"
-        case .fire: "Tirer (en plus du clic)"
-        case .jump: "Sauter"
-        case .crouch: "S'accroupir"
-        case .use: "Utiliser, ouvrir"
-        case .nextWeapon: "Arme suivante"
-        case .prevWeapon: "Arme précédente"
-        case .run: "Courir (maintenir)"
-        case .quickSave: "Sauvegarde rapide"
-        case .quickLoad: "Chargement rapide"
-        case .map: "Carte"
-        case .console: "Console"
-        case .sizeUp: "Agrandir l'image"
-        case .sizeDown: "Réduire l'image"
-        case .screenshot: "Capture d'écran"
+        case .forward: String(localized: "Avancer")
+        case .back: String(localized: "Reculer")
+        case .left: String(localized: "Pas à gauche")
+        case .right: String(localized: "Pas à droite")
+        case .fire: String(localized: "Tirer (en plus du clic)")
+        case .jump: String(localized: "Sauter")
+        case .crouch: String(localized: "S'accroupir")
+        case .use: String(localized: "Utiliser, ouvrir")
+        case .nextWeapon: String(localized: "Arme suivante")
+        case .prevWeapon: String(localized: "Arme précédente")
+        case .run: String(localized: "Courir (maintenir)")
+        case .quickSave: String(localized: "Sauvegarde rapide")
+        case .quickLoad: String(localized: "Chargement rapide")
+        case .map: String(localized: "Carte")
+        case .console: String(localized: "Console")
+        case .sizeUp: String(localized: "Agrandir l'image")
+        case .sizeDown: String(localized: "Réduire l'image")
+        case .screenshot: String(localized: "Capture d'écran")
         }
     }
 
@@ -133,7 +133,7 @@ enum KeyBindings {
         ("W A S D", [:]),
         ("Z Q S D (AZERTY)", [.forward: "z", .left: "q", .back: "s", .right: "d"]),
         // Pas de tir sur Ctrl : Ctrl+flèche appartient à Mission Control.
-        ("Flèches", [.forward: "uparrow", .back: "downarrow", .left: "leftarrow", .right: "rightarrow"]),
+        (String(localized: "Flèches"), [.forward: "uparrow", .back: "downarrow", .left: "leftarrow", .right: "rightarrow"]),
     ]
 
     /// Applique un préréglage aux déplacements ; les autres actions restent.
@@ -153,24 +153,24 @@ enum KeyBindings {
     /// Nom à l'écran d'une touche du moteur.
     static func label(_ key: String) -> String {
         switch key {
-        case "space": "Espace"
+        case "space": String(localized: "Espace")
         case "uparrow": "↑"
         case "downarrow": "↓"
         case "leftarrow": "←"
         case "rightarrow": "→"
         case "ctrl": "Ctrl"
-        case "shift": "Maj"
+        case "shift": String(localized: "Maj")
         case "alt": "⌥"
         case "tab": "Tab"
-        case "enter": "Entrée"
+        case "enter": String(localized: "Entrée")
         case "backspace": "⌫"
-        case "mouse1": "Clic"
-        case "mouse2": "Clic droit"
-        case "mouse3": "Clic milieu"
-        case "mouse4": "Bouton 4"
-        case "mouse5": "Bouton 5"
-        case "mwheelup": "Molette ↑"
-        case "mwheeldown": "Molette ↓"
+        case "mouse1": String(localized: "Clic")
+        case "mouse2": String(localized: "Clic droit")
+        case "mouse3": String(localized: "Clic milieu")
+        case "mouse4": String(localized: "Bouton 4")
+        case "mouse5": String(localized: "Bouton 5")
+        case "mwheelup": String(localized: "Molette ↑")
+        case "mwheeldown": String(localized: "Molette ↓")
         case "": "—"
         default: key.uppercased()
         }
@@ -248,7 +248,7 @@ struct KeyBindingsSettings: View {
 
             Section {
                 ForEach(KeyAction.others) { a in
-                    row(a.title, id: a.prefKey, label: KeyBindings.chosen(a).map(KeyBindings.label) ?? "Celle du jeu", clearable: KeyBindings.chosen(a) != nil) { event in
+                    row(a.title, id: a.prefKey, label: KeyBindings.chosen(a).map(KeyBindings.label) ?? String(localized: "Celle du jeu"), clearable: KeyBindings.chosen(a) != nil) { event in
                         KeyBindings.engineName(event).map { UserDefaults.standard.set($0, forKey: a.prefKey) } != nil
                     }
                 }
@@ -288,7 +288,7 @@ struct KeyBindingsSettings: View {
         .onDisappear(perform: stopRecording)
     }
 
-    private func mameSection(_ title: String, _ ports: [MAMEKeys.Port]) -> some View {
+    private func mameSection(_ title: LocalizedStringKey, _ ports: [MAMEKeys.Port]) -> some View {
         Section(title) {
             ForEach(ports) { p in mameRow(p) }
         }
@@ -318,7 +318,7 @@ struct KeyBindingsSettings: View {
             Button {
                 startRecording(id, store)
             } label: {
-                Text(recording == id ? "Appuyez sur une touche…" : label)
+                Text(recording == id ? String(localized: "Appuyez sur une touche…") : label)
                     .frame(minWidth: 150)
             }
             .help("Cliquez, puis appuyez sur la touche ou le bouton de souris voulu. Échap annule.")
@@ -329,8 +329,8 @@ struct KeyBindingsSettings: View {
     private func pcLabel(_ a: KeyAction) -> String {
         if let k = KeyBindings.chosen(a) { return KeyBindings.label(k) }
         switch a {
-        case .jump: return "Espace (E : Build)"
-        case .use: return "E (Espace : Build, F : RTCW)"
+        case .jump: return String(localized: "Espace (E : Build)")
+        case .use: return String(localized: "E (Espace : Build, F : RTCW)")
         default: return KeyBindings.label(KeyBindings.engineDefault(a, .quake2) ?? "")
         }
     }

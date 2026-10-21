@@ -9,7 +9,7 @@ enum OpenQ4 {
     static let url = URL(string: "https://github.com/themuffinator/openQ4/releases/download/v0.13.2/openq4-0.13.2-macos-arm64-metal-unsigned.tar.gz")!
     static let sha256 = "6e1d90b7a43e5e8bee2db10fde3d60d9e4912ff5b4eb1b49c2bc2d0304f967c2"
     static let pageURL = URL(string: "https://github.com/themuffinator/openQ4")!
-    static let size = "641 Mo"
+    static let size = String(localized: "641 Mo")
 
     static var app: URL {
         Prefs.supportDirectory.appendingPathComponent("Engines/openQ4.app", isDirectory: true)

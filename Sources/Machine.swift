@@ -54,9 +54,9 @@ struct Machine: Codable, Identifiable, Hashable {
 
     var statusLabel: String {
         switch status {
-        case "good": "Bon"
-        case "imperfect": "Imparfait"
-        case "preliminary": "Préliminaire"
+        case "good": String(localized: "Bon")
+        case "imperfect": String(localized: "Imparfait")
+        case "preliminary": String(localized: "Préliminaire")
         default: "—"
         }
     }
@@ -69,9 +69,9 @@ enum AuditResult: String, Codable {
 
     var label: String {
         switch self {
-        case .good: "Complet"
-        case .bestAvailable: "Meilleur disponible"
-        case .bad: "Incorrect"
+        case .good: String(localized: "Complet")
+        case .bestAvailable: String(localized: "Meilleur disponible")
+        case .bad: String(localized: "Incorrect")
         }
     }
 }

@@ -9,7 +9,7 @@ enum Quake4Patch {
     static let url = URL(string: "https://archive.org/download/quake4-linux-1.4.2.x86/quake4-linux-1.4.2.x86.run")!
     static let sha256 = "9203b387b1a4075a1b9ad1eb7be32b49a88141a448d9330d9cbe1f40a145bd6a"
     static let pageURL = URL(string: "https://archive.org/details/quake4-linux-1.4.2.x86")!
-    static let size = "288 Mo"
+    static let size = String(localized: "288 Mo")
     /// Lignes du script makeself avant l'archive tar.gz.
     private static let headerLines = 375
 
@@ -50,7 +50,7 @@ enum Quake4Patch {
         try fm.createDirectory(at: tmp, withIntermediateDirectories: true)
         defer { try? fm.removeItem(at: tmp) }
         let run = tmp.appendingPathComponent("patch.run")
-        try await VerifiedDownload.fetch(url, sha256: sha256, to: run, what: "la mise à jour 1.4.2 de Quake 4") { progress($0 * 0.9) }
+        try await VerifiedDownload.fetch(url, sha256: sha256, to: run, what: String(localized: "la mise à jour 1.4.2 de Quake 4")) { progress($0 * 0.9) }
 
         let x = tmp.appendingPathComponent("x")
         try VerifiedDownload.extractMakeself(run, headerLines: headerLines, members: ["./q4base", "./us", "./License.txt"], into: x)
@@ -70,7 +70,7 @@ enum Quake4Patch {
         }
         try fm.moveItem(at: x.appendingPathComponent("License.txt"), to: out.deletingLastPathComponent().appendingPathComponent("License.txt"))
         guard fm.fileExists(atPath: out.appendingPathComponent("pak022.pk4").path) else {
-            throw MAMERunner.Failure(message: "La mise à jour de Quake 4 est incomplète.")
+            throw MAMERunner.Failure(message: String(localized: "La mise à jour de Quake 4 est incomplète."))
         }
         if fm.fileExists(atPath: folder.path) { try fm.removeItem(at: folder) }
         try fm.moveItem(at: out.deletingLastPathComponent(), to: folder)

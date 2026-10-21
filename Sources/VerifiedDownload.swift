@@ -24,7 +24,7 @@ enum VerifiedDownload {
                 lastError = error
             }
         }
-        throw lastError ?? MAMERunner.Failure(message: "Téléchargement de \(what) impossible.")
+        throw lastError ?? MAMERunner.Failure(message: String(localized: "Téléchargement impossible : \(what)."))
     }
 
     private static func fetchOne(_ url: URL, sha256: String, to file: URL, what: String,
@@ -32,7 +32,7 @@ enum VerifiedDownload {
         let fm = FileManager.default
         let (bytes, response) = try await URLSession.shared.bytes(from: url)
         if let http = response as? HTTPURLResponse, http.statusCode != 200 {
-            throw MAMERunner.Failure(message: "\(url.host() ?? "Le serveur") répond \(http.statusCode).")
+            throw MAMERunner.Failure(message: String(localized: "\(url.host() ?? String(localized: "Le serveur")) répond \(http.statusCode)."))
         }
         let total = max(1, response.expectedContentLength)
         fm.createFile(atPath: file.path, contents: nil)
@@ -63,7 +63,7 @@ enum VerifiedDownload {
         let digest = hasher.finalize().map { String(format: "%02x", $0) }.joined()
         guard digest == sha256 else {
             try? fm.removeItem(at: file)
-            throw MAMERunner.Failure(message: "Le fichier téléchargé ne correspond pas à \(what) ; rien n'a été installé.")
+            throw MAMERunner.Failure(message: String(localized: "Le fichier téléchargé n'est pas celui attendu (\(what)) ; rien n'a été installé."))
         }
     }
 
@@ -82,7 +82,7 @@ enum VerifiedDownload {
         try p.run()
         p.waitUntilExit()
         guard p.terminationStatus == 0 else {
-            throw MAMERunner.Failure(message: "L'archive téléchargée n'a pas pu être ouverte.")
+            throw MAMERunner.Failure(message: String(localized: "L'archive téléchargée n'a pas pu être ouverte."))
         }
     }
 
@@ -98,7 +98,7 @@ enum VerifiedDownload {
             p.standardError = FileHandle.nullDevice
             try p.run()
             p.waitUntilExit()
-            guard p.terminationStatus == 0 else { throw MAMERunner.Failure(message: "L'image disque téléchargée n'a pas pu être ouverte.") }
+            guard p.terminationStatus == 0 else { throw MAMERunner.Failure(message: String(localized: "L'image disque téléchargée n'a pas pu être ouverte.")) }
         }
         try run("/usr/bin/hdiutil", ["attach", "-readonly", "-nobrowse", "-noautoopen", "-mountpoint", mount.path, image.path])
         defer { try? run("/usr/bin/hdiutil", ["detach", mount.path, "-force"]) }
@@ -117,7 +117,7 @@ enum VerifiedDownload {
         guard let end = head.firstIndex(where: { byte in
             if byte == 0x0A { newlines += 1 }
             return newlines == headerLines
-        }) else { throw MAMERunner.Failure(message: "L'archive téléchargée est illisible.") }
+        }) else { throw MAMERunner.Failure(message: String(localized: "L'archive téléchargée est illisible.")) }
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         let p = Process()
         p.executableURL = URL(fileURLWithPath: "/bin/sh")
@@ -125,7 +125,7 @@ enum VerifiedDownload {
                        "sh", String(end + 2), run.path, dir.path] + members
         try p.run()
         p.waitUntilExit()
-        guard p.terminationStatus == 0 else { throw MAMERunner.Failure(message: "L'archive téléchargée n'a pas pu être extraite.") }
+        guard p.terminationStatus == 0 else { throw MAMERunner.Failure(message: String(localized: "L'archive téléchargée n'a pas pu être extraite.")) }
     }
 
     /// Télécharge, vérifie, extrait et installe l'app `appName` à `destination`.
@@ -140,7 +140,7 @@ enum VerifiedDownload {
         try extract(archive, into: tmp)
         let extracted = tmp.appendingPathComponent(appPath)
         guard fm.fileExists(atPath: extracted.path) else {
-            throw MAMERunner.Failure(message: "L'archive de \(what) est incomplète.")
+            throw MAMERunner.Failure(message: String(localized: "Archive incomplète : \(what)."))
         }
         try fm.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
         if fm.fileExists(atPath: destination.path) { try fm.removeItem(at: destination) }

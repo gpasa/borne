@@ -9,7 +9,7 @@ enum Quake3Patch {
     static let sha256 = "95a811825a43260b2c52af97ef6f2c26fcc16d0032b3a132d6c4b20457a10ced"
     /// Page où lire la licence d'id Software, telle qu'ioquake3 la présente.
     static let licenseURL = URL(string: "https://ioquake3.org/extras/patch-data/")!
-    static let size = "27 Mo"
+    static let size = String(localized: "27 Mo")
 
     static var folder: URL { Prefs.supportDirectory.appendingPathComponent("Quake3Patch", isDirectory: true) }
 
@@ -52,7 +52,7 @@ enum Quake3Patch {
 
         let zip = tmp.appendingPathComponent("patch.zip")
         try await VerifiedDownload.fetch(url, mirrors: [VerifiedDownload.mirror(url.lastPathComponent)], sha256: sha256,
-                                         to: zip, what: "le patch 1.32 de Quake III", progress: progress)
+                                         to: zip, what: String(localized: "le patch 1.32 de Quake III"), progress: progress)
         let unpacked = tmp.appendingPathComponent("x")
         let p = Process()
         p.executableURL = URL(fileURLWithPath: "/usr/bin/ditto")
@@ -61,7 +61,7 @@ enum Quake3Patch {
         p.waitUntilExit()
         let root = unpacked.appendingPathComponent("quake3-latest-pk3s")
         guard p.terminationStatus == 0, fm.fileExists(atPath: root.appendingPathComponent("baseq3/pak8.pk3").path) else {
-            throw MAMERunner.Failure(message: "Le patch téléchargé est incomplet.")
+            throw MAMERunner.Failure(message: String(localized: "Le patch téléchargé est incomplet."))
         }
         if fm.fileExists(atPath: folder.path) { try fm.removeItem(at: folder) }
         try fm.moveItem(at: root, to: folder)

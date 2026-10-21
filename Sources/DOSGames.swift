@@ -48,8 +48,8 @@ enum DOSGames {
 
     /// Ce que le jeu demande au premier lancement.
     static let notes: [String: String] = [
-        "hocus": "Au premier lancement, le programme SETUP du jeu demande la carte son : choisissez Sound Blaster (port 220, IRQ 7, DMA 1) et la carte musicale Sound Blaster ou AdLib.",
-        "stunts": "Au démarrage, le jeu demande l'affichage et le son : choisissez MCGA/VGA et AdLib ou Sound Blaster.",
+        "hocus": String(localized: "Au premier lancement, le programme SETUP du jeu demande la carte son : choisissez Sound Blaster (port 220, IRQ 7, DMA 1) et la carte musicale Sound Blaster ou AdLib."),
+        "stunts": String(localized: "Au démarrage, le jeu demande l'affichage et le son : choisissez MCGA/VGA et AdLib ou Sound Blaster."),
     ]
 
     // MARK: Détection
@@ -111,7 +111,7 @@ enum DOSGames {
     /// commande du jeu ; DOSBox se ferme quand le jeu se termine.
     static func arguments(for m: Machine, user: URL) throws -> [String] {
         guard let k = known(for: m), let data = m.dataPath else {
-            throw MAMERunner.Failure(message: "Borne ne sait pas lancer ce jeu DOS.")
+            throw MAMERunner.Failure(message: String(localized: "Borne ne sait pas lancer ce jeu DOS."))
         }
         var mounts: [String]
         if GameArchives.isArchive(data) {

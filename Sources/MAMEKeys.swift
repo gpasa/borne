@@ -16,36 +16,36 @@ enum MAMEKeys {
     }
 
     static let player1: [Port] = [
-        .init(id: "P1_JOYSTICK_UP", title: "Haut", key: kVK_UpArrow),
-        .init(id: "P1_JOYSTICK_DOWN", title: "Bas", key: kVK_DownArrow),
-        .init(id: "P1_JOYSTICK_LEFT", title: "Gauche", key: kVK_LeftArrow),
-        .init(id: "P1_JOYSTICK_RIGHT", title: "Droite", key: kVK_RightArrow),
-        .init(id: "P1_BUTTON1", title: "Bouton 1", key: kVK_ANSI_Z),
-        .init(id: "P1_BUTTON2", title: "Bouton 2", key: kVK_ANSI_X),
-        .init(id: "P1_BUTTON3", title: "Bouton 3", key: kVK_ANSI_C),
-        .init(id: "P1_BUTTON4", title: "Bouton 4", key: kVK_ANSI_V),
-        .init(id: "P1_BUTTON5", title: "Bouton 5", key: kVK_ANSI_B),
-        .init(id: "P1_BUTTON6", title: "Bouton 6", key: kVK_ANSI_N),
-        .init(id: "COIN1", title: "Pièce", key: kVK_ANSI_5),
-        .init(id: "START1", title: "Start", key: kVK_ANSI_1),
+        .init(id: "P1_JOYSTICK_UP", title: String(localized: "Haut"), key: kVK_UpArrow),
+        .init(id: "P1_JOYSTICK_DOWN", title: String(localized: "Bas"), key: kVK_DownArrow),
+        .init(id: "P1_JOYSTICK_LEFT", title: String(localized: "Gauche"), key: kVK_LeftArrow),
+        .init(id: "P1_JOYSTICK_RIGHT", title: String(localized: "Droite"), key: kVK_RightArrow),
+        .init(id: "P1_BUTTON1", title: String(localized: "Bouton 1"), key: kVK_ANSI_Z),
+        .init(id: "P1_BUTTON2", title: String(localized: "Bouton 2"), key: kVK_ANSI_X),
+        .init(id: "P1_BUTTON3", title: String(localized: "Bouton 3"), key: kVK_ANSI_C),
+        .init(id: "P1_BUTTON4", title: String(localized: "Bouton 4"), key: kVK_ANSI_V),
+        .init(id: "P1_BUTTON5", title: String(localized: "Bouton 5"), key: kVK_ANSI_B),
+        .init(id: "P1_BUTTON6", title: String(localized: "Bouton 6"), key: kVK_ANSI_N),
+        .init(id: "COIN1", title: String(localized: "Pièce"), key: kVK_ANSI_5),
+        .init(id: "START1", title: String(localized: "Start"), key: kVK_ANSI_1),
     ]
 
     static let player2: [Port] = [
-        .init(id: "P2_JOYSTICK_UP", title: "Haut", key: kVK_ANSI_R),
-        .init(id: "P2_JOYSTICK_DOWN", title: "Bas", key: kVK_ANSI_F),
-        .init(id: "P2_JOYSTICK_LEFT", title: "Gauche", key: kVK_ANSI_D),
-        .init(id: "P2_JOYSTICK_RIGHT", title: "Droite", key: kVK_ANSI_G),
-        .init(id: "P2_BUTTON1", title: "Bouton 1", key: kVK_ANSI_A),
-        .init(id: "P2_BUTTON2", title: "Bouton 2", key: kVK_ANSI_S),
-        .init(id: "P2_BUTTON3", title: "Bouton 3", key: kVK_ANSI_Q),
-        .init(id: "P2_BUTTON4", title: "Bouton 4", key: kVK_ANSI_W),
-        .init(id: "COIN2", title: "Pièce", key: kVK_ANSI_6),
-        .init(id: "START2", title: "Start", key: kVK_ANSI_2),
+        .init(id: "P2_JOYSTICK_UP", title: String(localized: "Haut"), key: kVK_ANSI_R),
+        .init(id: "P2_JOYSTICK_DOWN", title: String(localized: "Bas"), key: kVK_ANSI_F),
+        .init(id: "P2_JOYSTICK_LEFT", title: String(localized: "Gauche"), key: kVK_ANSI_D),
+        .init(id: "P2_JOYSTICK_RIGHT", title: String(localized: "Droite"), key: kVK_ANSI_G),
+        .init(id: "P2_BUTTON1", title: String(localized: "Bouton 1"), key: kVK_ANSI_A),
+        .init(id: "P2_BUTTON2", title: String(localized: "Bouton 2"), key: kVK_ANSI_S),
+        .init(id: "P2_BUTTON3", title: String(localized: "Bouton 3"), key: kVK_ANSI_Q),
+        .init(id: "P2_BUTTON4", title: String(localized: "Bouton 4"), key: kVK_ANSI_W),
+        .init(id: "COIN2", title: String(localized: "Pièce"), key: kVK_ANSI_6),
+        .init(id: "START2", title: String(localized: "Start"), key: kVK_ANSI_2),
     ]
 
     static let system: [Port] = [
-        .init(id: "UI_PAUSE", title: "Pause", key: kVK_ANSI_P),
-        .init(id: "UI_CONFIGURE", title: "Menu de MAME", key: kVK_Tab),
+        .init(id: "UI_PAUSE", title: String(localized: "Pause"), key: kVK_ANSI_P),
+        .init(id: "UI_CONFIGURE", title: String(localized: "Menu de MAME"), key: kVK_Tab),
     ]
 
     static var all: [Port] { player1 + player2 + system }
@@ -136,26 +136,26 @@ enum MAMEKeys {
     /// Ce qui est écrit sur la touche, avec la disposition du clavier du Mac.
     static func label(_ key: Int) -> String {
         switch key {
-        case -1: return "Clic"
-        case -2: return "Clic droit"
-        case -3: return "Clic milieu"
+        case -1: return String(localized: "Clic")
+        case -2: return String(localized: "Clic droit")
+        case -3: return String(localized: "Clic milieu")
         case kVK_UpArrow: return "↑"
         case kVK_DownArrow: return "↓"
         case kVK_LeftArrow: return "←"
         case kVK_RightArrow: return "→"
-        case kVK_Space: return "Espace"
+        case kVK_Space: return String(localized: "Espace")
         case kVK_Tab: return "Tab"
-        case kVK_Return: return "Entrée"
+        case kVK_Return: return String(localized: "Entrée")
         case kVK_Delete: return "⌫"
-        case kVK_Shift, kVK_RightShift: return "Maj"
+        case kVK_Shift, kVK_RightShift: return String(localized: "Maj")
         case kVK_Control, kVK_RightControl: return "Ctrl"
         case kVK_Option, kVK_RightOption: return "⌥"
-        case kVK_CapsLock: return "Verr. maj"
-        case kVK_ANSI_KeypadEnter: return "Entrée (pavé)"
+        case kVK_CapsLock: return String(localized: "Verr. maj")
+        case kVK_ANSI_KeypadEnter: return String(localized: "Entrée (pavé)")
         default:
             if let n = names[key], n.hasPrefix("F"), Int(n.dropFirst()) != nil { return n }
             if let c = layoutCharacter(key) {
-                return names[key]?.hasSuffix("_PAD") == true ? "\(c) (pavé)" : c
+                return names[key]?.hasSuffix("_PAD") == true ? String(localized: "\(c) (pavé)") : c
             }
             return names[key] ?? "?"
         }

@@ -155,6 +155,10 @@ struct SettingsView: View {
             .tabItem { Label("Jeux PC", systemImage: "desktopcomputer") }
             .tag("pc")
 
+            KeyBindingsSettings()
+                .tabItem { Label("Touches", systemImage: "keyboard") }
+                .tag("keys")
+
             Form {
             Section("Données de jeu") {
                 pathRow("Dossier", $userDataPath, placeholder: Prefs.defaultUserDataPath, directory: true) {}

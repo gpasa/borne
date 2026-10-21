@@ -41,59 +41,68 @@ enum KeyGuide {
 
     /// Touches par défaut des moteurs, avec X en tir de secours (Ctrl+flèche
     /// déclenche Mission Control).
+    /// Touche choisie dans Borne (Réglages → Touches) pour une action.
+    private static func key(_ a: KeyAction, _ e: Engine) -> String {
+        KeyBindings.label(KeyBindings.key(a, e))
+    }
+
+    private static func move(_ e: Engine) -> String {
+        [KeyAction.forward, .left, .back, .right].map { key($0, e) }.joined(separator: " ")
+    }
+
     static func engineKeys(_ e: Engine) -> [Entry] {
         switch e {
         case .doom: [
-            Entry(keys: "W A S D", action: "Se déplacer (ou flèches)"),
+            Entry(keys: move(e), action: "Se déplacer (ou flèches)"),
             Entry(keys: "Souris", action: "Viser"),
-            Entry(keys: "Clic · X", action: "Tirer"),
-            Entry(keys: "Espace · E", action: "Ouvrir, utiliser"),
+            Entry(keys: "Clic · " + key(.fire, e), action: "Tirer"),
+            Entry(keys: "Espace · " + key(.use, e), action: "Ouvrir, utiliser"),
             Entry(keys: "1 à 7", action: "Armes"),
             Entry(keys: "Tab", action: "Carte"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
         case .quake: [
-            Entry(keys: "W A S D", action: "Se déplacer"),
+            Entry(keys: move(e), action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),
-            Entry(keys: "Clic · X", action: "Tirer"),
-            Entry(keys: "Espace", action: "Sauter"),
+            Entry(keys: "Clic · " + key(.fire, e), action: "Tirer"),
+            Entry(keys: key(.jump, e), action: "Sauter"),
             Entry(keys: "1 à 8", action: "Armes"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
         case .build: [
-            Entry(keys: "Flèches · W A S D", action: "Se déplacer"),
+            Entry(keys: "Flèches · " + move(e), action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),
-            Entry(keys: "Clic · X", action: "Tirer"),
-            Entry(keys: "Espace", action: "Ouvrir, utiliser"),
-            Entry(keys: "E", action: "Sauter"),
-            Entry(keys: "C", action: "S'accroupir"),
+            Entry(keys: "Clic · " + key(.fire, e), action: "Tirer"),
+            Entry(keys: key(.use, e), action: "Ouvrir, utiliser"),
+            Entry(keys: key(.jump, e), action: "Sauter"),
+            Entry(keys: key(.crouch, e), action: "S'accroupir"),
             Entry(keys: "1 à 0", action: "Armes"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
         case .quake2: [
-            Entry(keys: "W A S D · flèches", action: "Se déplacer"),
+            Entry(keys: move(e) + " · flèches", action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),
-            Entry(keys: "Clic · X", action: "Tirer"),
-            Entry(keys: "Espace", action: "Sauter"),
-            Entry(keys: "C", action: "S'accroupir"),
+            Entry(keys: "Clic · " + key(.fire, e), action: "Tirer"),
+            Entry(keys: key(.jump, e), action: "Sauter"),
+            Entry(keys: key(.crouch, e), action: "S'accroupir"),
             Entry(keys: "F1", action: "Ordinateur de mission"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
         case .doom3: [
-            Entry(keys: "W A S D", action: "Se déplacer"),
+            Entry(keys: move(e), action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),
-            Entry(keys: "Clic · X", action: "Tirer"),
+            Entry(keys: "Clic · " + key(.fire, e), action: "Tirer"),
             Entry(keys: "F", action: "Lampe torche"),
-            Entry(keys: "Espace", action: "Sauter"),
-            Entry(keys: "C", action: "S'accroupir"),
+            Entry(keys: key(.jump, e), action: "Sauter"),
+            Entry(keys: key(.crouch, e), action: "S'accroupir"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
         case .quake4: [
-            Entry(keys: "W A S D", action: "Se déplacer"),
+            Entry(keys: move(e), action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),
-            Entry(keys: "Clic · X", action: "Tirer"),
-            Entry(keys: "Espace", action: "Sauter"),
-            Entry(keys: "C", action: "S'accroupir"),
+            Entry(keys: "Clic · " + key(.fire, e), action: "Tirer"),
+            Entry(keys: key(.jump, e), action: "Sauter"),
+            Entry(keys: key(.crouch, e), action: "S'accroupir"),
             Entry(keys: "Molette · 1 à 9", action: "Armes"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
@@ -111,20 +120,20 @@ enum KeyGuide {
             Entry(keys: "⌘ Q", action: "Quitter DOSBox"),
         ]
         case .rtcw: [
-            Entry(keys: "W A S D", action: "Se déplacer"),
+            Entry(keys: move(e), action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),
-            Entry(keys: "Clic · X", action: "Tirer"),
-            Entry(keys: "Espace", action: "Sauter"),
-            Entry(keys: "F", action: "Utiliser, ouvrir"),
+            Entry(keys: "Clic · " + key(.fire, e), action: "Tirer"),
+            Entry(keys: key(.jump, e), action: "Sauter"),
+            Entry(keys: key(.use, e), action: "Utiliser, ouvrir"),
             Entry(keys: "1 à 7", action: "Armes"),
             Entry(keys: "Échap", action: "Menu, sauvegarde, quitter"),
         ]
         case .quake3: [
-            Entry(keys: "W A S D", action: "Se déplacer"),
+            Entry(keys: move(e), action: "Se déplacer"),
             Entry(keys: "Souris", action: "Viser"),
-            Entry(keys: "Clic · X", action: "Tirer"),
-            Entry(keys: "Espace", action: "Sauter"),
-            Entry(keys: "C", action: "S'accroupir"),
+            Entry(keys: "Clic · " + key(.fire, e), action: "Tirer"),
+            Entry(keys: key(.jump, e), action: "Sauter"),
+            Entry(keys: key(.crouch, e), action: "S'accroupir"),
             Entry(keys: "Molette · 1 à 9", action: "Armes"),
             Entry(keys: "Tab", action: "Scores"),
             Entry(keys: "Échap", action: "Menu, quitter"),

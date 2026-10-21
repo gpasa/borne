@@ -628,8 +628,8 @@ extension Engine {
             let saves = user.appendingPathComponent("saves/\(stem)")
             try FileManager.default.createDirectory(at: saves, withIntermediateDirectories: true)
             let extra = user.appendingPathComponent("borne.cfg")
-            // Tir aussi sur X : Ctrl+flèche appartient à macOS.
-            try "bind x +attack\n".write(to: extra, atomically: true, encoding: .utf8)
+            // Touches choisies dans Borne (tir aussi sur X : Ctrl+flèche appartient à macOS).
+            try KeyBindings.script(for: self).write(to: extra, atomically: true, encoding: .utf8)
             // Premier lancement : Vulkan (vers Metal) plutôt qu'OpenGL, déprécié par
             // Apple. Le moteur lit ce choix avant la ligne de commande ; celui fait
             // ensuite dans son menu est respecté.
@@ -649,7 +649,7 @@ extension Engine {
             let id1 = user.appendingPathComponent("id1")
             try FileManager.default.createDirectory(at: id1, withIntermediateDirectories: true)
             // « - » rétrécit l'image sans retour possible sur un clavier où « = » demande Maj.
-            try "bind x +attack\nunbind -\n".write(to: id1.appendingPathComponent("borne.cfg"), atomically: true, encoding: .utf8)
+            try (KeyBindings.script(for: self) + "unbind -\n").write(to: id1.appendingPathComponent("borne.cfg"), atomically: true, encoding: .utf8)
             if let game = m.modArg, let src = m.gamePath {
                 try Self.linkQuakeGame(name: game, from: URL(fileURLWithPath: src), into: user)
             }
@@ -662,7 +662,7 @@ extension Engine {
             let fm = FileManager.default
             let baseq3 = user.appendingPathComponent("baseq3")
             try fm.createDirectory(at: baseq3, withIntermediateDirectories: true)
-            try "bind x +attack\n".write(to: baseq3.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
+            try KeyBindings.script(for: self).write(to: baseq3.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
             // Vieux CD : sans le patch 1.32 (pak8.pk3), les moteurs modernes refusent de démarrer.
             if Quake3Patch.isNeeded(base: URL(fileURLWithPath: data)) {
                 guard Quake3Patch.isInstalled else { throw EngineLaunchError.needsQuake3Patch }
@@ -685,7 +685,9 @@ extension Engine {
             if !FileManager.default.fileExists(atPath: ini.path) {
                 try "[GlobalSettings]\nqueryiwad=false\nvid_preferbackend=1\n".write(to: ini, atomically: true, encoding: .utf8)
             }
-            args = ["-iwad", data, "-config", ini.path, "-savedir", saves.path,
+            let keys = user.appendingPathComponent("borne.cfg")
+            try KeyBindings.script(for: self).write(to: keys, atomically: true, encoding: .utf8)
+            args = ["-iwad", data, "-config", ini.path, "-savedir", saves.path, "-exec", keys.path,
                     "-shotdir", user.appendingPathComponent("shots").path,
                     "+vid_fullscreen", Prefs.windowed ? "0" : "1"]
 
@@ -694,11 +696,10 @@ extension Engine {
             let game = m.modArg ?? "baseq2"
             let cfg = home.appendingPathComponent(".yq2/\(game)")
             try FileManager.default.createDirectory(at: cfg, withIntermediateDirectories: true)
-            // Les touches d'id ne prévoient que les flèches : W A S D en plus.
+            // Touches choisies dans Borne (W A S D par défaut : id ne prévoit que les flèches).
             // « - » rétrécit l'image, et « = » ou « + », qui l'agrandissent, demandent
             // Maj sur un clavier suisse ou français : image pleine à chaque lancement.
-            let binds = "bind x +attack\nbind w +forward\nbind s +back\nbind a +moveleft\nbind d +moveright\n"
-                + "unbind -\nset viewsize 100\n"
+            let binds = KeyBindings.script(for: self) + "unbind -\nset viewsize 100\n"
             try binds.write(to: cfg.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
             env["HOME"] = home.path
             args = ["-datadir", data, "+set", "vid_renderer", "gl3",
@@ -731,7 +732,7 @@ extension Engine {
             }
             let saves = user.appendingPathComponent("saves")
             try fm.createDirectory(at: saves.appendingPathComponent(m.modArg ?? "base"), withIntermediateDirectories: true)
-            try "bind x _attack\n".write(to: saves.appendingPathComponent("\(m.modArg ?? "base")/autoexec.cfg"), atomically: true, encoding: .utf8)
+            try KeyBindings.script(for: self).write(to: saves.appendingPathComponent("\(m.modArg ?? "base")/autoexec.cfg"), atomically: true, encoding: .utf8)
             args = ["+set", "fs_basepath", root.path, "+set", "fs_savepath", saves.path,
                     "+set", "fs_configpath", saves.path]
             if let game = m.modArg { args += ["+set", "fs_game", game] }
@@ -740,7 +741,7 @@ extension Engine {
         case .quake4:
             let base = user.appendingPathComponent("baseoq4")
             try FileManager.default.createDirectory(at: base, withIntermediateDirectories: true)
-            try "bind x _attack\n".write(to: base.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
+            try KeyBindings.script(for: self).write(to: base.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
             // DVD d'origine (jusqu'à pak012) : openQ4 veut les données de la 1.4.2.
             if Quake4Patch.isNeeded(base: URL(fileURLWithPath: data)) {
                 guard Quake4Patch.isInstalled else { throw EngineLaunchError.needsQuake4Patch }
@@ -753,7 +754,7 @@ extension Engine {
         case .rtcw:
             let main = user.appendingPathComponent("main")
             try FileManager.default.createDirectory(at: main, withIntermediateDirectories: true)
-            try "bind x +attack\n".write(to: main.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
+            try KeyBindings.script(for: self).write(to: main.appendingPathComponent("autoexec.cfg"), atomically: true, encoding: .utf8)
             let base = try Self.rtcwBase(gameDir: URL(fileURLWithPath: data), in: user)
             args = ["+set", "fs_basepath", base.path, "+set", "fs_homepath", user.path,
                     "+set", "r_fullscreen", Prefs.windowed ? "0" : "1"]
